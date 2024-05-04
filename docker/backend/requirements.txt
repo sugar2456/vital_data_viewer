@@ -1,6 +1,7 @@
-fastapi>=0.68.0,<0.69.0
+fastapi
 pydantic>=1.8.0,<2.0.0
 uvicorn>=0.15.0,<0.16.0
 strawberry-graphql[fastapi]
+fitbit
 sqlalchemy
 mysqlclient==2.1.0
