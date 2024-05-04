@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY ./docker/backend/requirements.txt .
 
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY ./backend/ .
