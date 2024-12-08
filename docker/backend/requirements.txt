@@ -5,4 +5,5 @@ strawberry-graphql[fastapi]
 fitbit
 fastapi-mail
 sqlalchemy
+pymysql
 mysqlclient==2.1.0

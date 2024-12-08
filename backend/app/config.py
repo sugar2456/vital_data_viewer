@@ -21,3 +21,5 @@ class Settings(BaseSettings):
     use_credentials: bool
     validate_certs: bool
     model_config = SettingsConfigDict(env_file=".env")
+    
+settings = Settings()
