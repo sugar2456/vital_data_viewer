@@ -3,13 +3,16 @@ import base64
 import secrets
 import os
 
-def generate_code_verifier():
+def generate_code_verifier(length: int = 127) ->str:
     """PKCEのcode_verifierを生成
-
+       長さは43から128文字の間
     Returns:
         string: code_verifier
     """
-    return base64.urlsafe_b64encode(os.urandom(32)).rstrip(b'=').decode('utf-8')
+    if length < 43 or length > 128:
+        raise ValueError("length must be between 43 and 128")
+    num_bytes = (length * 3) // 4
+    return base64.urlsafe_b64encode(os.urandom(num_bytes)).rstrip(b'=').decode('utf-8')
 
 def generate_code_challenge(verifier):
     """PKCEのcode_challengeを生成
