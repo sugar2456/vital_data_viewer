@@ -2,7 +2,11 @@ fastapi
 pydantic>=1.8.0,<2.0.0
 uvicorn>=0.15.0,<0.16.0
 strawberry-graphql[fastapi]
+itsdangerous
+python-dotenv
 fitbit
 fastapi-mail
 sqlalchemy
+pymysql
+alembic
 mysqlclient==2.1.0
