@@ -11,3 +11,4 @@ class User(Base):
     fitbit_user_id = Column(String(255),unique=True, index=True)
     fitbit_access_token = Column(String(255))
     fitbit_refresh_token = Column(String(255))
+    

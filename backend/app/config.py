@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     fitbit_client_id: str
@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     mail_ssl_tls: bool
     use_credentials: bool
     validate_certs: bool
-    model_config = SettingsConfigDict(env_file=".env")
-    
+
+    class Config:
+        env_file = ".env"
+
 settings = Settings()

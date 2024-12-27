@@ -39,6 +39,9 @@ class FitbitAuthService:
         """
         code_verifier = generate_code_verifier()
         code_challenge = generate_code_challenge(code_verifier)
+        
+        request.session["code_verifier"] = code_verifier
+
         row_scope = "activity heartrate location nutrition profile settings sleep social weight"
         scope = urllib.parse.quote(row_scope)
         redirect_uri = urllib.parse.quote(row_redirect_uri)
