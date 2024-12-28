@@ -13,15 +13,15 @@ router = APIRouter()
 
 @router.post("/fitbit/auth", response_model=FitbitAuthResponse)
 async def fitbit_auth(request: FitbitAuthRequest) -> FitbitAuthResponse:
+    user_email = request.user_email
     # configから取得
     client_id = settings.fitbit_client_id
-    client_secret = settings.fitbit_client_secret
     redirect_uri = settings.fitbit_redirect_uri
     
     # userにfitbitのリソース許可を求める
     email_service = EmailService(settings)
     service = FitbitAuthService(email_service)
-    await service.get_allow_user_resource(client_id, client_secret, redirect_uri)
+    await service.get_allow_user_resource(client_id, user_email, redirect_uri)
     
     return FitbitAuthResponse(message="メール送信成功")
 
@@ -38,6 +38,8 @@ async def fitbit_auth_confirm(code: str, state: str) -> FitbitConformResponse:
         authorization = f"{client_id}:{client_secret}"
         base64encoded = base64.b64encode(authorization.encode()).decode()
         authorization_header = f"Basic {base64encoded}"
+        code_verifier = ''
+        print(f"code_verifier: {code_verifier}")
         
         headers = {
             'Authorization': authorization_header,
@@ -49,7 +51,7 @@ async def fitbit_auth_confirm(code: str, state: str) -> FitbitConformResponse:
             'grant_type': 'authorization_code',
             'redirect_uri': redirect_uri,
             'code': code,
-            'code_verifier': 'your_code_verifier'  # ここに実際のcode_verifierを設定してください
+            'code_verifier': code_verifier  # ここに実際のcode_verifierを設定してください
         }
         
         response = requests.post('https://api.fitbit.com/oauth2/token', headers=headers, data=data)

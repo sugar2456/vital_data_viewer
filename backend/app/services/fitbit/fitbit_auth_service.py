@@ -8,12 +8,12 @@ class FitbitAuthService:
     def __init__(self, email_service: EmailServiceInterface):
         self.email_service = email_service
 
-    async def get_allow_user_resource(self, client_id:str, client_secret: str, redirect_uri: str) -> str:    
+    async def get_allow_user_resource(self, client_id:str, user_email: str, redirect_uri: str) -> str:    
         """ユーザーにfitbitのリソース許可を求める
 
         Args:
             client_id (str): 新規登録するfitbitのクライアントID
-            client_secret (str): fitbitのクライアントシークレット
+            user_email (str): email adress
             redirect_uri (str): fitbitのリダイレクトURI
 
         Returns:
@@ -22,10 +22,10 @@ class FitbitAuthService:
         
         try:
             # 認証urlを取得
-            authorize_url = self.get_authorize_url(client_id, redirect_uri)
+            authorize_url = self.get_authorize_url(client_id, redirect_uri, user_email)
             print(f"send email:authorize_url: {authorize_url}")
             
-            await self.email_service.send_email("sugar2456@gmail.com", "fitbitのリソース許可のお願い", authorize_url)
+            await self.email_service.send_email(user_email, "fitbitのリソース許可のお願い", authorize_url)
         
         except Exception as e:
             print(f"send email error: {e}")
@@ -36,7 +36,7 @@ class FitbitAuthService:
         
         return None
 
-    def get_authorize_url(self, client_id: str, row_redirect_uri: str) -> str:
+    def get_authorize_url(self, client_id: str, row_redirect_uri: str, email: str) -> str:
         """認証URLの取得
 
         Args:
@@ -49,8 +49,6 @@ class FitbitAuthService:
         code_verifier = generate_code_verifier()
         print(f"code_verifier: {code_verifier}")
         code_challenge = generate_code_challenge(code_verifier)
-        
-        # request.session["code_verifier"] = code_verifier
 
         row_scope = "activity heartrate location nutrition profile settings sleep social weight"
         scope = urllib.parse.quote(row_scope)

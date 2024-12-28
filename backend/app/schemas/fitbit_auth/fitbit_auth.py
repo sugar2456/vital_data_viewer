@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class FitbitAuthRequest(BaseModel):
-    fitbit_user_id: str
+    user_email: str
 
 class FitbitAuthResponse(BaseModel):
     message: str
