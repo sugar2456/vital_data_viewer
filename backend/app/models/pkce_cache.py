@@ -1,4 +1,5 @@
 from app.db.session import Base
+from sqlalchemy import Column, Integer, String
 
 class PkceCache(Base):
     __tablename__ = "pkce_cache"
