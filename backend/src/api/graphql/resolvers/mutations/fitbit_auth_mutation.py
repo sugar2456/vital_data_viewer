@@ -1,8 +1,8 @@
 import strawberry
 from typing import Optional
-from app.config import settings
-from app.services.fitbit.fitbit_auth_service import FitbitAuthService
-from app.services.email.email_service import EmailService
+from src.config import settings
+from src.services.fitbit.fitbit_auth_service import FitbitAuthService
+from src.services.email.email_service import EmailService
 
 @strawberry.type
 class FitbitAuthMutation:

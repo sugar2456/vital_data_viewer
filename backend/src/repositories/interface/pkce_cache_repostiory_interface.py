@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
-from app.models.pkce_cache import PkceCache
+from src.models.pkce_cache import PkceCache
 
 class PkceCacheRepositoryInterface(ABC):
     @abstractmethod

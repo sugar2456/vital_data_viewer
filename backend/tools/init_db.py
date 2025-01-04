@@ -1,5 +1,5 @@
-from app.db.session import engine, Base
-from app.models.user import User
+from src.db.session import engine, Base
+from src.models.user import User
 
 Base.metadata.create_all(bind=engine)
 

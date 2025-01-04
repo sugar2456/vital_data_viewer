@@ -1,8 +1,8 @@
 import urllib.parse
 from fastapi import HTTPException, status
-from app.utilities.http_utility import HttpUtility
-from app.utilities.pkce_utility import generate_code_verifier, generate_code_challenge, generate_state
-from app.services.email.email_service_interface import EmailServiceInterface
+from src.utilities.http_utility import HttpUtility
+from src.utilities.pkce_utility import generate_code_verifier, generate_code_challenge, generate_state
+from src.services.email.email_service_interface import EmailServiceInterface
 
 class FitbitAuthService:
     def __init__(self, email_service: EmailServiceInterface):

@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends
-from app.api.endpoints import fitbit_auth
+from src.api.endpoints import fitbit_auth
 
 app = FastAPI()
 

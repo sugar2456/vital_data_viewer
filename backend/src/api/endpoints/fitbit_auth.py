@@ -1,9 +1,9 @@
 from fastapi import APIRouter
-from app.config import settings
-from app.services.fitbit.fitbit_auth_service import FitbitAuthService
-from app.services.email.email_service import EmailService
-from app.schemas.fitbit_auth.fitbit_auth import FitbitAuthRequest, FitbitAuthResponse
-from app.schemas.fitbit_auth.fitbit_conform import FitbitConformRequest, FitbitConformResponse
+from src.config import settings
+from src.services.fitbit.fitbit_auth_service import FitbitAuthService
+from src.services.email.email_service import EmailService
+from src.schemas.fitbit_auth.fitbit_auth import FitbitAuthRequest, FitbitAuthResponse
+from src.schemas.fitbit_auth.fitbit_conform import FitbitConformRequest, FitbitConformResponse
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 import requests

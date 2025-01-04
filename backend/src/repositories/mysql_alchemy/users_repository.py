@@ -1,5 +1,5 @@
-from app.repositories.interface.users_repository_interface import UsersRepositoryInterface
-from app.models.user import User
+from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
+from src.models.user import User
 from typing import List
 from sqlalchemy.orm import Session
 

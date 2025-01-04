@@ -4,7 +4,7 @@ from typing import List
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
 from starlette.responses import JSONResponse
-from app.config import Settings
+from src.config import Settings
 
 class EmailSchema(BaseModel):
     email: List[EmailStr]

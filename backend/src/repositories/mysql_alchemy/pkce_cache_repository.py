@@ -1,5 +1,5 @@
-from app.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
-from app.models.pkce_cache import PkceCache
+from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
+from src.models.pkce_cache import PkceCache
 from typing import List
 from sqlalchemy.orm import Session
 

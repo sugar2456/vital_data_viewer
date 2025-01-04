@@ -1,4 +1,4 @@
-from app.db.session import Base
+from src.db.session import Base
 from sqlalchemy import Column, Integer, String
 
 class PkceCache(Base):
