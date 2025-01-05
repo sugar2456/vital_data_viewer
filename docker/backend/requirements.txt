@@ -4,9 +4,10 @@ uvicorn>=0.15.0,<0.16.0
 strawberry-graphql[fastapi]
 itsdangerous
 python-dotenv
-fitbit
 fastapi-mail
 sqlalchemy
 pymysql
 alembic
 mysqlclient==2.1.0
+pytest
+httpx
