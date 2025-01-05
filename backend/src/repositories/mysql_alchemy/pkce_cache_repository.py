@@ -11,6 +11,15 @@ class PkceCacheRepository(PkceCacheRepositoryInterface):
         return self.db.query(PkceCache).filter(PkceCache.email == email).first()
 
     def create_pkce_cache(self, pkce_cache: PkceCache) -> PkceCache:
+        """pkce_cacheを作成する
+        
+
+        Args:
+            pkce_cache (PkceCache): pkce_cacheのモデル
+
+        Returns:
+            PkceCache: 作成されたpkce_cacheのモデル
+        """
         add_pkce_cache = PkceCache(
             code_verifier=pkce_cache.code_verifier,
             email=pkce_cache.email
