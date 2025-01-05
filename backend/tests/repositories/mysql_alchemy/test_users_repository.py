@@ -3,8 +3,6 @@ import pytest
 from src.repositories.mysql_alchemy.users_repository import UserRepository
 from src.models.user import User
 
-print("sys.path:", sys.path)
-
 @pytest.fixture
 def user_repository(db_session):
     return UserRepository(db_session)
@@ -12,23 +10,23 @@ def user_repository(db_session):
 def test_create_user(user_repository):
     new_user = User(
         name="Test User",
-        email="test@example.com",
+        email="test_create_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="fitbit_user_id",
+        fitbit_user_id="X00001",
         fitbit_access_token="fitbit_access_token",
         fitbit_refresh_token="fitbit_refresh_token"
     )
     created_user = user_repository.create_user(new_user)
     assert created_user.id is not None
     assert created_user.name == "Test User"
-    assert created_user.email == "test@example.com"
+    assert created_user.email == "test_create_user@example.com"
 
 def test_get_user(user_repository):
     new_user = User(
         name="Test User",
-        email="test@example.com",
+        email="test_get_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="fitbit_user_id",
+        fitbit_user_id="X00002",
         fitbit_access_token="fitbit_access_token",
         fitbit_refresh_token="fitbit_refresh_token"
     )
@@ -41,9 +39,9 @@ def test_get_user(user_repository):
 def test_update_user(user_repository):
     new_user = User(
         name="Test User",
-        email="test@example.com",
+        email="test_update_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="fitbit_user_id",
+        fitbit_user_id="X00003",
         fitbit_access_token="fitbit_access_token",
         fitbit_refresh_token="fitbit_refresh_token"
     )
@@ -55,9 +53,9 @@ def test_update_user(user_repository):
 def test_delete_user(user_repository):
     new_user = User(
         name="Test User",
-        email="test@example.com",
+        email="test_delete_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="fitbit_user_id",
+        fitbit_user_id="X00004",
         fitbit_access_token="fitbit_access_token",
         fitbit_refresh_token="fitbit_refresh_token"
     )

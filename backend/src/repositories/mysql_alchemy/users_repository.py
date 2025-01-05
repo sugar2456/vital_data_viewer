@@ -8,6 +8,14 @@ class UserRepository(UsersRepositoryInterface):
         self.db = db
 
     def get_user(self, user_id: int) -> User:
+        """user_idをもとにusersテーブルからユーザー情報を取得する
+
+        Args:
+            user_id (int): ユーザーID
+
+        Returns:
+            User: ユーザーモデル
+        """
         return self.db.query(User).filter(User.id == user_id).first()
 
     def get_users(self) -> List[User]:
@@ -28,16 +36,20 @@ class UserRepository(UsersRepositoryInterface):
         return add_user
 
     def update_user(self, user: User) -> User:
-        db_user = self.get(user.id)
+        db_user = self.get_user(user.id)
         if db_user:
-            for key, value in user.dict(exclude_unset=True).items():
-                setattr(db_user, key, value)
+            db_user.name = user.name
+            db_user.email = user.email
+            db_user.hashed_password = user.hashed_password
+            db_user.fitbit_user_id = user.fitbit_user_id
+            db_user.fitbit_access_token = user.fitbit_access_token
+            db_user.fitbit_refresh_token = user.fitbit_refresh_token
             self.db.commit()
             self.db.refresh(db_user)
         return db_user
 
     def delete_user(self, user_id: int) -> bool:
-        db_user = self.get(user_id)
+        db_user = self.get_user(user_id)
         try:
             if db_user:
                 self.db.delete(db_user)

@@ -1,10 +1,11 @@
 import pytest
 import sys
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import create_engine, inspect
+from sqlalchemy.orm import sessionmaker, declarative_base
 from fastapi.testclient import TestClient
+from src.db.session import Base
+
 # conftest.pyのあるディレクトリパス
 conftest_dir = os.path.dirname(__file__)
 # プロジェクトのルートディレクトリパス（絶対パス）
@@ -25,12 +26,15 @@ print("test_database_db_name:", test_database_db_name)
 SQLALCHEMY_TEST_DATABASE_URL = f"mysql+pymysql://{test_database_user}:@{test_database_host}/{test_database_db_name}"
 
 engine = create_engine(SQLALCHEMY_TEST_DATABASE_URL)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=True, bind=engine)
 
 @pytest.fixture(scope="module")
 def db_session():
+    print("セッション作成")
+    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
+    inspector = inspect(engine)
+    print("テーブルリセット", inspector.get_table_names())
     session = TestingSessionLocal()
     yield session
     session.close()
