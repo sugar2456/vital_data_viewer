@@ -9,5 +9,6 @@ sqlalchemy
 pymysql
 alembic
 mysqlclient==2.1.0
+requests
 pytest
 httpx

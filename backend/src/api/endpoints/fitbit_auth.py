@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from src.config import settings
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.services.email.email_service import EmailService
@@ -6,13 +6,18 @@ from src.schemas.fitbit_auth.fitbit_auth import FitbitAuthRequest, FitbitAuthRes
 from src.schemas.fitbit_auth.fitbit_conform import FitbitConformRequest, FitbitConformResponse
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
+from src.api.dependencies import get_pkce_cache_repository
+from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
 import requests
 import base64
 
 router = APIRouter()
 
 @router.post("/fitbit/auth", response_model=FitbitAuthResponse)
-async def fitbit_auth(request: FitbitAuthRequest) -> FitbitAuthResponse:
+async def fitbit_auth(
+    request: FitbitAuthRequest,
+    pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository)
+) -> FitbitAuthResponse:
     user_email = request.user_email
     # configから取得
     client_id = settings.fitbit_client_id
@@ -20,13 +25,17 @@ async def fitbit_auth(request: FitbitAuthRequest) -> FitbitAuthResponse:
     
     # userにfitbitのリソース許可を求める
     email_service = EmailService(settings)
-    service = FitbitAuthService(email_service)
+    service = FitbitAuthService(email_service, pkce_cache_repository)
     await service.get_allow_user_resource(client_id, user_email, redirect_uri)
     
     return FitbitAuthResponse(message="メール送信成功")
 
 @router.get("/auth/confirm", response_model=FitbitConformResponse)
-async def fitbit_auth_confirm(code: str, state: str) -> FitbitConformResponse:
+async def fitbit_auth_confirm(
+    code: str,
+    state: str,
+    pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository)
+) -> FitbitConformResponse:
     print(f"code: {code}")
     print(f"state: {state}")
     
@@ -39,6 +48,10 @@ async def fitbit_auth_confirm(code: str, state: str) -> FitbitConformResponse:
         base64encoded = base64.b64encode(authorization.encode()).decode()
         authorization_header = f"Basic {base64encoded}"
         code_verifier = ''
+        
+        # code_verifierをキャッシュから取得する
+        code_verifier = pkce_cache_repository.get_pkce_cache(state).code_verifier
+        
         print(f"code_verifier: {code_verifier}")
         
         headers = {

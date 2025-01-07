@@ -6,4 +6,4 @@ class PkceCache(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     code_verifier = Column(String(255))
-    email = Column(String(255), index=True)
+    state = Column(String(255))

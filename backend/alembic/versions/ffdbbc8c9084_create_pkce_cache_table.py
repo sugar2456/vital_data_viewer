@@ -22,7 +22,7 @@ def upgrade() -> None:
     op.create_table(
         "pkce_cache",
         sa.Column("id", sa.Integer, primary_key=True, index=True),
-        sa.Column("email", sa.String(255), index=True),
+        sa.Column("state", sa.String(255), index=True),
         sa.Column("code_verifier", sa.String(255), nullable=False),
         sa.Column("created_at", sa.DateTime, server_default=sa.func.now(), nullable=False),
     )
