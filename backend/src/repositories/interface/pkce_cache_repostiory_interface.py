@@ -4,7 +4,7 @@ from src.models.pkce_cache import PkceCache
 
 class PkceCacheRepositoryInterface(ABC):
     @abstractmethod
-    def get_pkce_cache(self, email: str) -> PkceCache:
+    def get_pkce_cache(self, state: str) -> PkceCache:
         pass
 
     @abstractmethod
@@ -12,5 +12,5 @@ class PkceCacheRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def delete_pkce_cache(self, email: str) -> bool:
+    def delete_pkce_cache(self, state: str) -> bool:
         pass

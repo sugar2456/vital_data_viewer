@@ -7,8 +7,8 @@ class PkceCacheRepository(PkceCacheRepositoryInterface):
     def __init__(self, db: Session):
         self.db = db
 
-    def get_pkce_cache(self, email: str) -> PkceCache:
-        return self.db.query(PkceCache).filter(PkceCache.email == email).first()
+    def get_pkce_cache(self, state: str) -> PkceCache:
+        return self.db.query(PkceCache).filter(PkceCache.state == state).first()
 
     def create_pkce_cache(self, pkce_cache: PkceCache) -> PkceCache:
         """pkce_cacheを作成する
@@ -22,15 +22,15 @@ class PkceCacheRepository(PkceCacheRepositoryInterface):
         """
         add_pkce_cache = PkceCache(
             code_verifier=pkce_cache.code_verifier,
-            email=pkce_cache.email
+            state=pkce_cache.state
         )
         self.db.add(add_pkce_cache)
         self.db.commit()
         self.db.refresh(add_pkce_cache)
         return add_pkce_cache
 
-    def delete_pkce_cache(self, email: str) -> bool:
-        db_pkce_cache = self.get_pkce_cache(email)
+    def delete_pkce_cache(self, state: str) -> bool:
+        db_pkce_cache = self.get_pkce_cache(state)
         try:
             if db_pkce_cache:
                 self.db.delete(db_pkce_cache)

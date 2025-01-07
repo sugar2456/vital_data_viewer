@@ -18,8 +18,9 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from src.db.session import Base  # ここでBaseをインポート
-from src.models.user import User  # ここでモデルをインポート
+from src.db.session import Base
+from src.models.user import User
+from src.models.pkce_cache import PkceCache
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

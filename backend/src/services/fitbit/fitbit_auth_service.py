@@ -3,10 +3,13 @@ from fastapi import HTTPException, status
 from src.utilities.http_utility import HttpUtility
 from src.utilities.pkce_utility import generate_code_verifier, generate_code_challenge, generate_state
 from src.services.email.email_service_interface import EmailServiceInterface
+from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
+from src.models.pkce_cache import PkceCache
 
 class FitbitAuthService:
-    def __init__(self, email_service: EmailServiceInterface):
+    def __init__(self, email_service: EmailServiceInterface, pkce_cache_repository: PkceCacheRepositoryInterface):
         self.email_service = email_service
+        self.pkce_cache_repository = pkce_cache_repository
 
     async def get_allow_user_resource(self, client_id:str, user_email: str, redirect_uri: str) -> str:    
         """ユーザーにfitbitのリソース許可を求める
@@ -22,7 +25,7 @@ class FitbitAuthService:
         
         try:
             # 認証urlを取得
-            authorize_url = self.get_authorize_url(client_id, redirect_uri, user_email)
+            authorize_url = self.get_authorize_url(client_id, redirect_uri)
             print(f"send email:authorize_url: {authorize_url}")
             
             await self.email_service.send_email(user_email, "fitbitのリソース許可のお願い", authorize_url)
@@ -36,7 +39,7 @@ class FitbitAuthService:
         
         return None
 
-    def get_authorize_url(self, client_id: str, row_redirect_uri: str, email: str) -> str:
+    def get_authorize_url(self, client_id: str, row_redirect_uri: str) -> str:
         """認証URLの取得
 
         Args:
@@ -47,13 +50,19 @@ class FitbitAuthService:
             str: 認証URL
         """
         code_verifier = generate_code_verifier()
-        print(f"code_verifier: {code_verifier}")
-        code_challenge = generate_code_challenge(code_verifier)
+        print(f"code_verifier生成: {code_verifier}")
 
         row_scope = "activity heartrate location nutrition profile settings sleep social weight"
         scope = urllib.parse.quote(row_scope)
         redirect_uri = urllib.parse.quote(row_redirect_uri)
         state = generate_state()
+        code_challenge = generate_code_challenge(code_verifier)
+        # code_verifierをキャッシュに保存する処理を追加
+        pkce_cache = PkceCache(
+            code_verifier=code_verifier,
+            state=state
+        )
+        self.pkce_cache_repository.create_pkce_cache(pkce_cache)
 
         authorize_url = "https://www.fitbit.com/oauth2/authorize"
         params = {
