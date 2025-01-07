@@ -19,6 +19,24 @@
     └── utils ... 汎用的なスクリプトなど
 ```
 
+## 起動コマンド
+
+```
+uvicorn main:app --reload
+```
+
+## データベースの確認コマンド
+
+```
+mysql -h db -u root -p -e "SHOW TABLES IN demo;"
+```
+
+## テストコードの実行
+
+```
+cd /app
+pytest
+```
 
 参考  
 https://qiita.com/woods0918/items/2d7b2421d8a8f1b6d724
