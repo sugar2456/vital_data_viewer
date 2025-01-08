@@ -22,6 +22,14 @@ class UserRepository(UsersRepositoryInterface):
         pass
 
     def create_user(self, user: User) -> User:
+        """userを作成
+
+        Args:
+            user (User): 新規で作成するユーザー情報
+
+        Returns:
+            User: 登録したユーザー情報
+        """
         add_user = User(
             name=user.name,
             email=user.email,
