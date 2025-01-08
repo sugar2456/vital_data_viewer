@@ -27,8 +27,6 @@ def upgrade() -> None:
         sa.Column("email", sa.String(255), unique=True, index=True),
         sa.Column("hashed_password", sa.String(255)),
         sa.Column("fitbit_user_id", sa.String(255), unique=True, index=True),
-        sa.Column("fitbit_access_token", sa.String(255)),
-        sa.Column("fitbit_refresh_token", sa.String(255)),
     )
     pass
     # ### end Alembic commands ###

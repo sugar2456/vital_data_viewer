@@ -35,8 +35,6 @@ class UserRepository(UsersRepositoryInterface):
             email=user.email,
             hashed_password=user.hashed_password,
             fitbit_user_id=user.fitbit_user_id,
-            fitbit_access_token=user.fitbit_access_token,
-            fitbit_refresh_token=user.fitbit_refresh_token
         )
         self.db.add(add_user)
         self.db.commit()
@@ -50,8 +48,6 @@ class UserRepository(UsersRepositoryInterface):
             db_user.email = user.email
             db_user.hashed_password = user.hashed_password
             db_user.fitbit_user_id = user.fitbit_user_id
-            db_user.fitbit_access_token = user.fitbit_access_token
-            db_user.fitbit_refresh_token = user.fitbit_refresh_token
             self.db.commit()
             self.db.refresh(db_user)
         return db_user

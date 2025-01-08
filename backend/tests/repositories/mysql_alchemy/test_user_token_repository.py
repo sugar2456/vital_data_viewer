@@ -17,9 +17,7 @@ def test_create_user_token(user_token_repository, user_repository):
         name="Test User1",
         email="test1@gmail.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00001",
-        fitbit_access_token="fitbit",
-        fitbit_refresh_token="fitbit"
+        fitbit_user_id="X00001"
     )
     user_repository.create_user(new_user)
     
@@ -43,9 +41,7 @@ def test_get_user_token(user_token_repository, user_repository):
         name="Test User2",
         email="test2@gmail.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00002",
-        fitbit_access_token="fitbit",
-        fitbit_refresh_token="fitbit"
+        fitbit_user_id="X00002"
     )
     user_repository.create_user(new_user)
     new_user_token = UserToken(
@@ -68,9 +64,7 @@ def test_update_user_token(user_token_repository, user_repository):
         name="Test User3",
         email="test3@gmail.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00003",
-        fitbit_access_token="fitbit",
-        fitbit_refresh_token="fitbit"
+        fitbit_user_id="X00003"
     )
     user_repository.create_user(new_user)
     
@@ -101,9 +95,7 @@ def test_delete_user_token(user_token_repository, user_repository):
         name="Test User4",
         email="test4@gmail.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00004",
-        fitbit_access_token="fitbit",
-        fitbit_refresh_token="fitbit"
+        fitbit_user_id="X00004"
     )
     user_repository.create_user(new_user)
     

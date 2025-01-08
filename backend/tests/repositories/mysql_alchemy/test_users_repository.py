@@ -12,9 +12,7 @@ def test_create_user(user_repository):
         name="Test User",
         email="test_create_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00001",
-        fitbit_access_token="fitbit_access_token",
-        fitbit_refresh_token="fitbit_refresh_token"
+        fitbit_user_id="X00001"
     )
     created_user = user_repository.create_user(new_user)
     assert created_user.id is not None
@@ -26,9 +24,7 @@ def test_get_user(user_repository):
         name="Test User",
         email="test_get_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00002",
-        fitbit_access_token="fitbit_access_token",
-        fitbit_refresh_token="fitbit_refresh_token"
+        fitbit_user_id="X00002"
     )
     created_user = user_repository.create_user(new_user)
     fetched_user = user_repository.get_user(created_user.id)
@@ -41,9 +37,7 @@ def test_update_user(user_repository):
         name="Test User",
         email="test_update_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00003",
-        fitbit_access_token="fitbit_access_token",
-        fitbit_refresh_token="fitbit_refresh_token"
+        fitbit_user_id="X00003"
     )
     created_user = user_repository.create_user(new_user)
     created_user.name = "Updated User"
@@ -55,9 +49,7 @@ def test_delete_user(user_repository):
         name="Test User",
         email="test_delete_user@example.com",
         hashed_password="hashed_password",
-        fitbit_user_id="X00004",
-        fitbit_access_token="fitbit_access_token",
-        fitbit_refresh_token="fitbit_refresh_token"
+        fitbit_user_id="X00004"
     )
     created_user = user_repository.create_user(new_user)
     result = user_repository.delete_user(created_user.id)
