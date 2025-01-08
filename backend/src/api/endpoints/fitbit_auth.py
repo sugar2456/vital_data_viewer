@@ -2,30 +2,42 @@ from fastapi import APIRouter, Depends
 from src.config import settings
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.services.email.email_service import EmailService
+from src.services.users.users_service import UsersService
 from src.schemas.fitbit_auth.fitbit_auth import FitbitAuthRequest, FitbitAuthResponse
 from src.schemas.fitbit_auth.fitbit_conform import FitbitConformRequest, FitbitConformResponse
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from src.api.dependencies import get_pkce_cache_repository
+from src.api.dependencies import get_pkce_cache_repository, get_user_token_repository, get_user_repository
 from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
-import requests
-import base64
+from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
+from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
+
 
 router = APIRouter()
 
 @router.post("/fitbit/auth", response_model=FitbitAuthResponse)
 async def fitbit_auth(
     request: FitbitAuthRequest,
+    user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository)
 ) -> FitbitAuthResponse:
+    # requestから取得
+    user_name = request.user_name
     user_email = request.user_email
+    hadhed_password = request.hashed_password
+    fitbit_user_id = request.fitbit_user_id
+
     # configから取得
     client_id = settings.fitbit_client_id
     redirect_uri = settings.fitbit_redirect_uri
     
+    # ユーザ登録
+    user_service = UsersService(user_repository)
+    user_service.create_user(user_name, user_email, hadhed_password, fitbit_user_id)
+    
     # userにfitbitのリソース許可を求める
     email_service = EmailService(settings)
-    service = FitbitAuthService(email_service, pkce_cache_repository)
+    service = FitbitAuthService(email_service, pkce_cache_repository, user_repository)
     await service.get_allow_user_resource(client_id, user_email, redirect_uri)
     
     return FitbitAuthResponse(message="メール送信成功")
@@ -34,44 +46,18 @@ async def fitbit_auth(
 async def fitbit_auth_confirm(
     code: str,
     state: str,
-    pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository)
+    pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository),
+    user_repository: UsersRepositoryInterface = Depends(get_user_repository),
+    user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository)
 ) -> FitbitConformResponse:
     print(f"code: {code}")
     print(f"state: {state}")
+    # 認証コードを使用してトークンを取得する
+    client_id = settings.fitbit_client_id
+    client_secret = settings.fitbit_client_secret
+    redirect_uri = settings.fitbit_redirect_uri
     
-    if code:
-        # 認証コードを使用してトークンを取得する
-        client_id = settings.fitbit_client_id
-        client_secret = settings.fitbit_client_secret
-        redirect_uri = settings.fitbit_redirect_uri
-        authorization = f"{client_id}:{client_secret}"
-        base64encoded = base64.b64encode(authorization.encode()).decode()
-        authorization_header = f"Basic {base64encoded}"
-        code_verifier = ''
-        
-        # code_verifierをキャッシュから取得する
-        code_verifier = pkce_cache_repository.get_pkce_cache(state).code_verifier
-        
-        print(f"code_verifier: {code_verifier}")
-        
-        headers = {
-            'Authorization': authorization_header,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-        
-        data = {
-            'client_id': client_id,
-            'grant_type': 'authorization_code',
-            'redirect_uri': redirect_uri,
-            'code': code,
-            'code_verifier': code_verifier  # ここに実際のcode_verifierを設定してください
-        }
-        
-        response = requests.post('https://api.fitbit.com/oauth2/token', headers=headers, data=data)
-        
-        if response.status_code == 200:
-            return JSONResponse(content=response.json())
-        else:
-            return JSONResponse(content={"error": "トークン取得に失敗しました", "details": response.json()}, status_code=response.status_code)
-    else:
-        return JSONResponse(content={"error": "認証コードが見つかりませんでした"}, status_code=400)
+    service = FitbitAuthService(None, pkce_cache_repository, user_repository)
+    res = service.get_token(client_id, client_secret, redirect_uri, code, state, user_token_repository)
+    
+    return FitbitConformResponse(message=f"{res}")
