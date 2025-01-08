@@ -4,12 +4,24 @@ from src.utilities.http_utility import HttpUtility
 from src.utilities.pkce_utility import generate_code_verifier, generate_code_challenge, generate_state
 from src.services.email.email_service_interface import EmailServiceInterface
 from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
+from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
+from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
 from src.models.pkce_cache import PkceCache
+from src.models.user import User
+from src.models.user_token import UserToken
+import requests
+import base64
 
 class FitbitAuthService:
-    def __init__(self, email_service: EmailServiceInterface, pkce_cache_repository: PkceCacheRepositoryInterface):
+    def __init__(
+        self,
+        email_service: EmailServiceInterface,
+        pkce_cache_repository: PkceCacheRepositoryInterface,
+        user_repository: UsersRepositoryInterface
+    ):
         self.email_service = email_service
         self.pkce_cache_repository = pkce_cache_repository
+        self.user_repository = user_repository
 
     async def get_allow_user_resource(self, client_id:str, user_email: str, redirect_uri: str) -> str:    
         """ユーザーにfitbitのリソース許可を求める
@@ -76,22 +88,16 @@ class FitbitAuthService:
         }
         
         return authorize_url + "?" + "&".join([f"{key}={value}" for key, value in params.items()])
-
     
-    def get_code_from_redirect_url(self, redirect_url: str) -> str:
-        """リダイレクトURLから認証コードを取得
-
-        Args:
-            redirect_url (str): リダイレクトURL
-
-        Returns:
-            str: 認証コード
-        """
-        
-        code = redirect_url.split("?code=")[1]
-        return code
-    
-    def get_token(self, client_id: str, client_secret: str, redirect_uri: str, code: str) -> str:
+    def get_token(
+        self,
+        client_id: str,
+        client_secret: str,
+        redirect_uri: str,
+        code: str,
+        state: str,
+        user_token_repository: UserTokenRepositoryInterface
+    ):
         """トークンURLの取得
 
         Args:
@@ -99,20 +105,63 @@ class FitbitAuthService:
             client_secret (str): fitbitのクライアントシークレット
             redirect_uri (str): fitbitのリダイレクトURI
             code (str): 認証コード
+            state (str): state
+            user_token_repository (UserTokenRepositoryInterface): UserTokenRepositoryInterfaceのインスタンス
 
         Returns:
-            str: トークンURL
+            str: 
         """
-        
-        token_url = "https://api.fitbit.com/oauth2/token"
-        headers = {
-            "Authorization": f"Basic {client_id}:{client_secret}",
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-        data = {
-            "client_id": client_id,
-            "grant_type": "authorization_code",
-            "redirect_uri": redirect_uri,
-            "code": code
-        }
-        return HttpUtility.post(token_url, headers, data)
+        if code:
+            authorization = f"{client_id}:{client_secret}"
+            base64encoded = base64.b64encode(authorization.encode()).decode()
+            authorization_header = f"Basic {base64encoded}"
+            code_verifier = ''
+            
+            # code_verifierをキャッシュから取得する
+            code_verifier = self.pkce_cache_repository.get_pkce_cache(state).code_verifier
+            
+            print(f"code_verifier: {code_verifier}")
+            
+            headers = {
+                'Authorization': authorization_header,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            
+            data = {
+                'client_id': client_id,
+                'grant_type': 'authorization_code',
+                'redirect_uri': redirect_uri,
+                'code': code,
+                'code_verifier': code_verifier
+            }
+            
+            response = requests.post('https://api.fitbit.com/oauth2/token', headers=headers, data=data)
+            print(f"response code: {response.status_code}")
+            print(f"response message: {response.text}")
+            if response.status_code == 200:
+                user_id = response.json()['user_id']
+                access_token = response.json()['access_token']
+                refresh_token = response.json()['refresh_token']
+                token_type = response.json()['token_type']
+                expires_in = response.json()['expires_in']
+                print(f"user_id: {user_id}")
+                print(f"access_token: {access_token}")
+                print(f"refresh_token: {refresh_token}")
+                print(f"token_type: {token_type}")
+                print(f"expires_in: {expires_in}")
+                
+                system_user_id = self.user_repository.get_user_by_fitbit_user_id(user_id).id
+                
+                new_user_token = UserToken(
+                    user_id=system_user_id,
+                    access_token=access_token,
+                    refresh_token=refresh_token,
+                    token_type=token_type,
+                    expires_in=expires_in
+                )
+                user_token_repository.create_user_token(new_user_token)
+                return None
+            else:
+                return None
+        else:
+            return None

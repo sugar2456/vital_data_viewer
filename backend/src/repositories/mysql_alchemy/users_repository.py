@@ -17,6 +17,9 @@ class UserRepository(UsersRepositoryInterface):
             User: ユーザーモデル
         """
         return self.db.query(User).filter(User.id == user_id).first()
+    
+    def get_user_by_fitbit_user_id(self, fitbit_user_id: str) -> User:
+        return self.db.query(User).filter(User.fitbit_user_id == fitbit_user_id).first()
 
     def get_users(self) -> List[User]:
         pass

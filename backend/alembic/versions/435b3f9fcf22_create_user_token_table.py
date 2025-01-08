@@ -23,9 +23,9 @@ def upgrade() -> None:
         "user_tokens",
         sa.Column("id", sa.Integer, primary_key=True, index=True),
         sa.Column("user_id", sa.Integer, sa.ForeignKey("users.id"), unique=True),
-        sa.Column("access_token", sa.String(255)),
-        sa.Column("refresh_token", sa.String(255)),
-        sa.Column("token_type", sa.Integer),
+        sa.Column("access_token", sa.String(512)),
+        sa.Column("refresh_token", sa.String(512)),
+        sa.Column("token_type", sa.String(40)),
         sa.Column("expires_in", sa.Integer)
     )
     pass

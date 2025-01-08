@@ -6,8 +6,8 @@ class UserToken(Base):
     __tablename__ = "user_tokens"
     id: int = Column(Integer, primary_key=True, index=True)
     user_id: int = Column(Integer, ForeignKey("users.id"), nullable=False)
-    access_token: str = Column(String(255), nullable=False)
-    refresh_token: str = Column(String(255), nullable=True)
+    access_token: str = Column(String(512), nullable=False)
+    refresh_token: str = Column(String(512), nullable=True)
     token_type: str = Column(String(40), nullable=False)
     expires_in: int = Column(Integer, nullable=False)
     user = relationship("User", back_populates="tokens")
