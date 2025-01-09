@@ -1,7 +1,6 @@
 # FILE: email_service.py
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
-from pydantic import BaseModel, EmailStr
-from starlette.responses import JSONResponse
+from src.utilities.error_response_utility import raise_http_exception
 from src.config import Settings
 from src.services.email.email_service_interface import EmailServiceInterface
 from datetime import datetime
@@ -33,7 +32,8 @@ class EmailService(EmailServiceInterface):
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             print(f"メール送信に成功しました: {current_time}")
         except Exception as e:
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            error_message = f"メール送信に失敗しました: {e} at {current_time}"
-            print(error_message)
-            return JSONResponse(status_code=500, content={"message": error_message})
+            print(f"メール送信に失敗しました: {e}")
+            raise_http_exception(
+                status_code=500,
+                message="メール送信に失敗しました"
+            )
