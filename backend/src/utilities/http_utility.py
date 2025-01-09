@@ -1,6 +1,10 @@
 import requests
 
 class HttpUtility:
+    """HTTP通信ユーティリティ\n
+        requestsライブラリを使用してHTTP通信を行う\n
+        例外をキャッチしてエラーメッセージを出力する
+    """
     @staticmethod
     def get(url: str, headers: dict) -> requests.Response:
         """GETリクエスト
