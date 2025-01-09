@@ -1,6 +1,5 @@
 import urllib.parse
-from fastapi import HTTPException, status
-from src.utilities.http_utility import HttpUtility
+from src.utilities.error_response_utility import raise_http_exception
 from src.utilities.pkce_utility import generate_code_verifier, generate_code_challenge, generate_state
 from src.services.email.email_service_interface import EmailServiceInterface
 from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
@@ -38,15 +37,13 @@ class FitbitAuthService:
         try:
             # 認証urlを取得
             authorize_url = self.get_authorize_url(client_id, redirect_uri)
-            print(f"send email:authorize_url: {authorize_url}")
-            
             await self.email_service.send_email(user_email, "fitbitのリソース許可のお願い", authorize_url)
         
         except Exception as e:
             print(f"send email error: {e}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="メールの送信に失敗しました。再試行してください。"
+            raise_http_exception(
+                status_code=500,
+                message="メール送信に失敗しました"
             )
         
         return None
@@ -97,7 +94,7 @@ class FitbitAuthService:
         code: str,
         state: str,
         user_token_repository: UserTokenRepositoryInterface
-    ):
+    ) -> bool:
         """トークンURLの取得
 
         Args:
@@ -109,9 +106,10 @@ class FitbitAuthService:
             user_token_repository (UserTokenRepositoryInterface): UserTokenRepositoryInterfaceのインスタンス
 
         Returns:
-            str: 
+            bool: 成功したかどうか
         """
-        if code:
+        
+        try:
             authorization = f"{client_id}:{client_secret}"
             base64encoded = base64.b64encode(authorization.encode()).decode()
             authorization_header = f"Basic {base64encoded}"
@@ -119,8 +117,6 @@ class FitbitAuthService:
             
             # code_verifierをキャッシュから取得する
             code_verifier = self.pkce_cache_repository.get_pkce_cache(state).code_verifier
-            
-            print(f"code_verifier: {code_verifier}")
             
             headers = {
                 'Authorization': authorization_header,
@@ -136,8 +132,6 @@ class FitbitAuthService:
             }
             
             response = requests.post('https://api.fitbit.com/oauth2/token', headers=headers, data=data)
-            print(f"response code: {response.status_code}")
-            print(f"response message: {response.text}")
             if response.status_code == 200:
                 user_id = response.json()['user_id']
                 access_token = response.json()['access_token']
@@ -160,8 +154,12 @@ class FitbitAuthService:
                     expires_in=expires_in
                 )
                 user_token_repository.create_user_token(new_user_token)
-                return None
+                return True
             else:
-                return None
-        else:
-            return None
+                return False
+        except Exception as e:
+            print(f"get token error: {e}")
+            raise_http_exception(
+                status_code=500,
+                message="fitbitのリソース許可に失敗しました"
+            )

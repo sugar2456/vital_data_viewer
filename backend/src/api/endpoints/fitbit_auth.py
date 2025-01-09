@@ -4,9 +4,8 @@ from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.services.email.email_service import EmailService
 from src.services.users.users_service import UsersService
 from src.schemas.fitbit_auth.fitbit_auth import FitbitAuthRequest, FitbitAuthResponse
-from src.schemas.fitbit_auth.fitbit_conform import FitbitConformRequest, FitbitConformResponse
-from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
+from src.schemas.fitbit_auth.fitbit_conform import FitbitConformResponse
+from src.utilities.error_response_utility import raise_http_exception
 from src.api.dependencies import get_pkce_cache_repository, get_user_token_repository, get_user_repository
 from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
@@ -50,14 +49,18 @@ async def fitbit_auth_confirm(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository)
 ) -> FitbitConformResponse:
-    print(f"code: {code}")
-    print(f"state: {state}")
     # 認証コードを使用してトークンを取得する
     client_id = settings.fitbit_client_id
     client_secret = settings.fitbit_client_secret
     redirect_uri = settings.fitbit_redirect_uri
     
     service = FitbitAuthService(None, pkce_cache_repository, user_repository)
-    res = service.get_token(client_id, client_secret, redirect_uri, code, state, user_token_repository)
+    isGetToken = service.get_token(client_id, client_secret, redirect_uri, code, state, user_token_repository)
     
-    return FitbitConformResponse(message=f"{res}")
+    if isGetToken:
+        return FitbitConformResponse(message="fitbitのリソース許可が完了しました")
+    else:
+        return raise_http_exception(
+            status_code=500,
+            message="fitbitのリソース許可に失敗しました"
+        )
