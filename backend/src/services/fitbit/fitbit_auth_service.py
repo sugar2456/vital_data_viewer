@@ -16,11 +16,13 @@ class FitbitAuthService:
         self,
         email_service: EmailServiceInterface,
         pkce_cache_repository: PkceCacheRepositoryInterface,
-        user_repository: UsersRepositoryInterface
+        user_repository: UsersRepositoryInterface,
+        user_token_repository: UserTokenRepositoryInterface
     ):
         self.email_service = email_service
         self.pkce_cache_repository = pkce_cache_repository
         self.user_repository = user_repository
+        self.user_token_repository = user_token_repository
 
     async def get_allow_user_resource(self, client_id:str, user_email: str, redirect_uri: str) -> str:    
         """ユーザーにfitbitのリソース許可を求める
@@ -92,8 +94,7 @@ class FitbitAuthService:
         client_secret: str,
         redirect_uri: str,
         code: str,
-        state: str,
-        user_token_repository: UserTokenRepositoryInterface
+        state: str
     ) -> bool:
         """トークンURLの取得
 
@@ -103,7 +104,6 @@ class FitbitAuthService:
             redirect_uri (str): fitbitのリダイレクトURI
             code (str): 認証コード
             state (str): state
-            user_token_repository (UserTokenRepositoryInterface): UserTokenRepositoryInterfaceのインスタンス
 
         Returns:
             bool: 成功したかどうか
@@ -138,11 +138,6 @@ class FitbitAuthService:
                 refresh_token = response.json()['refresh_token']
                 token_type = response.json()['token_type']
                 expires_in = response.json()['expires_in']
-                print(f"user_id: {user_id}")
-                print(f"access_token: {access_token}")
-                print(f"refresh_token: {refresh_token}")
-                print(f"token_type: {token_type}")
-                print(f"expires_in: {expires_in}")
                 
                 system_user_id = self.user_repository.get_user_by_fitbit_user_id(user_id).id
                 
@@ -153,7 +148,7 @@ class FitbitAuthService:
                     token_type=token_type,
                     expires_in=expires_in
                 )
-                user_token_repository.create_user_token(new_user_token)
+                self.user_token_repository.create_user_token(new_user_token)
                 return True
             else:
                 return False
@@ -162,4 +157,60 @@ class FitbitAuthService:
             raise_http_exception(
                 status_code=500,
                 message="fitbitのリソース許可に失敗しました"
+            )
+
+    def refresh_access_token(
+        self,
+        refresh_token: str,
+        client_id: str,
+        client_secret: str,
+    ) -> str:
+        """リフレッシュトークンを使用して新しいアクセストークンを取得
+
+        Args:
+            refresh_token (str): リフレッシュトークン
+            client_id (str): クライアントID
+            client_secret (str): クライアントシークレット
+
+        Returns:
+            str: 新しいアクセストークン
+        """
+        url = "https://api.fitbit.com/oauth2/token"
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": f"Basic {base64.b64encode(f'{client_id}:{client_secret}'.encode()).decode()}"
+        }
+        data = {
+            "grant_type": "refresh_token",
+            "refresh_token": refresh_token
+        }
+        
+        response = requests.post(url, headers=headers, data=data)
+        if response.status_code == 200:
+            token_data = response.json()
+            new_fitbit_user_id = token_data["user_id"]
+            new_token_type = token_data["token_type"]
+            new_access_token = token_data["access_token"]
+            new_refresh_token = token_data["refresh_token"]
+            new_expires_in = token_data["expires_in"]
+            # 必要に応じて新しいリフレッシュトークンも保存
+            new_user_token = UserToken(
+                user_id=new_fitbit_user_id,
+                token_type=new_token_type,
+                access_token=new_access_token,
+                refresh_token=new_refresh_token,
+                expires_in=new_expires_in
+            )
+            updated_user_token = self.user_token_repository.update_user_token(new_user_token)
+            if updated_user_token:
+                return updated_user_token.access_token
+            else:
+                raise_http_exception(
+                    status_code=500,
+                    message="アクセストークンのリフレッシュに失敗しました"
+                )
+        else:
+            raise_http_exception(
+                status_code=500,
+                message="アクセストークンのリフレッシュに失敗しました"
             )

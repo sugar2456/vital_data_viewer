@@ -26,7 +26,9 @@ def upgrade() -> None:
         sa.Column("access_token", sa.String(512)),
         sa.Column("refresh_token", sa.String(512)),
         sa.Column("token_type", sa.String(40)),
-        sa.Column("expires_in", sa.Integer)
+        sa.Column("expires_in", sa.Integer),
+        sa.Column("created_at", sa.DateTime, server_default=sa.func.now()),
+        sa.Column("updated_at", sa.DateTime, server_default=sa.func.now(), server_onupdate=sa.func.now())
     )
     pass
 

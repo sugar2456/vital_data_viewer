@@ -24,7 +24,8 @@ def upgrade() -> None:
         sa.Column("id", sa.Integer, primary_key=True, index=True),
         sa.Column("state", sa.String(255), index=True),
         sa.Column("code_verifier", sa.String(255), nullable=False),
-        sa.Column("created_at", sa.DateTime, server_default=sa.func.now(), nullable=False),
+        sa.Column("created_at", sa.DateTime, server_default=sa.func.now()),
+        sa.Column("updated_at", sa.DateTime, server_default=sa.func.now(), server_onupdate=sa.func.now())
     )
     pass
 

@@ -18,7 +18,8 @@ router = APIRouter()
 async def fitbit_auth(
     request: FitbitAuthRequest,
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
-    pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository)
+    pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository),
+    user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository)
 ) -> FitbitAuthResponse:
     # requestから取得
     user_name = request.user_name
@@ -36,7 +37,7 @@ async def fitbit_auth(
     
     # userにfitbitのリソース許可を求める
     email_service = EmailService(settings)
-    service = FitbitAuthService(email_service, pkce_cache_repository, user_repository)
+    service = FitbitAuthService(email_service, pkce_cache_repository, user_repository, user_token_repository)
     await service.get_allow_user_resource(client_id, user_email, redirect_uri)
     
     return FitbitAuthResponse(message="メール送信成功")
@@ -54,8 +55,8 @@ async def fitbit_auth_confirm(
     client_secret = settings.fitbit_client_secret
     redirect_uri = settings.fitbit_redirect_uri
     
-    service = FitbitAuthService(None, pkce_cache_repository, user_repository)
-    isGetToken = service.get_token(client_id, client_secret, redirect_uri, code, state, user_token_repository)
+    service = FitbitAuthService(None, pkce_cache_repository, user_repository, user_token_repository)
+    isGetToken = service.get_token(client_id, client_secret, redirect_uri, code, state)
     
     if isGetToken:
         return FitbitConformResponse(message="fitbitのリソース許可が完了しました")
