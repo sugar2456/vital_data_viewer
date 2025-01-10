@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from src.db.session import Base
 from sqlalchemy.sql import func
 from sqlalchemy.sql.sqltypes import DateTime
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, timezone
 
 class UserToken(Base):
     __tablename__ = "user_tokens"
@@ -36,12 +36,13 @@ class UserToken(Base):
     
     @property
     def is_expired(self) -> bool:
-        """アクセストークンが有効かどうかを返す
+        """アクセストークンが期限切れかどうかを判定
 
         Returns:
-            bool: アクセストークンが有効ならTrue、そうでないならFalse
+            bool: 期限切れならTrue 期限内ならFalse
         """
+        if self.updated_at.tzinfo is None:
+            self.updated_at = self.updated_at.replace(tzinfo=timezone.utc)
         expiration_time = self.updated_at + timedelta(seconds=self.expires_in)
-        if expiration_time < datetime.now():
-            return True
-        return False
+        print(f"expiration_time: {expiration_time}")
+        return datetime.now(timezone.utc) > expiration_time

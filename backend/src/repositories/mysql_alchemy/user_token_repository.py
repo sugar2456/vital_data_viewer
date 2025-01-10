@@ -1,6 +1,7 @@
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
 from src.models.user_token import UserToken
 from sqlalchemy.orm import Session
+from datetime import datetime, timezone
 
 class UserTokenRepository(UserTokenRepositoryInterface):
     def __init__(self, db: Session):
@@ -28,6 +29,7 @@ class UserTokenRepository(UserTokenRepositoryInterface):
         db_user_token.refresh_token = user_token.refresh_token
         db_user_token.token_type = user_token.token_type
         db_user_token.expires_in = user_token.expires_in
+        db_user_token.updated_at = datetime.now(timezone.utc)
         self.db.commit()
         self.db.refresh(db_user_token)
         return db_user_token
