@@ -2,6 +2,8 @@ from src.repositories.interface.users_repository_interface import UsersRepositor
 from src.models.user import User
 
 class UsersService:
+    """ユーザーサービスクラス
+    """
     def __init__(self, users_repository: UsersRepositoryInterface):
         self.users_repository = users_repository
     
