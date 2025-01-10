@@ -3,6 +3,7 @@ from src.repositories.interface.user_token_repository_interface import UserToken
 from src.utilities.error_response_utility import raise_http_exception
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.config import Settings
+from typing import List
 
 class FitbitHeartRateService:
     def __init__(self, settings: Settings, user_token_repository: UserTokenRepositoryInterface):
@@ -38,6 +39,44 @@ class FitbitHeartRateService:
         response = HttpUtility.get(url, headers)
         response_json = response.json()
         heart_rate = response_json["activities-heart"][0]["value"]["restingHeartRate"]
+        if not heart_rate:
+            raise_http_exception(500, "心拍数が取得できませんでした")
+
+        return heart_rate
+    
+    def get_heart_rate_intraday(self, user_id: int, date: str, detail_level: int = 15) -> List:
+        """指定した日付のx分ごとの心拍数を取得
+
+        Args:
+            user_id (int): ユーザID
+            date (str): 日付
+            detail_level (str): 詳細レベル (1min, 5min, 15min)
+
+        Returns:
+            dict: x分ごとの心拍数
+        """
+        user_token = self.user_token_repository.get_user_token(user_id)
+        access_token = user_token.access_token
+        if user_token.is_expired:
+            fitbit_auth_service = FitbitAuthService(None, None, None, self.user_token_repository)
+            refresh_token = user_token.refresh_token
+            access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
+        headers = {
+            "Authorization": f"Bearer {access_token}"
+        }
+        # detail_levelが1/5/15分の場合
+        detail_level_map = {
+            1: "1min",
+            5: "5min",
+            15: "15min"
+        }
+        detail_level_str = detail_level_map.get(detail_level)
+        if not detail_level_str:
+            raise_http_exception(500, "心拍数が取得できませんでした")
+        url = f"https://api.fitbit.com/1/user/-/activities/heart/date/{date}/1d/{detail_level_str}.json"
+        response = HttpUtility.get(url, headers)
+        response_json = response.json()
+        heart_rate = response_json["activities-heart-intraday"]["dataset"]
         if not heart_rate:
             raise_http_exception(500, "心拍数が取得できませんでした")
 
