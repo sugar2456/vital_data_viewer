@@ -1,13 +1,17 @@
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
+from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.utilities.http_utility import HttpUtility
+from src.config import Settings
 from src.utilities.error_response_utility import raise_http_exception
 from typing import List
 
 class FitbitStepsService:
-    def __init__(self, user_token_repository: UserTokenRepositoryInterface):
+    def __init__(self, settings: Settings, user_token_repository: UserTokenRepositoryInterface):
         """StepsServiceのコンストラクタ
         """
         self.user_token_repository = user_token_repository
+        self.cliend_id = settings.fitbit_client_id
+        self.client_secret = settings.fitbit_client_secret
     
     def get_steps(self, user_id: int, date: str) -> int:
         """指定した日付の総歩数を取得
@@ -21,6 +25,11 @@ class FitbitStepsService:
         """
         user_token = self.user_token_repository.get_user_token(user_id)
         access_token = user_token.access_token
+        if user_token.is_expired:
+            fitbit_auth_service = FitbitAuthService(None, None, None, self.user_token_repository)
+            refresh_token = user_token.refresh_token
+            access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
+
         headers = {
             "Authorization": f"Bearer {access_token}"
         }
@@ -46,6 +55,10 @@ class FitbitStepsService:
         """
         user_token = self.user_token_repository.get_user_token(user_id)
         access_token = user_token.access_token
+        if user_token.is_expired:
+            fitbit_auth_service = FitbitAuthService(None, None, None, self.user_token_repository)
+            refresh_token = user_token.refresh_token
+            access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
         headers = {
             "Authorization": f"Bearer {access_token}"
         }

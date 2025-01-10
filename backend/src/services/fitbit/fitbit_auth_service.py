@@ -188,14 +188,15 @@ class FitbitAuthService:
         response = requests.post(url, headers=headers, data=data)
         if response.status_code == 200:
             token_data = response.json()
+            print(token_data)
             new_fitbit_user_id = token_data["user_id"]
             new_token_type = token_data["token_type"]
             new_access_token = token_data["access_token"]
             new_refresh_token = token_data["refresh_token"]
             new_expires_in = token_data["expires_in"]
-            # 必要に応じて新しいリフレッシュトークンも保存
+            user = self.user_repository.get_user_by_fitbit_user_id(new_fitbit_user_id)
             new_user_token = UserToken(
-                user_id=new_fitbit_user_id,
+                user_id=user.id,
                 token_type=new_token_type,
                 access_token=new_access_token,
                 refresh_token=new_refresh_token,
