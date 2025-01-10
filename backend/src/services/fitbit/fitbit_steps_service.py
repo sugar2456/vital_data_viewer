@@ -62,6 +62,5 @@ class FitbitStepsService:
         url = f"https://api.fitbit.com/1/user/-/activities/steps/date/{date}/1d/{detail_level_str}.json"
         response = HttpUtility.get(url, headers)
         response_json = response.json()
-        print(response_json["activities-steps-intraday"])
         steps_intraday = response_json["activities-steps-intraday"]["dataset"]
         return steps_intraday

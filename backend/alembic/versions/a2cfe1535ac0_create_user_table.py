@@ -27,6 +27,8 @@ def upgrade() -> None:
         sa.Column("email", sa.String(255), unique=True, index=True),
         sa.Column("hashed_password", sa.String(255)),
         sa.Column("fitbit_user_id", sa.String(255), unique=True, index=True),
+        sa.Column("created_at", sa.DateTime, server_default=sa.func.now()),
+        sa.Column("updated_at", sa.DateTime, server_default=sa.func.now(), server_onupdate=sa.func.now())
     )
     pass
     # ### end Alembic commands ###
