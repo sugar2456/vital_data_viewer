@@ -16,8 +16,9 @@ services:
       context: .
       dockerfile: docker/frontend/Dockerfile
     volumes:
-      - ./frontend:/src # ローカルをコンテナ内にマウント
-    command: sh -c "cd /src && yarn dev" #コンテナを立ち上げたときに自動的にbuildする
+      - ./frontend:/src
+      - node_modules:/src/node_modules
+    command: sh -c "cd /src && yarn dev"
     ports:
       - "3000:3000"
  
@@ -54,3 +55,4 @@ services:
 volumes:
   mysql_data:
   mysql_test_data:
+  node_modules:
