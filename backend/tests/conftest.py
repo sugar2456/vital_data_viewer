@@ -12,6 +12,7 @@ conftest_dir = os.path.dirname(__file__)
 project_root = os.path.abspath(os.path.join(conftest_dir, '..'))
 # プロジェクトのルートディレクトリパスをパスに追加
 sys.path.insert(0,project_root)
+sys.path.append(os.path.join(os.path.dirname(__file__), '../src'))
 
 test_database_user = os.getenv("TEST_DB_USERNAME", "root")
 test_database_host = os.getenv("TEST_DB_HOSTNAME", "test_db")
