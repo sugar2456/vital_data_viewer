@@ -6,6 +6,7 @@ import { Chart, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Lege
 import 'chartjs-adapter-date-fns';
 import stepsData from '@/app/ui/data/step/steps_intraday.json';
 import { ChartOptions } from 'chart.js';
+import { FaWalking } from 'react-icons/fa';
 
 Chart.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -14,7 +15,6 @@ const StepsChart: React.FC = () => {
     const times = stepsData.steps_intraday.map((entry: { time: string }) => {
         return new Date(`1970-01-01T${entry.time}+09:00`);
     });
-    console.log(times);
     const values = stepsData.steps_intraday.map((entry: { value: number }) => entry.value);
 
     const data = {
@@ -50,10 +50,13 @@ const StepsChart: React.FC = () => {
         },
     };
 
-
+    const Icon = FaWalking;
     return (
         <div className="rounded-xl bg-gray-50 shadow-sm p-2">
-            <h3 className="ml-4 text-sm font-medium m-4">1日の歩数</h3>
+            <div className="flex p-4">
+                {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
+                <h3 className="ml-2 text-sm font-medium">1日の歩数</h3>
+            </div>
             <div className="h-auto bg-white">
                 <Line data={data} options={options} />
             </div>
