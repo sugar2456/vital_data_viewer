@@ -14,7 +14,7 @@ export function SleepCard() {
                 <h3 className="ml-2 text-sm font-medium">睡眠</h3>
             </div>
             <div className="flex flex-col gap-2">
-                <div className="rounded-xl bg-white px-4 py-4 ">
+                <div className="rounded-xl bg-white px-4 py-4 shadow-sm">
                     <p
                         className={`${lusitana.className}
                     truncate text-2xl pb-2`}

@@ -4,28 +4,28 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import stepsData from '@/app/ui/data/step/steps_intraday.json';
+import heartRateData from '@/app/ui/data/heart_rate/heart_rate.json';
 import { ChartOptions } from 'chart.js';
-import { FaWalking } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 
 Chart.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const StepsChart: React.FC = () => {
+const HeartRateChart: React.FC = () => {
     // データの整形
-    const times = stepsData.steps_intraday.map((entry: { time: string }) => {
+    const times = heartRateData.heart_rate_intraday.map((entry: { time: string }) => {
         return new Date(`1970-01-01T${entry.time}+09:00`);
     });
-    const values = stepsData.steps_intraday.map((entry: { value: number }) => entry.value);
+    const values = heartRateData.heart_rate_intraday.map((entry: { value: number }) => entry.value);
 
     const data = {
         labels: times,
         datasets: [
             {
-                label: 'Steps',
+                label: 'bpm',
                 data: values,
                 fill: false,
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
+                backgroundColor: 'rgba(255, 77, 77,0.4)',
+                borderColor: 'rgba(255,90,77,1)',
             },
         ],
     };
@@ -50,12 +50,12 @@ const StepsChart: React.FC = () => {
         },
     };
 
-    const Icon = FaWalking;
+    const Icon = FaHeart;
     return (
         <div className="rounded-xl bg-gray-50 shadow-sm p-2">
             <div className="flex p-4">
                 {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
-                <h3 className="ml-2 text-sm font-medium">1日の歩数</h3>
+                <h3 className="ml-2 text-sm font-medium">1日の心拍数</h3>
             </div>
             <div className="h-auto bg-white">
                 <Line data={data} options={options} />
@@ -64,4 +64,4 @@ const StepsChart: React.FC = () => {
     );
 };
 
-export default StepsChart;
+export default HeartRateChart;
