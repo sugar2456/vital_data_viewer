@@ -1,0 +1,11 @@
+{
+    "stages": {
+        "deep": 16,
+        "light": 163,
+        "rem": 33,
+        "wake": 28
+    },
+    "totalMinutesAsleep": 212,
+    "totalSleepRecords": 1,
+    "totalTimeInBed": 240
+}
