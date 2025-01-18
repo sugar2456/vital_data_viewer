@@ -38,7 +38,7 @@ class FitbitHeartRateService:
         """
         user_token = self.user_token_repository.get_user_token(user_id)
         access_token = user_token.access_token
-        if not user_token.is_expired:
+        if user_token.is_expired:
             fitbit_auth_service = FitbitAuthService(None, None, self.user_repository, self.user_token_repository)
             refresh_token = user_token.refresh_token
             access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
@@ -59,7 +59,7 @@ class FitbitHeartRateService:
         """
         user_token = self.user_token_repository.get_user_token(user_id)
         access_token = user_token.access_token
-        if not user_token.is_expired:
+        if user_token.is_expired:
             print("refresh")
             fitbit_auth_service = FitbitAuthService(None, None, self.user_repository, self.user_token_repository)
             refresh_token = user_token.refresh_token
