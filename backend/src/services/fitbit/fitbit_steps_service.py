@@ -1,5 +1,6 @@
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
 from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
+from src.repositories.interface.get_step_request_repository_interface import GetStepRequestRepositoryInterface
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.utilities.http_utility import HttpUtility
 from src.config import Settings
@@ -7,12 +8,19 @@ from src.utilities.error_response_utility import raise_http_exception
 from typing import List
 
 class FitbitStepsService:
-    def __init__(self, settings: Settings, user_repository: UsersRepositoryInterface, user_token_repository: UserTokenRepositoryInterface):
+    def __init__(
+        self,
+        settings: Settings,
+        user_repository: UsersRepositoryInterface,
+        user_token_repository: UserTokenRepositoryInterface,
+        step_request_repository: GetStepRequestRepositoryInterface
+    ):
         """StepsServiceのコンストラクタ
         """
         self.settings = settings
         self.user_repository = user_repository
         self.user_token_repository = user_token_repository
+        self.step_request_repository = step_request_repository
         self.cliend_id = settings.fitbit_client_id
         self.client_secret = settings.fitbit_client_secret
     
@@ -38,15 +46,7 @@ class FitbitStepsService:
             refresh_token = user_token.refresh_token
             access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
 
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-        url = f"https://api.fitbit.com/1/user/-/activities/date/{date}.json"
-        response = HttpUtility.get(url, headers)
-        response_json = response.json()
-        steps = response_json["summary"]["steps"]
-        if not steps:
-            raise_http_exception(500, "歩数が取得できませんでした")
+        steps = self.step_request_repository.get_step(token=access_token, date=date)
 
         return steps
     
@@ -72,21 +72,10 @@ class FitbitStepsService:
             )
             refresh_token = user_token.refresh_token
             access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-        # detail_levelが1/5/15分の場合
-        detail_level_map = {
-            1: "1min",
-            5: "5min",
-            15: "15min"
-        }
-        detail_level_str = detail_level_map.get(detail_level)
-        if not detail_level_str:
-            raise_http_exception(500, "歩数が取得できませんでした")
-        
-        url = f"https://api.fitbit.com/1/user/-/activities/steps/date/{date}/1d/{detail_level_str}.json"
-        response = HttpUtility.get(url, headers)
-        response_json = response.json()
-        steps_intraday = response_json["activities-steps-intraday"]["dataset"]
+
+        steps_intraday = self.step_request_repository.get_step_intraday(
+            token=access_token,
+            date=date,
+            detail_level=detail_level
+        )
         return steps_intraday

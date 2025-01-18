@@ -18,7 +18,16 @@ class UserToken(Base):
 
     user = relationship("User", back_populates="tokens")
     
-    def __init__(self, user_id: int, access_token: str, refresh_token: str, token_type: str, expires_in: int):
+    def __init__(
+        self,
+        user_id: int,
+        access_token: str,
+        refresh_token: str,
+        token_type: str,
+        expires_in: int,
+        created_at: datetime = None,
+        updated_at: datetime = None
+    ):
         """UserTokenのコンストラクタ
 
         Args:
@@ -33,6 +42,8 @@ class UserToken(Base):
         self.refresh_token = refresh_token
         self.token_type = token_type
         self.expires_in = expires_in
+        self.created_at = created_at
+        self.updated_at = updated_at
     
     @property
     def is_expired(self) -> bool:
