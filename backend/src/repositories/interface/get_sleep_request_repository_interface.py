@@ -1,6 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import List
-from src.models.pkce_cache import PkceCache
 
 class GetSleepRequestRepositoryInterface(ABC):
     @abstractmethod
