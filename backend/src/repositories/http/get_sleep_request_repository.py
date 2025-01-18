@@ -1,6 +1,6 @@
 from src.repositories.interface.get_sleep_request_repository_interface import GetSleepRequestRepositoryInterface
 from src.utilities.error_response_utility import raise_http_exception
-import requests
+from src.utilities.http_utility import HttpUtility
 
 class GetSleepRequestRepository(GetSleepRequestRepositoryInterface):
     def get_sleep(self, token: str, date: str) -> int:
@@ -8,7 +8,7 @@ class GetSleepRequestRepository(GetSleepRequestRepositoryInterface):
             "Authorization": f"Bearer {token}"
         }
         url = f'https://api.fitbit.com/1.2/user/-/sleep/date/{date}.json'
-        response = requests.get(url, headers=headers)
+        response = HttpUtility.get(url, headers=headers)
         if response.status_code != 200:
             raise_http_exception(500, "通信に失敗しました")
         response_json = response.json()
@@ -23,7 +23,7 @@ class GetSleepRequestRepository(GetSleepRequestRepositoryInterface):
             "Authorization": f"Bearer {token}"
         }
         url = f'https://api.fitbit.com/1.2/user/-/sleep/date/{date}.json'
-        response = requests.get(url, headers=headers)
+        response = HttpUtility.get(url, headers=headers)
         if response.status_code != 200:
             raise_http_exception(500, "通信に失敗しました")
         response_json = response.json()
