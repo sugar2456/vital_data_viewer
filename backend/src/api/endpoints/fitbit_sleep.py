@@ -18,7 +18,7 @@ async def fitbit_sleep(
     get_sleep_request_repository: GetSleepRequestRepositoryInterface = Depends(get_sleep_request_repository)
 ) -> FitbitSleepResponse:
     service = FitbitSleepService(
-        setting=settings,
+        settings=settings,
         user_repository=user_repository,
         user_token_repository=user_token_repository,
         sleep_request_repository=get_sleep_request_repository
@@ -34,7 +34,7 @@ async def fitbit_sleep_detail(
     get_sleep_request_repository: GetSleepRequestRepositoryInterface = Depends(get_sleep_request_repository)
 ) -> FitbitSleepDetailResponse:
     service = FitbitSleepService(
-        setting=settings,
+        settings=settings,
         user_repository=user_repository,
         user_token_repository=user_token_repository,
         sleep_request_repository=get_sleep_request_repository

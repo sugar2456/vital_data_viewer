@@ -8,13 +8,13 @@ from src.config import Settings
 class FitbitSleepService:
     def __init__(
         self,
-        setting: Settings,
+        settings: Settings,
         user_repository: UsersRepositoryInterface,
         user_token_repository: UserTokenRepositoryInterface,
         sleep_request_repository: GetSleepRequestRepositoryInterface
     ):
-        self.client_id = setting.fitbit_client_id
-        self.client_secret = setting.fitbit_client_secret
+        self.client_id = settings.fitbit_client_id
+        self.client_secret = settings.fitbit_client_secret
         self.user_repository = user_repository
         self.user_token_repository = user_token_repository
         self.sleep_request_repository = sleep_request_repository
