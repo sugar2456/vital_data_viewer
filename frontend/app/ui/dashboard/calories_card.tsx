@@ -3,29 +3,26 @@
 import { FaFire } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
-
+import activityData from '@/app/ui/data/activities/activity_summary.json';
 export function CaloriesCard() {
     const Icon = FaFire;
-    const sleepInfo = {
-        totalSleepTime: "8時間",
-        sleepCount: 1,
-    };
+    const caloriesInfo = activityData.activity;
     return (
         <Card title="運動量" icon={Icon}>
             <MainInnerCard
-                caloriesOut={2000}
-                caloriesBMR={1500}
-                steps={10000}
-                distance={5}
-                floors={5}
-                elevation={100}
+                caloriesOut={caloriesInfo.caloriesOut}
+                caloriesBMR={caloriesInfo.caloriesBMR}
+                steps={caloriesInfo.steps}
+                distance={caloriesInfo.distances[0].distance}
+                floors={caloriesInfo.floors}
+                elevation={caloriesInfo.elevation}
             />
             <SubInnerCard
                 title="活動量"
-                sedentaryMinutes={100}
-                lightlyActiveMinutes={200}
-                fairlyActiveMinutes={300}
-                veryActiveMinutes={400}
+                sedentaryMinutes={caloriesInfo.sedentaryMinutes}
+                lightlyActiveMinutes={caloriesInfo.lightlyActiveMinutes}
+                fairlyActiveMinutes={caloriesInfo.fairlyActiveMinutes}
+                veryActiveMinutes={caloriesInfo.veryActiveMinutes}
             />
         </Card>
     );
@@ -127,25 +124,25 @@ const SubInnerCard: React.FC<SubInnerCardProps> = ({
                     className={`${lusitana.className}
                 flex justify-between`}
                 >
-                    座っている時間：{sedentaryMinutes}
+                    座っている時間：{sedentaryMinutes} 分
                 </li>
                 <li
                     className={`${lusitana.className}
                 flex justify-between`}
                 >
-                    低い活動量の時間：{lightlyActiveMinutes}
+                    低い活動量の時間：{lightlyActiveMinutes} 分
                 </li>
                 <li
                     className={`${lusitana.className}
                 flex justify-between`}
                 >
-                    中程度の活動量の時間：{fairlyActiveMinutes}
+                    中程度の活動量の時間：{fairlyActiveMinutes} 分
                 </li>
                 <li
                     className={`${lusitana.className}
                 flex justify-between`}
                 >
-                    高い活動量の時間：{veryActiveMinutes}
+                    高い活動量の時間：{veryActiveMinutes} 分
                 </li>
             </ul>
         </div>
