@@ -1,0 +1,89 @@
+{
+    "activity": {
+        "caloriesOut": 2549,
+        "activityCalories": 1229,
+        "caloriesBMR": 1473,
+        "activeScore": -1,
+        "steps": 13327,
+        "floors": 10,
+        "elevation": 30.48,
+        "sedentaryMinutes": 978,
+        "lightlyActiveMinutes": 177,
+        "fairlyActiveMinutes": 34,
+        "veryActiveMinutes": 64,
+        "distances": [
+            {
+                "activity": "total",
+                "distance": 9.635188
+            },
+            {
+                "activity": "tracker",
+                "distance": 9.6243
+            },
+            {
+                "activity": "sedentaryActive",
+                "distance": 0.599075
+            },
+            {
+                "activity": "lightlyActive",
+                "distance": 1.670713
+            },
+            {
+                "activity": "moderatelyActive",
+                "distance": 2.4371
+            },
+            {
+                "activity": "veryActive",
+                "distance": 4.9283
+            },
+            {
+                "activity": "loggedActivities",
+                "distance": 7.010419999999999
+            },
+            {
+                "activity": "Walk",
+                "distance": 1.50267
+            },
+            {
+                "activity": "Walk",
+                "distance": 0.76893
+            },
+            {
+                "activity": "Walk",
+                "distance": 4.73882
+            }
+        ],
+        "marginalCalories": 885,
+        "restingHeartRate": 64,
+        "heartRateZones": [
+            {
+                "minutes": 1439,
+                "caloriesOut": 2532.885447,
+                "name": "Out of Range",
+                "min": 30,
+                "max": 113
+            },
+            {
+                "minutes": 1,
+                "caloriesOut": 7.362792000000001,
+                "name": "Fat Burn",
+                "min": 114,
+                "max": 138
+            },
+            {
+                "minutes": 0,
+                "caloriesOut": 0.0,
+                "name": "Cardio",
+                "min": 139,
+                "max": 169
+            },
+            {
+                "minutes": 0,
+                "caloriesOut": 0.0,
+                "name": "Peak",
+                "min": 170,
+                "max": 220
+            }
+        ]
+    }
+}
