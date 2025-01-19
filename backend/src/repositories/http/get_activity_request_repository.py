@@ -1,21 +1,20 @@
-from src.repositories.interface.get_step_request_repository_interface import GetStepRequestRepositoryInterface
+from src.repositories.interface.get_step_request_repository_interface import GetActivityRequestRepositoryInterface
 from src.utilities.http_utility import HttpUtility
 from src.utilities.error_response_utility import raise_http_exception
 
-class GetStepRequestRepository(GetStepRequestRepositoryInterface):
-    def get_step(self, token: str, date: str) -> int:
+class GetActivityRequestRepository(GetActivityRequestRepositoryInterface):
+    def get_activity(self, token: str, date: str):
         headers = {
             "Authorization": f"Bearer {token}"
         }
         url = f"https://api.fitbit.com/1/user/-/activities/date/{date}.json"
         response = HttpUtility.get(url, headers)
         response_json = response.json()
-        steps = response_json["summary"]["steps"]
-        if not steps:
-            raise_http_exception(500, "歩数が取得できませんでした")
-        return steps
+        if not response_json:
+            raise_http_exception(500, "アクティビティが取得できませんでした")
+        return response_json
 
-    def get_step_intraday(self, token: str, date: str, detail_level: int):
+    def get_activity_intraday(self, token: str, resource: str, date: str, detail_level: int):
         headers = {
             "Authorization": f"Bearer {token}"
         }
@@ -29,7 +28,7 @@ class GetStepRequestRepository(GetStepRequestRepositoryInterface):
         if not detail_level_str:
             raise_http_exception(500, "歩数が取得できませんでした")
         
-        url = f"https://api.fitbit.com/1/user/-/activities/steps/date/{date}/1d/{detail_level_str}.json"
+        url = f"https://api.fitbit.com/1/user/-/activities/{resource}/date/{date}/1d/{detail_level_str}.json"
         response = HttpUtility.get(url, headers)
         response_json = response.json()
-        return response_json["activities-steps-intraday"]["dataset"]
+        return response_json
