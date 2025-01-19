@@ -5,6 +5,7 @@ from src.repositories.mysql_alchemy.user_token_repository import UserTokenReposi
 from src.repositories.http.get_step_request_repository import GetStepRequestRepository
 from src.repositories.http.get_sleep_request_repository import GetSleepRequestRepository
 from src.repositories.http.get_heart_rate_request_repository import GetHeartRateRequestRepository
+from src.repositories.http.get_body_request_repository import GetBodyRequestRepository
 from src.db.session import get_db
 from fastapi import Depends
 
@@ -25,3 +26,6 @@ def get_sleep_request_repository() -> GetSleepRequestRepository:
 
 def get_heart_rate_request_repository() -> GetHeartRateRequestRepository:
     return GetHeartRateRequestRepository()
+
+def get_weight_request_repository() -> GetBodyRequestRepository:
+    return GetBodyRequestRepository()
