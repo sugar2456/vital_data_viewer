@@ -9,7 +9,7 @@ export function Card({
 }: {
     title: string;
     icon: IconType;
-    children: React.ReactNode[];
+    children: React.ReactNode;
 }) {
     const Icon = icon;
 
@@ -20,7 +20,7 @@ export function Card({
                 <h3 className="ml-2 text-sm font-medium">{title}</h3>
             </div>
             <div className="flex flex-col gap-2">
-                {...children}
+                {children}
             </div>
         </div>
     );
