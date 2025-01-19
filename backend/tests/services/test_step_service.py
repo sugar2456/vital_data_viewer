@@ -1,5 +1,5 @@
 import pytest
-from src.repositories.mock.get_activity_request_repository import GetStepRequestRepository
+from src.repositories.mock.get_activity_request_repository import GetActivityRequestRepository
 from src.repositories.mock.users_repository import UserRepository
 from src.repositories.mock.user_token_repository import UserTokenRepository
 from src.services.fitbit.fitbit_activity_service import FitbitActivityService
@@ -15,7 +15,7 @@ def get_user_token_repository(db_session):
 
 @pytest.fixture
 def get_step_request_repository():
-    return GetStepRequestRepository()
+    return GetActivityRequestRepository()
 
 def test_get_step(
     get_user_repository,
