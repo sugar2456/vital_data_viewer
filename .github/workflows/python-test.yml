@@ -60,5 +60,5 @@ jobs:
         PYTHONPATH: ${{ github.workspace }}/backend:/app/src
       run: |
         echo "Running tests"
-        echo "FITBIT_AUTHORIZATION_URI is $FITBIT_AUTHORIZATION_URI"
+        echo $FITBIT_AUTHORIZATION_URI
         pytest
