@@ -61,6 +61,7 @@ jobs:
     - name: Run tests
       env:
         PYTHONPATH: ${{ github.workspace }}/backend:/app/src
-        DATABASE_URL: mysql://root:@localhost:33307/demo
       run: |
+        echo "Running tests"
+        echo ${{ secrets.FITBIT_AUTHORIZATION_URI }}
         pytest
