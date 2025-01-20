@@ -9,31 +9,31 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-      env:
-        FITBIT_CLIENT_ID: ${{ secrets.FITBIT_CLIENT_ID }}
-        FITBIT_CLIENT_SECRET: ${{ secrets.FITBIT_CLIENT_SECRET }}
-        FITBIT_REDIRECT_URI: ${{ secrets.FITBIT_REDIRECT_URI }}
-        FITBIT_AUTHORIZATION_URI: ${{ secrets.FITBIT_AUTHORIZATION_URI }}
-        FITBIT_REFRESH_TOKEN_URI: ${{ secrets.FITBIT_REFRESH_TOKEN_URI }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
-        DB_PORT: ${{ secrets.DB_PORT }}
-        DB_NAME: ${{ secrets.DB_NAME }}
-        DB_CHARSET: ${{ secrets.DB_CHARSET }}
-        TEST_DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
-        TEST_DB_HOSTNAME: ${{ secrets.TEST_DB_HOSTNAME }}
-        TEST_DB_PORT: ${{ secrets.TEST_DB_PORT }}
-        TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
-        TEST_DB_CHARSET: ${{ secrets.TEST_DB_CHARSET }}
-        MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-        MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-        MAIL_FROM: ${{ secrets.MAIL_FROM }}
-        MAIL_PORT: ${{ secrets.MAIL_PORT }}
-        MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
-        MAIL_STARTTLS: ${{ secrets.MAIL_STARTTLS }}
-        MAIL_SSL_TLS: ${{ secrets.MAIL_SSL_TLS }}
-        USE_CREDENTIALS: ${{ secrets.USE_CREDENTIALS }}
-        VALIDATE_CERTS: ${{ secrets.VALIDATE_CERTS }}
+    env:
+      FITBIT_CLIENT_ID: ${{ secrets.FITBIT_CLIENT_ID }}
+      FITBIT_CLIENT_SECRET: ${{ secrets.FITBIT_CLIENT_SECRET }}
+      FITBIT_REDIRECT_URI: ${{ secrets.FITBIT_REDIRECT_URI }}
+      FITBIT_AUTHORIZATION_URI: ${{ secrets.FITBIT_AUTHORIZATION_URI }}
+      FITBIT_REFRESH_TOKEN_URI: ${{ secrets.FITBIT_REFRESH_TOKEN_URI }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_CHARSET: ${{ secrets.DB_CHARSET }}
+      TEST_DB_USERNAME: ${{ secrets.TEST_DB_USERNAME }}
+      TEST_DB_HOSTNAME: ${{ secrets.TEST_DB_HOSTNAME }}
+      TEST_DB_PORT: ${{ secrets.TEST_DB_PORT }}
+      TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
+      TEST_DB_CHARSET: ${{ secrets.TEST_DB_CHARSET }}
+      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      MAIL_FROM: ${{ secrets.MAIL_FROM }}
+      MAIL_PORT: ${{ secrets.MAIL_PORT }}
+      MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
+      MAIL_STARTTLS: ${{ secrets.MAIL_STARTTLS }}
+      MAIL_SSL_TLS: ${{ secrets.MAIL_SSL_TLS }}
+      USE_CREDENTIALS: ${{ secrets.USE_CREDENTIALS }}
+      VALIDATE_CERTS: ${{ secrets.VALIDATE_CERTS }}
     services:
       mysql:
         image: mysql:8.0
