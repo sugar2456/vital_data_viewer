@@ -5,10 +5,6 @@ import { WeightCard } from '../ui/dashboard/weight_card';
 import { CaloriesCard } from '../ui/dashboard/calories_card';
 
 export default function Page() {
-    const cardData: { title: string; value: number; type: 'sleep' | 'step' | 'activity' | 'weight' }[] = [
-        { title: 'Activity', value: 30, type: 'activity' },
-    ];
-
     return (
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <SleepCard />
