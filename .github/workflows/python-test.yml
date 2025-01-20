@@ -14,10 +14,8 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-          MYSQL_DATABASE: 'demo'
+          MYSQL_DATABASE: 'test_demo'
           TZ: 'Asia/Tokyo'
-        ports:
-          - 33307:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
@@ -53,7 +51,4 @@ jobs:
         USE_CREDENTIALS: ${{ secrets.USE_CREDENTIALS }}
         VALIDATE_CERTS: ${{ secrets.VALIDATE_CERTS }}
       run: |
-        echo "Running tests"
-        echo $PYTHONPATH
-        echo $DB_USERNAME
         pytest
