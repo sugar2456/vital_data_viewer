@@ -3,6 +3,7 @@ from src.repositories.interface.users_repository_interface import UsersRepositor
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
 from src.repositories.interface.get_devices_request_repository_interface import GetDevicesRequestRepositoryInterface
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
+from src.utilities.string_utility import convert_keys_to_snake_case
 
 class FitbitDevicesService:
     def __init__(
@@ -26,6 +27,6 @@ class FitbitDevicesService:
             refresh_token = user_token.refresh_token
             access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
         
-        devices = self.get_devices_request_repository.get_devices(access_token)
-        print(devices)
+        devicesCamel = self.get_devices_request_repository.get_devices(access_token)
+        devices = convert_keys_to_snake_case(devicesCamel)
         return devices
