@@ -1,31 +1,55 @@
 "use client";
 
+import React, { useEffect, useState } from 'react';
 import { FaFire } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
-import activityData from '@/app/ui/data/activities/activity_summary.json';
-export function CaloriesCard() {
-    const Icon = FaFire;
-    const caloriesInfo = activityData.activity;
-    return (
-        <Card title="運動量" icon={Icon}>
-            <MainInnerCard
-                caloriesOut={caloriesInfo.caloriesOut}
-                caloriesBMR={caloriesInfo.caloriesBMR}
-                steps={caloriesInfo.steps}
-                distance={caloriesInfo.distances[0].distance}
-                floors={caloriesInfo.floors}
-                elevation={caloriesInfo.elevation}
-            />
-            <SubInnerCard
-                title="活動量"
-                sedentaryMinutes={caloriesInfo.sedentaryMinutes}
-                lightlyActiveMinutes={caloriesInfo.lightlyActiveMinutes}
-                fairlyActiveMinutes={caloriesInfo.fairlyActiveMinutes}
-                veryActiveMinutes={caloriesInfo.veryActiveMinutes}
-            />
-        </Card>
-    );
+import { getRequest } from '@/app/lib/httpUtil';
+import { ActivityInfo } from '@/app/types/activity_info';
+
+export function ActivityCard() {
+  const Icon = FaFire;
+  const [caloriesInfo, setCaloriesInfo] = useState<ActivityInfo | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getRequest("http://localhost:8000/api/fitbit/activity/1/2024-12-02");
+        setCaloriesInfo(data.activity);
+      } catch (error) {
+        console.error('カロリー情報の取得に失敗しました:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (!caloriesInfo) {
+    return <div>Loading...</div>;
+  }
+
+  const totalDistance = Array.isArray(caloriesInfo.distances)
+    ? caloriesInfo.distances.filter((distance) => distance.activity === "total")[0]?.distance
+    : 0;
+  return (
+    <Card title="運動量" icon={Icon}>
+      <MainInnerCard
+        caloriesOut={caloriesInfo.caloriesOut}
+        caloriesBMR={caloriesInfo.caloriesBMR}
+        steps={caloriesInfo.steps}
+        distance={totalDistance}
+        floors={caloriesInfo.floors}
+        elevation={caloriesInfo.elevation}
+      />
+      <SubInnerCard
+        title="活動量"
+        sedentaryMinutes={caloriesInfo.sedentaryMinutes}
+        lightlyActiveMinutes={caloriesInfo.lightlyActiveMinutes}
+        fairlyActiveMinutes={caloriesInfo.fairlyActiveMinutes}
+        veryActiveMinutes={caloriesInfo.veryActiveMinutes}
+      />
+    </Card>
+  );
 }
 
 interface MainInnerCardProps {
