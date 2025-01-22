@@ -1,0 +1,16 @@
+{
+    "devices": [
+        {
+            "id": "2430690588",
+            "battery_level": "0",
+            "device_version": "MobileTrack",
+            "last_sync_time": "2025-01-22T12:35:03.000"
+        },
+        {
+            "id": "2703980549",
+            "battery_level": "63",
+            "device_version": "Google Pixel Watch 3",
+            "last_sync_time": "2025-01-22T12:34:32.000"
+        }
+    ]
+}
