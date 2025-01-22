@@ -3,6 +3,7 @@ import { SleepCard } from '../ui/dashboard/sleep_card';
 import StepsChart from '../ui/dashboard/step_graph';
 import { WeightCard } from '../ui/dashboard/weight_card';
 import { CaloriesCard } from '../ui/dashboard/calories_card';
+import { DevicesCard } from '../ui/dashboard/devices_card';
 
 export default function Page() {
     return (
@@ -10,6 +11,7 @@ export default function Page() {
             <SleepCard />
             <CaloriesCard />
             <WeightCard />
+            <DevicesCard />
             <div className="col-span-1 sm:col-span-2 lg:col-span-4">
                 <StepsChart />
             </div>
