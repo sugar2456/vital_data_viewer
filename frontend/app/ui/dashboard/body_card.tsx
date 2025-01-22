@@ -8,7 +8,7 @@ import { BodyInfo } from '@/app/types/body_info';
 import { getRequest } from '@/app/lib/httpUtil';
 import { Loading } from '../commons/loadings';
 
-export function WeightCard() {
+export function BodyCard() {
     const Icon = FaWeight;
     const [bodyInfo, setBodyInfo] = useState<BodyInfo | null>(null);
 
