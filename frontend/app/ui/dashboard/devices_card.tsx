@@ -1,22 +1,54 @@
 "use client";
 
+import React, { useEffect, useState } from 'react';
 import { FaMobileAlt } from "react-icons/fa";
 import { Card } from '@/app/ui/commons/card';
 import devicesData from '@/app/ui/data/devices/devices.json';
 import { lusitana } from '@/app/ui/fonts';
 import { formatDateTimeToSeconds } from "@/app/lib/timeUtil";
+import { getRequest } from '@/app/lib/httpUtil';
+import { Loading } from '../commons/loadings';
+import { DeviceInfo } from '@/app/types/device_info';
 
 export function DevicesCard() {
     const Icon = FaMobileAlt;
-    const devicesInfo = devicesData.devices;
+    const [devicesInfo, setDevicesInfo] = useState<DeviceInfo[] | null>(null);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await getRequest("http://localhost:8000/api/fitbit/devices/1");
+                const bindDevicesInfo: DeviceInfo[] = data.devices.map((device: any) => {
+                    return {
+                        id: device.id,
+                        batteryLevel: device.battery_level,
+                        deviceName: device.device_version,
+                        lastSyncTime: device.last_sync_time,
+                    };
+                });
+                setDevicesInfo(bindDevicesInfo);
+            } catch (error) {
+                console.error('デバイス情報の取得に失敗しました:', error);
+            }
+        }
+        fetchData();
+    }, []);
+
+    if (!devicesInfo) {
+        return (
+            <Card title="デバイス" icon={Icon}>
+                <Loading />
+            </Card>
+        );
+    }
     return (
         <Card title="デバイス" icon={Icon}>
             {devicesInfo.map((device, index) => (
                 <MainInnerCard
                     key={index}
-                    batteryLevel={device.battery_level}
-                    deviceName={device.device_version}
-                    lastSyncTime={formatDateTimeToSeconds(device.last_sync_time)}
+                    batteryLevel={device.batteryLevel}
+                    deviceName={device.deviceName}
+                    lastSyncTime={formatDateTimeToSeconds(device.lastSyncTime)}
                 />
             ))}
         </Card>
