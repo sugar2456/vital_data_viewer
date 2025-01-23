@@ -1,16 +1,43 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import heartRateData from '@/app/ui/data/heart_rate/heart_rate.json';
 import { ChartOptions } from 'chart.js';
 import { FaHeart } from 'react-icons/fa';
+import { HeartRateInfo } from '@/app/types/heart_rate_info';
+import { getRequest } from '@/app/lib/httpUtil';
+import { Card } from '../commons/card';
+import { Loading } from '../commons/loadings';
 
 Chart.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 const HeartRateChart: React.FC = () => {
+    const Icon = FaHeart;
+    const [heartRateData, setHeartRateData] = useState<HeartRateInfo | null>(null);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await getRequest("http://localhost:8000/api/fitbit/heart/1/2024-12-03/15");
+                setHeartRateData(data);
+            } catch (error) {
+                console.error('心拍数情報の取得に失敗しました:', error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    if (!heartRateData) {
+        return (
+            <Card title="1日の心拍数" icon={Icon}>
+                <Loading />
+            </Card>
+        );
+    }
     // データの整形
     const times = heartRateData.heart_rate_intraday.map((entry: { time: string }) => {
         return new Date(`1970-01-01T${entry.time}+09:00`);
@@ -50,7 +77,6 @@ const HeartRateChart: React.FC = () => {
         },
     };
 
-    const Icon = FaHeart;
     return (
         <div className="rounded-xl bg-gray-50 shadow-sm p-2">
             <div className="flex p-4">
