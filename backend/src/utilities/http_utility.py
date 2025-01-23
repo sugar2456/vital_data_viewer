@@ -18,22 +18,20 @@ class HttpUtility:
             requests.Response: レスポンス
         """
         try:
-            print(url)
-            print(headers)
             response = requests.get(url, headers=headers)
             response.raise_for_status() 
             return response
         except requests.exceptions.HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')  # HTTPエラー
+            print(f'HTTP errorが発生: {http_err}')  # HTTPエラー
             raise_http_exception(500, "Fitbit APIからデータを取得できませんでした")
         except requests.exceptions.ConnectionError as conn_err:
-            print(f'Connection error occurred: {conn_err}')  # 接続エラー
+            print(f'Connection errorが発生: {conn_err}')  # 接続エラー
             raise_http_exception(500, "Fitbit APIに接続できませんでした")
         except requests.exceptions.Timeout as timeout_err:
-            print(f'Timeout error occurred: {timeout_err}')  # タイムアウトエラー
+            print(f'Timeout errorが発生: {timeout_err}')  # タイムアウトエラー
             raise_http_exception(500, "Fitbit APIへのリクエストがタイムアウトしました")
         except requests.exceptions.RequestException as req_err:
-            print(f'An error occurred: {req_err}')  # その他のリクエストエラー
+            print(f'その他エラーが発生: {req_err}')  # その他のリクエストエラー
             raise_http_exception(500, "Fitbit APIからデータを取得できませんでした")
     
     @staticmethod
@@ -50,18 +48,18 @@ class HttpUtility:
         """
         try:
             response = requests.post(url, headers=headers, data=data)
-            response.raise_for_status()  # HTTPエラーが発生した場合に例外を発生させる
+            response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')  # HTTPエラー
+            print(f'HTTP errorが発生: {http_err}')  # HTTPエラー
             raise_http_exception(500, "Fitbit APIからデータを取得できませんでした")
         except requests.exceptions.ConnectionError as conn_err:
-            print(f'Connection error occurred: {conn_err}')  # 接続エラー
+            print(f'Connection errorが発生: {conn_err}')  # 接続エラー
             raise_http_exception(500, "Fitbit APIに接続できませんでした")
         except requests.exceptions.Timeout as timeout_err:
-            print(f'Timeout error occurred: {timeout_err}')  # タイムアウトエラー
+            print(f'Timeout errorが発生: {timeout_err}')  # タイムアウトエラー
             raise_http_exception(500, "Fitbit APIへのリクエストがタイムアウトしました")
         except requests.exceptions.RequestException as req_err:
-            print(f'An error occurred: {req_err}')  # その他のリクエストエラー
+            print(f'その他エラーが発生: {req_err}')  # その他のリクエストエラー
             raise_http_exception(500, "Fitbit APIからデータを取得できませんでした")
     

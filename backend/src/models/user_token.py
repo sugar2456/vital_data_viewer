@@ -55,5 +55,4 @@ class UserToken(Base):
         if self.updated_at.tzinfo is None:
             self.updated_at = self.updated_at.replace(tzinfo=timezone.utc)
         expiration_time = self.updated_at + timedelta(seconds=self.expires_in)
-        print(f"expiration_time: {expiration_time}")
         return datetime.now(timezone.utc) > expiration_time

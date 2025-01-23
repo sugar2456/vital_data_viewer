@@ -1,6 +1,5 @@
 from src.repositories.interface.get_sleep_request_repository_interface import GetSleepRequestRepositoryInterface
 from src.utilities.error_response_utility import raise_http_exception
-import requests
 
 class GetSleepRequestRepository(GetSleepRequestRepositoryInterface):
     def get_sleep(self, token: str, date: str) -> int:
