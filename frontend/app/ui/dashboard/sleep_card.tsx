@@ -1,46 +1,72 @@
 "use client";
-
+import React, { use, useEffect, useState } from 'react';
 import { FaMoon } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
+import { SleepInfo } from "@/app/types/sleep_info";
+import { getRequest } from '@/app/lib/httpUtil';
+import { Loading } from '../commons/loadings';
 
 export function SleepCard() {
     const Icon = FaMoon;
-    const sleepInfo = {
-        totalSleepTime: "8時間",
-        sleepCount: 1,
+    const [sleepInfo, setSleepInfo] = useState<SleepInfo | null>(null);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await getRequest("http://localhost:8000/api/fitbit/sleep/1/2024-12-15");
+                setSleepInfo(data);
+            } catch (error) {
+                console.error('睡眠情報の取得に失敗しました:', error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    if (!sleepInfo) {
+        return (
+            <Card title="睡眠" icon={Icon}>
+                <Loading />
+            </Card>
+        );
+    }
+    const sleepMainInfo = {
+        totalSleepTime: sleepInfo.totalMinutesAsleep,
+        sleepCount: sleepInfo.totalSleepRecords,
     };
-    const sleepStage = ["深い睡眠：2時間", "浅い睡眠：2時間", "レム睡眠：2時間", "覚醒状態：2時間"];
+    const stage = sleepInfo.stages;
+    const sleepStage = [`深い睡眠：${stage.deep}分`, `浅い睡眠：${stage.light}分`, `レム睡眠：${stage.rem}分`, `覚醒状態：${stage.wake}分`];
 
     return (
         <Card title="睡眠" icon={Icon}>
-            <MainInnerCard totalSleepTime={sleepInfo.totalSleepTime} sleepCount={sleepInfo.sleepCount} />
+            <MainInnerCard totalSleepTime={sleepMainInfo.totalSleepTime} sleepCount={sleepMainInfo.sleepCount} />
             <SubInnerCard title="睡眠ステージ" sleepList={sleepStage} />
         </Card>
     );
 }
 
 interface MainInnerCardProps {
-    totalSleepTime: string;
+    totalSleepTime: number;
     sleepCount: number;
 }
 
 const MainInnerCard: React.FC<MainInnerCardProps> = ({ totalSleepTime, sleepCount }) => {
     return (
         <div className="rounded-xl bg-white px-4 py-4 shadow-sm">
-        <p
-            className={`${lusitana.className}
+            <p
+                className={`${lusitana.className}
         truncate text-2xl pb-2`}
-        >
-            トータル睡眠時間：{totalSleepTime}
-        </p>
-        <p
-            className={`${lusitana.className}
+            >
+                トータル睡眠時間：{totalSleepTime} 分
+            </p>
+            <p
+                className={`${lusitana.className}
         truncate text-2xl`}
-        >
-            本日の睡眠回数：{sleepCount}
-        </p>
-    </div>
+            >
+                本日の睡眠回数：{sleepCount} 回
+            </p>
+        </div>
     );
 }
 
