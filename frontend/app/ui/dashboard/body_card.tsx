@@ -7,15 +7,16 @@ import { Card } from '@/app/ui/commons/card';
 import { BodyInfo } from '@/app/types/body_info';
 import { getRequest } from '@/app/lib/httpUtil';
 import { Loading } from '../commons/loadings';
+import { useDateStore } from '@/app/store/viewStore';
 
 export function BodyCard() {
     const Icon = FaWeight;
     const [bodyInfo, setBodyInfo] = useState<BodyInfo | null>(null);
-
+    const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest("http://localhost:8000/api/fitbit/weight/1/2024-12-15");
+                const data = await getRequest(`http://localhost:8000/api/fitbit/weight/1/${date}`);
                 setBodyInfo(data);
             } catch (error) {
                 console.error('体重情報の取得に失敗しました:', error);

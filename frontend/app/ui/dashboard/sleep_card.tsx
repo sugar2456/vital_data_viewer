@@ -6,15 +6,16 @@ import { Card } from '@/app/ui/commons/card';
 import { SleepInfo } from "@/app/types/sleep_info";
 import { getRequest } from '@/app/lib/httpUtil';
 import { Loading } from '../commons/loadings';
+import { useDateStore } from '@/app/store/viewStore';
 
 export function SleepCard() {
     const Icon = FaMoon;
     const [sleepInfo, setSleepInfo] = useState<SleepInfo | null>(null);
-
+    const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest("http://localhost:8000/api/fitbit/sleep/1/2024-12-15");
+                const data = await getRequest(`http://localhost:8000/api/fitbit/sleep/1/${date}`);
                 setSleepInfo(data);
             } catch (error) {
                 console.error('睡眠情報の取得に失敗しました:', error);
