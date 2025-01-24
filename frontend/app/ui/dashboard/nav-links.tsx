@@ -8,6 +8,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import Calendar from '../commons/calendar';
 
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
@@ -42,6 +43,9 @@ export default function NavLinks() {
           </Link>
         );
       })}
+      <div className='hidden md:block h-auto w-full'>
+        <Calendar />
+      </div>
     </>
   );
 }
