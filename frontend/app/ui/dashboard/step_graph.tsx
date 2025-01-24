@@ -3,24 +3,24 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import stepsData from '@/app/ui/data/step/steps_intraday.json';
 import { ChartOptions } from 'chart.js';
 import { FaWalking } from 'react-icons/fa';
 import { StepInfo } from '@/app/types/step_info';
 import { getRequest } from '@/app/lib/httpUtil';
 import { Card } from '../commons/card';
 import { Loading } from '../commons/loadings';
+import { useDateStore } from '@/app/store/viewStore';
 
 Chart.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 const StepsChart: React.FC = () => {
     const Icon = FaWalking;
     const [stepsData, setStepsData] =useState<StepInfo | null>(null);
-
+    const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest("http://localhost:8000/api/fitbit/steps/intraday/1/2024-12-02/15");
+                const data = await getRequest(`http://localhost:8000/api/fitbit/steps/intraday/1/${date}/15`);
                 setStepsData(data);
             } catch (error) {
                 console.error('歩数情報の取得に失敗しました:', error);
@@ -39,7 +39,7 @@ const StepsChart: React.FC = () => {
     }
     // データの整形
     const times = stepsData.steps_intraday.map((entry: { time: string }) => {
-        return new Date(`1970-01-01T${entry.time}+09:00`);
+        return new Date(`${date}T${entry.time}+09:00`);
     });
     const values = stepsData.steps_intraday.map((entry: { value: number }) => entry.value);
 
@@ -69,6 +69,8 @@ const StepsChart: React.FC = () => {
                         hour: 'HH:mm',
                     },
                 },
+                min: new Date(`${date}T00:00:00`).getTime(),
+                max: new Date(`${date}T23:59:59`).getTime(),
             },
             y: {
                 beginAtZero: true,
