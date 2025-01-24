@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime, timedelta
 from src.utilities.error_response_utility import raise_http_exception
 
 class HttpUtility:
@@ -23,6 +24,12 @@ class HttpUtility:
             return response
         except requests.exceptions.HTTPError as http_err:
             print(f'HTTP errorが発生: {http_err}')  # HTTPエラー
+            if response.status_code == 429:
+                now = datetime.now()
+                reset_seconds = int(response.headers.get('Fitbit-Rate-Limit-Reset', 3600))
+                reset_time = now + timedelta(seconds=reset_seconds)
+                
+                raise_http_exception(429, f"Fitbit API制限に達しました　リセット時間: {reset_time.strftime('%Y-%m-%d %H:%M:%S')}")
             raise_http_exception(500, "Fitbit APIからデータを取得できませんでした")
         except requests.exceptions.ConnectionError as conn_err:
             print(f'Connection errorが発生: {conn_err}')  # 接続エラー
@@ -52,6 +59,12 @@ class HttpUtility:
             return response
         except requests.exceptions.HTTPError as http_err:
             print(f'HTTP errorが発生: {http_err}')  # HTTPエラー
+            if response.status_code == 429:
+                now = datetime.now()
+                reset_seconds = int(response.headers.get('Fitbit-Rate-Limit-Reset', 3600))
+                reset_time = now + timedelta(seconds=reset_seconds)
+                
+                raise_http_exception(429, f"Fitbit API制限に達しました　リセット時間: {reset_time.strftime('%Y-%m-%d %H:%M:%S')}")
             raise_http_exception(500, "Fitbit APIからデータを取得できませんでした")
         except requests.exceptions.ConnectionError as conn_err:
             print(f'Connection errorが発生: {conn_err}')  # 接続エラー
