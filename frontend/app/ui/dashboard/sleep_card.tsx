@@ -23,7 +23,7 @@ export function SleepCard() {
         }
 
         fetchData();
-    }, []);
+    }, [date]);
 
     if (!sleepInfo) {
         return (

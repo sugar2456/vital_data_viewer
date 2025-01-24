@@ -24,7 +24,7 @@ export function BodyCard() {
         }
 
         fetchData();
-    }, []);
+    }, [date]);
 
     if (!bodyInfo) {
         return (
