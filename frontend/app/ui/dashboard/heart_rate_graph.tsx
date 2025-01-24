@@ -30,7 +30,7 @@ const HeartRateChart: React.FC = () => {
         }
 
         fetchData();
-    }, []);
+    }, [date]);
 
     if (!heartRateData) {
         return (

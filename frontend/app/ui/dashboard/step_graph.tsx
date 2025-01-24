@@ -28,7 +28,7 @@ const StepsChart: React.FC = () => {
         }
 
         fetchData();
-    }, []);
+    }, [date]);
 
     if (!stepsData) {
         return (

@@ -24,7 +24,7 @@ export function ActivityCard() {
         }
 
         fetchData();
-    }, []);
+    }, [date]);
 
     if (!caloriesInfo) {
         return (
