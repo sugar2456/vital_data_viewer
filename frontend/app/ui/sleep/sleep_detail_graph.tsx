@@ -107,9 +107,19 @@ export function SleepDetailGraph() {
                         const labels = ['deep', 'light', 'rem', 'wake'];
                         return labels[tickValue as number];
                     }
-                }
+                },
             },
         },
+        plugins: {
+            tooltip: {
+                callbacks:{
+                    label: function(context: any) {
+                        const labels = ['deep', 'light', 'rem', 'wake'];
+                        return labels[context.parsed.y as number];
+                    }
+                }
+            }
+        }
     };
 
     return (
