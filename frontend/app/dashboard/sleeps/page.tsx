@@ -1,3 +1,5 @@
+import { SleepDetailGraph } from "@/app/ui/sleep/sleep_detail_graph";
+
 export default function Page() {
-    return <p>sleep page</p>;
+    return <SleepDetailGraph />;
 }
