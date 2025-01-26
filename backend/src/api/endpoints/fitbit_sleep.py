@@ -40,4 +40,5 @@ async def fitbit_sleep_detail(
         sleep_request_repository=get_sleep_request_repository
     )
     data = service.get_sleep_detail_data(user_id, date)
+    print(data)
     return FitbitSleepDetailResponse(sleep=data)
