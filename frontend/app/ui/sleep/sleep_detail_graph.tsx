@@ -37,7 +37,7 @@ export function SleepDetailGraph() {
         fetchData();
     }, [date]);
 
-    const sleep_level_defines = ['deep', 'light', 'rem', 'wake'];
+    const sleep_level_defines = ['deep', 'light', 'rem', 'wake', 'asleep', 'restless', 'awake'];
     let count = sleepInfo ? sleepInfo.length : 0;
     const sleepGraphBorderColors: { [key: number]: string } = {
         1: 'rgba(75,192,192,0.4)',
@@ -104,8 +104,8 @@ export function SleepDetailGraph() {
                 beginAtZero: true,
                 ticks: {
                     callback: function(tickValue: string | number) {
-                        const labels = ['deep', 'light', 'rem', 'wake'];
-                        return labels[tickValue as number];
+                        const labels =['deep', 'light', 'rem', 'wake', 'awake', 'restless', 'asleep'];
+                        return sleep_level_defines[tickValue as number];
                     }
                 },
             },
@@ -114,8 +114,8 @@ export function SleepDetailGraph() {
             tooltip: {
                 callbacks:{
                     label: function(context: any) {
-                        const labels = ['deep', 'light', 'rem', 'wake'];
-                        return labels[context.parsed.y as number];
+                        const labels = ['deep', 'light', 'rem', 'wake', 'awake', 'restless', 'asleep'];
+                        return sleep_level_defines[context.parsed.y as number];
                     }
                 }
             }

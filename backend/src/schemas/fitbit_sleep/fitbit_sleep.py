@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Optional, Union
 
 class FitbitSleepRequest(BaseModel):
     """Fitbitの睡眠取得リクエストモデル
@@ -54,7 +54,11 @@ class SleepLevelData(BaseModel):
 class SleepSummaryDetail(BaseModel):
     count: int
     minutes: int
-    thirtyDayAvgMinutes: int
+    thirtyDayAvgMinutes: Optional[int] = None
+
+class SleepSummaryClassicDetail(BaseModel):
+    count: int
+    minutes: int
 
 class SleepStageSummary(BaseModel):
     deep: SleepSummaryDetail
@@ -62,10 +66,16 @@ class SleepStageSummary(BaseModel):
     rem: SleepSummaryDetail
     wake: SleepSummaryDetail
 
+class SleepStageSummaryClassic(BaseModel):
+    restless: SleepSummaryClassicDetail
+    asleep: SleepSummaryClassicDetail
+    awake: SleepSummaryClassicDetail
+
 class SleepLevels(BaseModel):
     data: List[SleepLevelData]
-    shortData: List[SleepLevelData]
-    summary: SleepStageSummary
+    shortData: Optional[List[SleepLevelData]] = []
+    summary: Union[SleepStageSummary, SleepStageSummaryClassic]
+
 
 class SleepRecord(BaseModel):
     dateOfSleep: str
