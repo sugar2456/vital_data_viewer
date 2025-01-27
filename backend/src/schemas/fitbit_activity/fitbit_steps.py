@@ -79,3 +79,14 @@ class FitbitCaloriesIntradayResponse(BaseModel):
         BaseModel (_type_): pydanticのBaseModelを継承
     """
     calories_intraday: List
+
+class FitbitCaloriesAndStepsIntradayResponse(BaseModel):
+    """Fitbitの消費カロリーと歩数取得レスポンスモデル(詳細)
+
+    Args:
+        BaseModel (_type_): pydanticのBaseModelを継承
+    """
+    calories_intraday: List
+    step_intraday: List
+    distance_intraday: List
+    heart_rate_intraday: List
