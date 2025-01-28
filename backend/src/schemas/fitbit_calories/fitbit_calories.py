@@ -7,4 +7,6 @@ class FitbitCaloriesPeriodResponse(BaseModel):
     Args:
         BaseModel (_type_): pydanticのBaseModelを継承
     """
-    calories_period: List
+    consumed_calories_period: List
+    intaked_calories_period: List
+    
