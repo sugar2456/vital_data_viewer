@@ -37,7 +37,10 @@ async def fitbit_calories_period(
         get_food_request_repository=food_request_repository
     )
     intaked_calories_period = food_service.get_food_period(user_id, start_date, end_date)
+    total_calories_period = food_service.get_total_calories(consumed_calories_period, intaked_calories_period)
+
     return FitbitCaloriesPeriodResponse(
         consumed_calories_period=consumed_calories_period,
-        intaked_calories_period=intaked_calories_period
+        intaked_calories_period=intaked_calories_period,
+        total_calories_period=total_calories_period
     )

@@ -4,6 +4,7 @@ from src.repositories.interface.user_token_repository_interface import UserToken
 from src.repositories.interface.get_food_request_repository import GetFoodRequestRepositoryInterface
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.utilities.string_utility import convert_keys_to_snake_case
+from typing import List, Dict
 
 class FitbitFoodService:
     def __init__(
@@ -56,3 +57,13 @@ class FitbitFoodService:
         
         food_period = self.get_food_request_repository.get_food_period(access_token, start_date, end_date)
         return food_period["foods-log-caloriesIn"]
+    
+    def get_total_calories(self, consumed_calories_period: List[Dict[str, int]], intaked_calories_period: List[Dict[str, int]]) -> List[Dict[str, int]]:
+        total_calories_period = [
+            {
+                "dateTime": consumed["dateTime"],
+                "value": int(intaked["value"]) - int(consumed["value"])
+            }
+            for consumed, intaked in zip(consumed_calories_period, intaked_calories_period)
+        ]
+        return total_calories_period
