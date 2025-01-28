@@ -1,4 +1,4 @@
-from src.repositories.interface.get_step_request_repository_interface import GetActivityRequestRepositoryInterface
+from repositories.interface.get_activity_request_repository_interface import GetActivityRequestRepositoryInterface
 from src.utilities.http_utility import HttpUtility
 from src.utilities.error_response_utility import raise_http_exception
 from src.utilities.file_utility import FileUtility
@@ -15,3 +15,11 @@ class GetActivityRequestRepository(GetActivityRequestRepositoryInterface):
         elif resource == "calories":
             intraday = FileUtility.load_json("src/repositories/mock/data/calories-intraday.json")
         return intraday
+    
+    def get_activity_period(self, token, resource, start_date, end_date):
+        period = None
+        # if resource == "steps":
+        #     period = FileUtility.load_json("src/repositories/mock/data/steps-period.json")
+        if resource == "calories":
+            period = FileUtility.load_json("src/repositories/mock/data/calories-period.json")
+        return period

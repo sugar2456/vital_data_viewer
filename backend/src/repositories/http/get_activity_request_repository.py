@@ -1,4 +1,4 @@
-from src.repositories.interface.get_step_request_repository_interface import GetActivityRequestRepositoryInterface
+from repositories.interface.get_activity_request_repository_interface import GetActivityRequestRepositoryInterface
 from src.utilities.http_utility import HttpUtility
 from src.utilities.error_response_utility import raise_http_exception
 
@@ -29,6 +29,15 @@ class GetActivityRequestRepository(GetActivityRequestRepositoryInterface):
             raise_http_exception(500, "歩数が取得できませんでした")
         
         url = f"https://api.fitbit.com/1/user/-/activities/{resource}/date/{date}/1d/{detail_level_str}.json"
+        response = HttpUtility.get(url, headers)
+        response_json = response.json()
+        return response_json
+    
+    def get_activity_period(self, token: str, resource: str, start_date: str, end_date: str):
+        headers = {
+            "Authorization": f"Bearer {token}"
+        }
+        url = f"https://api.fitbit.com/1/user/-/activities/{resource}/date/{start_date}/{end_date}.json"
         response = HttpUtility.get(url, headers)
         response_json = response.json()
         return response_json
