@@ -7,6 +7,7 @@ from src.repositories.http.get_sleep_request_repository import GetSleepRequestRe
 from src.repositories.http.get_heart_rate_request_repository import GetHeartRateRequestRepository
 from src.repositories.http.get_body_request_repository import GetBodyRequestRepository
 from src.repositories.http.get_devices_request_repository import GetDevicesRequestRepository
+from src.repositories.http.get_food_request_repository import GetFoodRequestRepository
 from src.db.session import get_db
 from fastapi import Depends
 
@@ -33,3 +34,6 @@ def get_weight_request_repository() -> GetBodyRequestRepository:
 
 def get_devices_request_repository() -> GetDevicesRequestRepository:
     return GetDevicesRequestRepository()
+
+def get_food_request_repository() -> GetFoodRequestRepository:
+    return GetFoodRequestRepository()
