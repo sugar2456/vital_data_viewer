@@ -97,7 +97,7 @@ export function CaloriesDetailGraph() {
             {
                 type: 'bar' as const,
                 label: '摂取カロリー',
-                data: consumedCalories?.map((entry: Dataset) => {
+                data: intakedCalories?.map((entry: Dataset) => {
                     return {
                         x: new Date(`${entry.dateTime}`).getTime(),
                         y: +entry.value,
@@ -111,7 +111,7 @@ export function CaloriesDetailGraph() {
             {
                 type: 'bar' as const,
                 label: '消費カロリー',
-                data: intakedCalories?.map((entry: Dataset) => {
+                data: consumedCalories?.map((entry: Dataset) => {
                     return {
                         x: new Date(`${entry.dateTime}`).getTime(),
                         y: +entry.value,
