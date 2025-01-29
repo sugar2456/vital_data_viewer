@@ -19,6 +19,7 @@ const links = [
     href: '/dashboard/activity',
     icon: FireIcon,
   },
+  { name: 'Calories', href: '/dashboard/calories', icon: FireIcon },
   { name: 'Users', href: '/dashboard/users', icon: UserGroupIcon },
 ];
 

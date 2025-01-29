@@ -164,7 +164,7 @@ export function ActivityDetailGraph() {
         <div className="rounded-xl bg-gray-50 shadow-sm p-2" style={{ height: '90vh' }}>
             <div className="flex p-4">
                 {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
-                <h3 className="ml-2 text-sm font-medium">睡眠情報</h3>
+                <h3 className="ml-2 text-sm font-medium">活動情報</h3>
             </div>
             <div className="h-full bg-white" style={{ height: 'calc(90vh - 4rem)' }}>
                 <ChartJS type='bar' data={data} options={options} />

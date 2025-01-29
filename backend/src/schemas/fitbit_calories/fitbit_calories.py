@@ -9,4 +9,5 @@ class FitbitCaloriesPeriodResponse(BaseModel):
     """
     consumed_calories_period: List
     intaked_calories_period: List
+    total_calories_period: List
     
