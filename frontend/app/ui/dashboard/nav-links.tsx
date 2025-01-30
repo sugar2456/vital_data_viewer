@@ -5,6 +5,7 @@ import {
   DocumentDuplicateIcon,
   MoonIcon,
   FireIcon,
+  CakeIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -20,6 +21,7 @@ const links = [
     icon: FireIcon,
   },
   { name: 'Calories', href: '/dashboard/calories', icon: FireIcon },
+  { name: 'Foods', href: '/dashboard/foods', icon: CakeIcon },
   { name: 'Users', href: '/dashboard/users', icon: UserGroupIcon },
 ];
 

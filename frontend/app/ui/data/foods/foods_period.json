@@ -1,0 +1,778 @@
+{
+    "foods_period": [
+        {
+            "date": "2024-12-02",
+            "foods": [
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-02",
+                    "logId": 35370743535,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 340,
+                        "brand": "",
+                        "calories": 398,
+                        "foodId": 19285604,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "五目あんかけ焼そば(1袋)(マルハニチロ食品)",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-02",
+                    "logId": 35366575831,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 2,
+                        "brand": "",
+                        "calories": 412,
+                        "foodId": 19262047,
+                        "locale": "ja_JP",
+                        "mealTypeId": 3,
+                        "name": "あら汁",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-02",
+                    "logId": 35376597555,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 400,
+                        "foodId": 21866146,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "カロリーメイト メープル味(1箱4本)(大塚製薬)",
+                        "unit": {
+                            "id": 29,
+                            "name": "箱",
+                            "plural": "箱"
+                        },
+                        "units": [
+                            29
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-02",
+                    "logId": 35375928255,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 3,
+                        "brand": "",
+                        "calories": 150,
+                        "foodId": 19302421,
+                        "locale": "ja_JP",
+                        "mealTypeId": 6,
+                        "name": "チョコレート菓子",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "date": "2024-12-03",
+            "foods": [
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-03",
+                    "logId": 35379318635,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 340,
+                        "brand": "",
+                        "calories": 398,
+                        "foodId": 19285604,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "五目あんかけ焼そば(1袋)(マルハニチロ食品)",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-03",
+                    "logId": 35379820578,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 949,
+                        "foodId": 19272396,
+                        "locale": "ja_JP",
+                        "mealTypeId": 3,
+                        "name": "カツ丼",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-03",
+                    "logId": 35378827106,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 3,
+                        "brand": "",
+                        "calories": 231,
+                        "foodId": 19321382,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "ぶどう/生",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-03",
+                    "logId": 35376149722,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 3,
+                        "brand": "",
+                        "calories": 462,
+                        "foodId": 754020165,
+                        "locale": "ja_JP",
+                        "mealTypeId": 6,
+                        "name": "さつまいも",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "date": "2024-12-04",
+            "foods": [
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35386796196,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 170,
+                        "brand": "",
+                        "calories": 281,
+                        "foodId": 19281945,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "玄米ご飯",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35387868948,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 128,
+                        "foodId": 751245705,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "お母さん食堂 グリルチキン アヒージョ風(ファミリーマート)",
+                        "unit": {
+                            "id": 11,
+                            "name": "袋",
+                            "plural": "袋"
+                        },
+                        "units": [
+                            11
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35388183856,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 100,
+                        "brand": "",
+                        "calories": 325,
+                        "foodId": 19290061,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "シャウエッセン(100g)(日本ハム)",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35390063815,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 213,
+                        "foodId": 768040655,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "卵焼き(塚田農場)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35387544101,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 527,
+                        "foodId": 19323915,
+                        "locale": "ja_JP",
+                        "mealTypeId": 3,
+                        "name": "ペペロンチーノ(サイゼリヤ)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35389758616,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 200,
+                        "brand": "",
+                        "calories": 330,
+                        "foodId": 19281945,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "玄米ご飯",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35390260608,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 100,
+                        "brand": "",
+                        "calories": 44,
+                        "foodId": 19303872,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "低脂肪ヨーグルト プレーン(1人前100g)(メイトー)",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35390978929,
+                    "loggedFood": {
+                        "accessLevel": "PRIVATE",
+                        "amount": 160,
+                        "brand": "",
+                        "calories": 204,
+                        "creatorEncodedId": "BCV5YM",
+                        "foodId": 820364689,
+                        "mealTypeId": 5,
+                        "name": "鮭の切り身",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    },
+                    "nutritionalValues": {
+                        "calories": 204,
+                        "carbs": 0,
+                        "fat": 0,
+                        "fiber": 0,
+                        "protein": 0,
+                        "sodium": 0
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-04",
+                    "logId": 35388341316,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 25,
+                        "brand": "",
+                        "calories": 140,
+                        "foodId": 19302496,
+                        "locale": "ja_JP",
+                        "mealTypeId": 6,
+                        "name": "チョコレート",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "date": "2024-12-05",
+            "foods": [
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-05",
+                    "logId": 35386643713,
+                    "loggedFood": {
+                        "accessLevel": "PRIVATE",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 250,
+                        "creatorEncodedId": "BCV5YM",
+                        "foodId": 804604377,
+                        "mealTypeId": 1,
+                        "name": "レトルトカレー",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    },
+                    "nutritionalValues": {
+                        "calories": 250,
+                        "carbs": 0,
+                        "fat": 0,
+                        "fiber": 0,
+                        "protein": 0,
+                        "sodium": 0
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-05",
+                    "logId": 35386801073,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 200,
+                        "brand": "",
+                        "calories": 330,
+                        "foodId": 19281945,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "玄米ご飯",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-05",
+                    "logId": 35386682965,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 822,
+                        "foodId": 21865673,
+                        "locale": "ja_JP",
+                        "mealTypeId": 3,
+                        "name": "キムカル丼(みそ汁付)(並盛)(松屋)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-05",
+                    "logId": 35390560475,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 2,
+                        "brand": "",
+                        "calories": 914,
+                        "foodId": 19299516,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "ダブルチーズバーガー(マクドナルド)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "date": "2024-12-06",
+            "foods": []
+        },
+        {
+            "date": "2024-12-07",
+            "foods": []
+        },
+        {
+            "date": "2024-12-08",
+            "foods": [
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-08",
+                    "logId": 35404436343,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "test",
+                        "calories": 627,
+                        "foodId": 21862147,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "カレーライス(並)(すき家)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-08",
+                    "logId": 35399066787,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 258,
+                        "foodId": 19322742,
+                        "locale": "ja_JP",
+                        "mealTypeId": 3,
+                        "name": "プリンパフェ(ガスト)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-08",
+                    "logId": 35399962365,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 81,
+                        "foodId": 21887342,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "あら汁(俺のやきとり)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-08",
+                    "logId": 35400228084,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1.5,
+                        "brand": "",
+                        "calories": 462,
+                        "foodId": 717020382,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "さつまいも/塊根皮つき、蒸し",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "date": "2024-12-09",
+            "foods": [
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-09",
+                    "logId": 35404922684,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 206,
+                        "foodId": 19262047,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "あら汁",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-09",
+                    "logId": 35409239027,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 213,
+                        "foodId": 768040655,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "卵焼き(塚田農場)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-09",
+                    "logId": 35409288216,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 100,
+                        "brand": "",
+                        "calories": 325,
+                        "foodId": 19290061,
+                        "locale": "ja_JP",
+                        "mealTypeId": 1,
+                        "name": "シャウエッセン(100g)(日本ハム)",
+                        "unit": {
+                            "id": 147,
+                            "name": "グラム",
+                            "plural": "グラム"
+                        },
+                        "units": [
+                            226,
+                            180,
+                            147,
+                            389
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-09",
+                    "logId": 35406476888,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 1,
+                        "brand": "",
+                        "calories": 519,
+                        "foodId": 19267886,
+                        "locale": "ja_JP",
+                        "mealTypeId": 3,
+                        "name": "大盛りペペロンチーノ",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                },
+                {
+                    "isFavorite": false,
+                    "logDate": "2024-12-09",
+                    "logId": 35410242842,
+                    "loggedFood": {
+                        "accessLevel": "PUBLIC",
+                        "amount": 2,
+                        "brand": "",
+                        "calories": 914,
+                        "foodId": 19299516,
+                        "locale": "ja_JP",
+                        "mealTypeId": 5,
+                        "name": "ダブルチーズバーガー(マクドナルド)",
+                        "unit": {
+                            "id": 304,
+                            "name": "食分",
+                            "plural": "食分"
+                        },
+                        "units": [
+                            304
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
