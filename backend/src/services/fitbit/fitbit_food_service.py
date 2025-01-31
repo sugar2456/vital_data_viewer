@@ -56,6 +56,25 @@ class FitbitFoodService:
             access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
         
         food_period = self.get_food_request_repository.get_food_period(access_token, start_date, end_date)
+        return food_period
+    
+    def get_food_calories_period(self, user_id: int, start_date: str, end_date: str):
+        """食事情報を取得
+
+        Args:
+            user_id (int): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        user_token = self.user_token_repository.get_user_token(user_id)
+        access_token = user_token.access_token
+        if user_token.is_expired:
+            fitbit_auth_service = FitbitAuthService(None, None, self.user_repository, self.user_token_repository)
+            refresh_token = user_token.refresh_token
+            access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
+        
+        food_period = self.get_food_request_repository.get_food_caloires_period(access_token, start_date, end_date)
         return food_period["foods-log-caloriesIn"]
     
     def get_total_calories(self, consumed_calories_period: List[Dict[str, int]], intaked_calories_period: List[Dict[str, int]]) -> List[Dict[str, int]]:
@@ -67,3 +86,22 @@ class FitbitFoodService:
             for consumed, intaked in zip(consumed_calories_period, intaked_calories_period)
         ]
         return total_calories_period
+    
+    def get_food_detail(self, user_id: int, food_id: str):
+        """食事情報を取得
+
+        Args:
+            user_id (int): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        user_token = self.user_token_repository.get_user_token(user_id)
+        access_token = user_token.access_token
+        if user_token.is_expired:
+            fitbit_auth_service = FitbitAuthService(None, None, self.user_repository, self.user_token_repository)
+            refresh_token = user_token.refresh_token
+            access_token = fitbit_auth_service.refresh_access_token(refresh_token=refresh_token, client_id=self.cliend_id, client_secret=self.client_secret)
+        
+        food = self.get_food_request_repository.get_food_detail(access_token, food_id)
+        return food
