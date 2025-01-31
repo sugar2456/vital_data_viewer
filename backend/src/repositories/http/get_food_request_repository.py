@@ -54,3 +54,20 @@ class GetFoodRequestRepository(GetFoodRequestRepositoryInterface):
             raise_http_exception(500, "摂取食糧情報が取得できませんでした")
         
         return response.json()
+    
+    def get_food_detail(self, token, food_id):
+        headers = {
+            "Authorization": f"Bearer {token}"
+        }
+        
+        url = f"https://api.fitbit.com/1/foods/{food_id}.json"
+        
+        response = HttpUtility.get(url, headers)
+        if response.status_code != 200:
+            raise_http_exception(500, "通信に失敗しました")
+        
+        if not response.json():
+            raise_http_exception(500, "摂取食糧情報が取得できませんでした")
+        
+        return response.json()
+        

@@ -50,3 +50,23 @@ async def fitbit_food_period(
     return FitbitFoodPeriodResponse(
         foods_period=foods_period
     )
+
+@router.get("/fitbit/foods/{user_id}/{food_id}", response_model=FitbitFoodResponse)
+async def fitbit_food_detail(
+    user_id: int,
+    food_id: str,
+    user_repository: UsersRepositoryInterface = Depends(get_user_repository),
+    user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
+    food_request_repository: GetFoodRequestRepositoryInterface = Depends(get_food_request_repository)
+) -> FitbitFoodResponse:
+    
+    food_service = FitbitFoodService(
+        settings=settings,
+        user_repository=user_repository,
+        user_token_repository=user_token_repository,
+        get_food_request_repository=food_request_repository
+    )
+    foods = food_service.get_food_detail(user_id=user_id, food_id=food_id)
+    return FitbitFoodResponse(
+        foods=foods['foods']
+    )

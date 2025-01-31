@@ -41,3 +41,16 @@ class GetFoodRequestRepositoryInterface(ABC):
             dict: _description_
         """
         pass
+    
+    @abstractmethod
+    def get_food_detail(self, token: str, food_id: str) -> dict:
+        """食事情報を取得
+
+        Args:
+            token (str): アクセストークン
+            food_id (str): 食事ID
+
+        Returns:
+            dict: _description_
+        """
+        pass
