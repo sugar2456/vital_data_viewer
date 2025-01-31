@@ -22,7 +22,7 @@ class UserRepository(UsersRepositoryInterface):
         return self.db.query(User).filter(User.fitbit_user_id == fitbit_user_id).first()
 
     def get_users(self) -> List[User]:
-        pass
+        return self.db.query(User).all()
 
     def create_user(self, user: User) -> User:
         """userを作成
