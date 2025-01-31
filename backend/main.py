@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.api.endpoints import fitbit_activity, fitbit_auth, fitbit_heart_rate, fitbit_calories, fitbit_food, fitbit_sleep, fitbit_weight, fitbit_devices
+from src.api.endpoints import fitbit_activity, fitbit_auth, fitbit_heart_rate, fitbit_calories, fitbit_food, fitbit_sleep, fitbit_weight, fitbit_devices, users
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -12,6 +12,7 @@ app.include_router(fitbit_food.router, prefix="/api", tags=["fitbit_food"])
 app.include_router(fitbit_sleep.router, prefix="/api", tags=["fitbit_sleep"])
 app.include_router(fitbit_weight.router, prefix="/api", tags=["fitbit_weight"])
 app.include_router(fitbit_devices.router, prefix="/api", tags=["fitbit_devices"])
+app.include_router(users.router, prefix="/api", tags=["users"])
 
 origins = [
     "http://localhost:3001",

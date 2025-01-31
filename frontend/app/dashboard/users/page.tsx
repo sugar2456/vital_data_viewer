@@ -1,3 +1,4 @@
+import UsersList from "@/app/ui/users/users_list";
 export default function Page() {
-    return <p>users page</p>;
+    return <UsersList />;
 }

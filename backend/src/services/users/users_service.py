@@ -1,6 +1,6 @@
 from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
 from src.models.user import User
-
+from src.schemas.users import UsersResponse, User as SchemasUser
 class UsersService:
     """ユーザーサービスクラス
     """
@@ -29,4 +29,23 @@ class UsersService:
             return self.users_repository.create_user(user).id
         except Exception as e:
             print(f"usersテーブル登録時エラー error: {e}")
-            raise e 
+            raise e
+    
+    def get_users(self) -> list:
+        """ユーザー一覧を取得
+
+        Returns:
+            list: ユーザー一覧
+        """
+        users_data = self.users_repository.get_users()
+        users = []
+        for user_data in users_data:
+            user = SchemasUser(
+                id=user_data.id,
+                name=user_data.name,
+                email=user_data.email,
+                created_at=user_data.created_at.isoformat(),
+                updated_at=user_data.updated_at.isoformat()
+            )
+            users.append(user)
+        return users

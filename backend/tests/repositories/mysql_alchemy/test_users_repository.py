@@ -56,3 +56,38 @@ def test_delete_user(user_repository):
     assert result is True
     deleted_user = user_repository.get_user(created_user.id)
     assert deleted_user is None
+
+def test_get_users(user_repository):
+    new_user1 = User(
+        name="test",
+        email="test1@test.com",
+        hashed_password="test",
+        fitbit_user_id="test1"
+    )
+    new_user2 = User(
+        name="test",
+        email="test2@test.com",
+        hashed_password="test",
+        fitbit_user_id="test2"
+    )
+    new_user3 = User(
+        name="test",
+        email="test3@test.com",
+        hashed_password="test",
+        fitbit_user_id="test3"
+    )
+    user_repository.create_user(new_user1)
+    user_repository.create_user(new_user2)
+    user_repository.create_user(new_user3)
+    
+    users = user_repository.get_users()
+    
+    assert users[-3].email == new_user1.email
+    assert users[-2].email == new_user2.email
+    assert users[-1].email == new_user3.email
+    assert users[-3].fitbit_user_id == new_user1.fitbit_user_id
+    assert users[-2].fitbit_user_id == new_user2.fitbit_user_id
+    assert users[-1].fitbit_user_id == new_user3.fitbit_user_id
+    assert users[-3].name == new_user1.name
+    assert users[-2].name == new_user2.name
+    assert users[-1].name == new_user3.name
