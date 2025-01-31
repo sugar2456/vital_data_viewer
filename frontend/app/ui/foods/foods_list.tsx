@@ -2,6 +2,7 @@
 import React from 'react';
 import foodsRow from '@/app/ui/data/foods/foods_period.json';
 import { useFoodViewDataStore } from '@/app/store/foodViewStore';
+import { FaTrash } from 'react-icons/fa';
 
 const foodsPeriod = foodsRow.foods_period;
 const FoodsList: React.FC = () => {
@@ -9,6 +10,10 @@ const FoodsList: React.FC = () => {
     const handleClick = (id: number) => {
         setFoodId(id);
     }
+    const handleDeleteClick = (foodId: number) => {
+        // ゴミ箱アイコンがクリックされたときの処理をここに追加
+        console.log(`Food with ID ${foodId} deleted`);
+    };
     return (
         <div className="container mx-auto p-4 bg-white rounded shadow-sm">
             <h1 className="text-2xl font-bold mb-4">摂取した食品リスト</h1>
@@ -31,9 +36,20 @@ const FoodsList: React.FC = () => {
                                                 <h3 className="font-bold">{food.loggedFood.name}</h3>
                                                 <h3 className="text-gray-500">{food.loggedFood.brand}</h3>
                                             </div>
-                                            <div>
-                                                <p>{food.loggedFood.amount} {food.loggedFood.unit.name}</p>
-                                                <p>{food.loggedFood.calories} kcal</p>
+                                            <div className="flex justify-between gap-4">
+                                                <div className="flex flex-col items-end">
+                                                    <p>{food.loggedFood.amount} {food.loggedFood.unit.name}</p>
+                                                    <p>{food.loggedFood.calories} kcal</p>
+                                                </div>
+                                                <div className="flex items-center">
+                                                    <FaTrash
+                                                        className="text-red-500 cursor-pointer"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation(); // 親のクリックイベントが発火しないようにする
+                                                            handleDeleteClick(food.logId);
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     );

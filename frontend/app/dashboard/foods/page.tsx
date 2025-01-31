@@ -4,7 +4,6 @@ export default function Page() {
     return (
         <div className="flex gap-4">
             <FoodsList />
-            <FoodsList />
         </div>
     );
 }
