@@ -36,6 +36,7 @@ class UserRepository(UsersRepositoryInterface):
         add_user = User(
             name=user.name,
             email=user.email,
+            role=user.role,
             hashed_password=user.hashed_password,
             fitbit_user_id=user.fitbit_user_id,
         )

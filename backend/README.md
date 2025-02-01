@@ -31,6 +31,12 @@ uvicorn main:app --reload
 mysql -h db -u root -p -e "SHOW TABLES IN demo;"
 ```
 
+## マイグレーションファイル最新ファイルまで実行
+
+```
+alembic upgrade head
+```
+
 ## テストコードの実行
 
 ```

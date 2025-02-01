@@ -3,7 +3,7 @@ from src.repositories.mysql_alchemy.user_token_repository import UserTokenReposi
 from src.repositories.mysql_alchemy.users_repository import UserRepository
 from src.models.user_token import UserToken
 from src.models.user import User
-
+from src.constants.users_constants import UsersRoles
 @pytest.fixture
 def user_token_repository(db_session):
     return UserTokenRepository(db_session)
@@ -16,6 +16,7 @@ def test_create_user_token(user_token_repository, user_repository):
     new_user = User(
         name="Test User1",
         email="test1@gmail.com",
+        role=UsersRoles.ADMIN,
         hashed_password="hashed_password",
         fitbit_user_id="X00001"
     )
@@ -40,6 +41,7 @@ def test_get_user_token(user_token_repository, user_repository):
     new_user = User(
         name="Test User2",
         email="test2@gmail.com",
+        role=UsersRoles.ADMIN,
         hashed_password="hashed_password",
         fitbit_user_id="X00002"
     )
@@ -63,6 +65,7 @@ def test_update_user_token(user_token_repository, user_repository):
     new_user = User(
         name="Test User3",
         email="test3@gmail.com",
+        role=UsersRoles.ADMIN,
         hashed_password="hashed_password",
         fitbit_user_id="X00003"
     )
@@ -94,6 +97,7 @@ def test_delete_user_token(user_token_repository, user_repository):
     new_user = User(
         name="Test User4",
         email="test4@gmail.com",
+        role=UsersRoles.ADMIN,
         hashed_password="hashed_password",
         fitbit_user_id="X00004"
     )

@@ -23,6 +23,7 @@ class UsersService:
             user = User(
                 name=user_name,
                 email=user_email,
+                role=1,
                 hashed_password=password,
                 fitbit_user_id=fitbit_user_id
             )
