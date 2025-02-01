@@ -2,7 +2,7 @@ from src.repositories.interface.users_repository_interface import UsersRepositor
 from src.models.user import User
 from typing import List
 from sqlalchemy.orm import Session
-
+from src.constants.users_constants import UsersRoles
 class UserRepository(UsersRepositoryInterface):
     def __init__(self, db: Session):
         self.db = db
@@ -20,6 +20,7 @@ class UserRepository(UsersRepositoryInterface):
             id=user_id,
             name="test",
             email="test1@test.com",
+            role=UsersRoles.ADMIN,
             hashed_password="test",
             fitbit_user_id="test"
         )
@@ -29,6 +30,7 @@ class UserRepository(UsersRepositoryInterface):
             id=1,
             name="test",
             email="test1@test.com",
+            role=UsersRoles.ADMIN,
             hashed_password="test",
             fitbit_user_id=fitbit_user_id
         )
@@ -39,6 +41,7 @@ class UserRepository(UsersRepositoryInterface):
                 id=1,
                 name="test",
                 email="test1@test.com",
+                role=UsersRoles.ADMIN,
                 hashed_password="test",
                 fitbit_user_id="test1"
             ),
@@ -46,6 +49,7 @@ class UserRepository(UsersRepositoryInterface):
                 id=2,
                 name="test",
                 email="test2@test.com",
+                role=UsersRoles.USER, 
                 hashed_password="test",
                 fitbit_user_id="test2"
             ),
@@ -53,6 +57,7 @@ class UserRepository(UsersRepositoryInterface):
                 id=3,
                 name="test",
                 email="test3@test.com",
+                role=UsersRoles.ADMIN,
                 hashed_password="test",
                 fitbit_user_id="test3"
             )
@@ -70,6 +75,7 @@ class UserRepository(UsersRepositoryInterface):
         add_user = User(
             name=user.name,
             email=user.email,
+            role=UsersRoles.ADMIN,
             hashed_password=user.hashed_password,
             fitbit_user_id=user.fitbit_user_id,
         )

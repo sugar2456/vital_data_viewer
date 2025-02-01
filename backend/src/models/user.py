@@ -10,13 +10,15 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), index=True)
     email = Column(String(255), unique=True, index=True)
+    email_verified_at = Column(DateTime, server_default=func.now(), nullable=True)
+    role = Column(Integer, nullable=False)
     hashed_password = Column(String(255))
     fitbit_user_id = Column(String(255),unique=True, index=True)
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     tokens = relationship("UserToken", back_populates="user")
     
-    def __init__(self, name: str, email: str, hashed_password: str, fitbit_user_id: str):
+    def __init__(self, name: str, email: str, role: int, hashed_password: str, fitbit_user_id: str):
         """Userのコンストラクタ
 
         Args:
@@ -27,5 +29,11 @@ class User(Base):
         """
         self.name = name
         self.email = email
+        self.role = role
         self.hashed_password = hashed_password
         self.fitbit_user_id = fitbit_user_id
+    
+    def email_verified(self):
+        """メールアドレス認証日付を更新する
+        """
+        self.email_verified_at = func.now()
