@@ -10,3 +10,13 @@ class User(BaseModel):
 
 class UsersResponse(BaseModel):
     users: List[User]
+
+class UserCreatedRequest(BaseModel):
+    name: str
+    email: str
+    fitbit_user_id: str
+    role: str
+
+class UserCreatedResponse(BaseModel):
+    created: bool
+    user: User
