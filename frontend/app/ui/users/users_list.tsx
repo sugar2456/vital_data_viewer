@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { getRequest } from '@/app/lib/httpUtil';
 import { FaPlus } from 'react-icons/fa';
 import { User } from '@/app/types/users';
+import Dialog from '@/app/ui/commons/dialog';
+import RegisterUserDialog from './register_user_dialog';
 
 const UsersList: React.FC = () => {
-    const Icon = FaPlus;
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [users, setUsers] = useState<User[] | null>(null);
     useEffect(() => {
         async function fetchData() {
@@ -19,14 +21,27 @@ const UsersList: React.FC = () => {
 
         fetchData();
     }, []);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+    
     if (!users || users.length === 0) {
         return <div>No users found.</div>;
     }
+
     return (
         <div className="container mx-auto p-4 bg-white rounded shadow-sm">
             <div className='flex justify-between items-center'>
                 <h2 className='text-xl font-bold'>ユーザー一覧</h2>
-                <button className="bg-gray text-gray-500 border border-gray-500 rounded-full p-2 m-2 shadow hover:bg-blue-100 focus:outline-none">
+                <button
+                    className="bg-gray text-gray-500 border border-gray-500 rounded-full p-2 m-2 shadow hover:bg-blue-100 focus:outline-none"
+                    onClick={handleOpenModal}
+                >
                     <FaPlus className="h-5 w-5" />
                 </button>
             </div>
@@ -54,6 +69,7 @@ const UsersList: React.FC = () => {
                     })}
                 </tbody>
             </table>
+            <RegisterUserDialog isOpen={isModalOpen} onClose={handleCloseModal} />
         </div>
     );
 };
