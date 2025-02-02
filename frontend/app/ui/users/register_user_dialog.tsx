@@ -13,7 +13,8 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
 ) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [fitbit_id, setFitbit_id] = useState('');
+    const [fitbit_user_id, setFitbit_id] = useState('');
+    const [role, setRole] = useState(UserRole.USER);
     const [errors, setErrors] = useState<{ name?: string; email?: string, fitbit_id?: string }>({});
 
     const validate = () => {
@@ -24,8 +25,10 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
         } else if (!/\S+@\S+\.\S+/.test(email)) {
             newErrors.email = '有効なメールアドレスを入力してください';
         }
-        if (!fitbit_id) {
+        if (!fitbit_user_id) {
             newErrors.fitbit_id = 'Fitbit IDを入力してください';
+        } else if (!/^[0-9a-zA-Z]+$/.test(fitbit_user_id)) {
+            newErrors.fitbit_id = '有効なFitbit IDを入力してください';
         }
         return newErrors;
     };
@@ -36,7 +39,7 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
         } else {
-            postRequest('http://localhost:8000/api/users/created', { name, email, fitbit_id });
+            postRequest('http://localhost:8000/api/users/create', { name, email, fitbit_user_id, role });
             onClose();
         }
     };
@@ -69,7 +72,7 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
                 <input
                     id='fitbit_id'
                     type='text'
-                    value={fitbit_id}
+                    value={fitbit_user_id}
                     onChange={(e) => setFitbit_id(e.target.value)}
                     className='border border-gray-300 rounded p-2 m-2'
                 />
@@ -79,6 +82,8 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
                 <select
                     id='role'
                     className='border border-gray-300 rounded p-2 m-2'
+                    value={role}
+                    onChange={(e) => setRole(parseInt(e.target.value))}
                 >
                     <option value={UserRole.ADMIN}>管理者</option>
                     <option value={UserRole.USER}>ユーザー</option>

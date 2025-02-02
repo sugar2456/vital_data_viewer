@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getRequest } from '@/app/lib/httpUtil';
 import { FaPlus } from 'react-icons/fa';
 import { User } from '@/app/types/users';
-import Dialog from '@/app/ui/commons/dialog';
+import { getRoleName, getEmailVerifiedLabel } from '@/app/lib/users/usersUtil';
 import RegisterUserDialog from './register_user_dialog';
 
 const UsersList: React.FC = () => {
@@ -51,8 +51,9 @@ const UsersList: React.FC = () => {
                         <th className='p-2'>ID</th>
                         <th className='p-2'>名前</th>
                         <th className='p-2'>メールアドレス</th>
+                        <th className='p-2'>メール認証</th>
+                        <th className='p-2'>ロール</th>
                         <th className='p-2'>作成日時</th>
-                        <th className='p-2'>更新日時</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,8 +63,9 @@ const UsersList: React.FC = () => {
                                 <td className='p-2 text-center'>{user.id}</td>
                                 <td className='p-2 text-center'>{user.name}</td>
                                 <td className='p-2 text-center'>{user.email}</td>
+                                <td className='p-2 text-center'>{getEmailVerifiedLabel(user.email_verified_at)}</td>
+                                <td className='p-2 text-center'>{getRoleName(user.role)}</td>
                                 <td className='p-2 text-center'>{user.created_at}</td>
-                                <td className='p-2 text-center'>{user.updated_at}</td>
                             </tr>
                         );
                     })}
