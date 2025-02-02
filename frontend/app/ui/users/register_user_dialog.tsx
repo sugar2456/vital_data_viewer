@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Dialog from '@/app/ui/commons/dialog';
 import { postRequest } from '@/app/lib/httpUtil';
 import { UserRole } from '@/app/constants/users';
+import { useUsersViewStore } from '@/app/store/usersViewStore';
 
 interface RegisterUserDialogProps {
     isOpen: boolean;
@@ -16,6 +17,7 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
     const [fitbit_user_id, setFitbit_id] = useState('');
     const [role, setRole] = useState(UserRole.USER);
     const [errors, setErrors] = useState<{ name?: string; email?: string, fitbit_id?: string }>({});
+    const { addUser } = useUsersViewStore();
 
     const validate = () => {
         const newErrors: { name?: string; email?: string, fitbit_id?: string } = {};
@@ -33,13 +35,13 @@ const RegisterUserDialog: React.FC<RegisterUserDialogProps> = (
         return newErrors;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
         } else {
-            postRequest('http://localhost:8000/api/users/create', { name, email, fitbit_user_id, role });
+            await addUser({ name, email, fitbit_user_id, role });
             onClose();
         }
     };

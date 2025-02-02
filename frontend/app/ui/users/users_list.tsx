@@ -1,26 +1,17 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/httpUtil';
+import { useUsersViewStore } from '@/app/store/usersViewStore';
 import { FaPlus } from 'react-icons/fa';
-import { User } from '@/app/types/users';
 import { getRoleName, getEmailVerifiedLabel } from '@/app/lib/users/usersUtil';
 import RegisterUserDialog from './register_user_dialog';
 
 const UsersList: React.FC = () => {
+    const { users, fetchUsers } = useUsersViewStore();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [users, setUsers] = useState<User[] | null>(null);
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await getRequest('http://localhost:8000/api/users');
-                setUsers(data.users);
-            } catch (error) {
-                console.error('ユーザー情報の取得に失敗しました:', error);
-            }
-        }
 
-        fetchData();
-    }, []);
+    useEffect(() => {
+        fetchUsers();
+    }, [fetchUsers]);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
