@@ -15,10 +15,14 @@ def error_user_repository(db_session):
 
 def test_user_service_create_user(user_repository):
     service = UsersService(user_repository)
-    actual_user_id =service.create_user("test", "test1@test.com", "test", "test")
-    assert actual_user_id == 1
-
+    newUser = service.create_user("test", "test1@test.com", 1, "test", "test")
+    assert newUser.id is not None
+    assert newUser.name == "test"
+    assert newUser.email == "test1@test.com"
+    assert newUser.role == 1
+    assert newUser.fitbit_user_id == "test"
+    
 def test_user_service_create_user_error(error_user_repository):
     service = UsersService(error_user_repository)
     with pytest.raises(Exception):
-        service.create_user("test", "test1@test.com", "test", "test")
+        service.create_user("test", "test1@test.com", 2, "test", "test")
