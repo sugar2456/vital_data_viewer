@@ -24,13 +24,14 @@ class FitbitAuthService:
         self.user_repository = user_repository
         self.user_token_repository = user_token_repository
 
-    async def get_allow_user_resource(self, client_id:str, user_email: str, redirect_uri: str) -> str:    
+    async def get_allow_user_resource(self, client_id:str, user_email: str, redirect_uri: str, password: str) -> str:    
         """ユーザーにfitbitのリソース許可を求める
 
         Args:
             client_id (str): 新規登録するfitbitのクライアントID
             user_email (str): email adress
             redirect_uri (str): fitbitのリダイレクトURI
+            password (str): パスワード
 
         Returns:
             None: なし
@@ -39,7 +40,8 @@ class FitbitAuthService:
         try:
             # 認証urlを取得
             authorize_url = self.get_authorize_url(client_id, redirect_uri)
-            await self.email_service.send_email(user_email, "fitbitのリソース許可のお願い", authorize_url)
+            body = f"以下のリンクをクリックして、fitbitのリソース許可を行ってください。\n\n{authorize_url}\n\n初期パスワード: {password}"
+            await self.email_service.send_email(user_email, "fitbitのリソース許可のお願い", body)
         
         except Exception as e:
             print(f"send email error: {e}")
