@@ -3,8 +3,8 @@ import sys
 import os
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker, declarative_base
-from fastapi.testclient import TestClient
 from src.db.session import Base
+
 
 # conftest.pyのあるディレクトリパス
 conftest_dir = os.path.dirname(__file__)

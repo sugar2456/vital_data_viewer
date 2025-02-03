@@ -23,7 +23,7 @@ class EmailRepository(EmailRepositoryInterface):
             subject=subject,
             recipients=[email],
             body=body,
-            subtype=MessageType.html
+            subtype=MessageType.plain
         )
         fm = FastMail(self.conf)
         try:
