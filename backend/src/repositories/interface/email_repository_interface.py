@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class EmailServiceInterface(ABC):
+class EmailRepositoryInterface(ABC):
     @abstractmethod
     async def send_email(self, email: str, subject: str, body: str) -> None:
         """メールを送信

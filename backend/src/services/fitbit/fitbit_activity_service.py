@@ -35,7 +35,7 @@ class FitbitActivityService:
         access_token = user_token.access_token
         if user_token.is_expired:
             fitbit_auth_service = FitbitAuthService(
-                email_service=None,
+                email_repository=None,
                 pkce_cache_repository=None,
                 user_repository=self.user_repository,
                 user_token_repository=self.user_token_repository
@@ -62,7 +62,7 @@ class FitbitActivityService:
         access_token = user_token.access_token
         if user_token.is_expired:
             fitbit_auth_service = FitbitAuthService(
-                email_service=None,
+                email_repository=None,
                 pkce_cache_repository=None,
                 user_repository=self.user_repository,
                 user_token_repository=self.user_token_repository
@@ -88,7 +88,7 @@ class FitbitActivityService:
         access_token = user_token.access_token
         if user_token.is_expired:
             fitbit_auth_service = FitbitAuthService(
-                email_service=None,
+                email_repository=None,
                 pkce_cache_repository=None,
                 user_repository=self.user_repository,
                 user_token_repository=self.user_token_repository
@@ -119,7 +119,7 @@ class FitbitActivityService:
         access_token = user_token.access_token
         if user_token.is_expired:
             fitbit_auth_service = FitbitAuthService(
-                email_service=None,
+                email_repository=None,
                 pkce_cache_repository=None,
                 user_repository=self.user_repository,
                 user_token_repository=self.user_token_repository

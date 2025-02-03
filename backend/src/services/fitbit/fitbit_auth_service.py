@@ -1,7 +1,7 @@
 import urllib.parse
 from src.utilities.error_response_utility import raise_http_exception
 from src.utilities.pkce_utility import generate_code_verifier, generate_code_challenge, generate_state
-from src.services.email.email_service_interface import EmailServiceInterface
+from repositories.interface.email_repository_interface import EmailRepositoryInterface
 from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
 from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
@@ -14,12 +14,12 @@ import base64
 class FitbitAuthService:
     def __init__(
         self,
-        email_service: EmailServiceInterface,
+        email_repository: EmailRepositoryInterface,
         pkce_cache_repository: PkceCacheRepositoryInterface,
         user_repository: UsersRepositoryInterface,
         user_token_repository: UserTokenRepositoryInterface
     ):
-        self.email_service = email_service
+        self.email_repository = email_repository
         self.pkce_cache_repository = pkce_cache_repository
         self.user_repository = user_repository
         self.user_token_repository = user_token_repository
@@ -41,7 +41,7 @@ class FitbitAuthService:
             # 認証urlを取得
             authorize_url = self.get_authorize_url(client_id, redirect_uri)
             body = f"以下のリンクをクリックして、fitbitのリソース許可を行ってください。\n\n{authorize_url}\n\n初期パスワード: {password}"
-            await self.email_service.send_email(user_email, "fitbitのリソース許可のお願い", body)
+            await self.email_repository.send_email(user_email, "fitbitのリソース許可のお願い", body)
         
         except Exception as e:
             print(f"send email error: {e}")

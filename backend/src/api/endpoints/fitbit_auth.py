@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from src.config import settings
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
-from src.services.email.email_service import EmailService
+from repositories.http.email_repository import EmailRepository
 from src.services.users.users_service import UsersService
 from src.schemas.fitbit_auth.fitbit_auth import FitbitAuthRequest, FitbitAuthResponse
 from src.schemas.fitbit_auth.fitbit_conform import FitbitConformResponse
@@ -36,7 +36,7 @@ async def fitbit_auth(
     user_service.create_user(user_name, user_email, hadhed_password, fitbit_user_id)
     
     # userにfitbitのリソース許可を求める
-    email_service = EmailService(settings)
+    email_service = EmailRepository(settings)
     service = FitbitAuthService(email_service, pkce_cache_repository, user_repository, user_token_repository)
     await service.get_allow_user_resource(client_id, user_email, redirect_uri)
     

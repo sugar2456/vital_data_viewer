@@ -8,7 +8,7 @@ from src.repositories.http.get_heart_rate_request_repository import GetHeartRate
 from src.repositories.http.get_body_request_repository import GetBodyRequestRepository
 from src.repositories.http.get_devices_request_repository import GetDevicesRequestRepository
 from src.repositories.http.get_food_request_repository import GetFoodRequestRepository
-from src.services.email.email_service import EmailService
+from repositories.http.email_repository import EmailRepository
 from src.db.session import get_db
 from src.config import settings
 from fastapi import Depends
@@ -22,8 +22,8 @@ def get_pkce_cache_repository(db: Session = Depends(get_db)) -> PkceCacheReposit
 def get_user_token_repository(db: Session = Depends(get_db)) -> UserTokenRepository:
     return UserTokenRepository(db)
 
-def get_email_service() -> EmailService:
-    return EmailService(settings=settings)
+def get_email_repository() -> EmailRepository:
+    return EmailRepository(settings=settings)
 
 def get_activity_request_repository() -> GetActivityRequestRepository:
     return GetActivityRequestRepository()

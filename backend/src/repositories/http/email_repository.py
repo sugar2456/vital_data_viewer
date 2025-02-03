@@ -1,11 +1,10 @@
-# FILE: email_service.py
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from src.utilities.error_response_utility import raise_http_exception
 from src.config import Settings
-from src.services.email.email_service_interface import EmailServiceInterface
+from repositories.interface.email_repository_interface import EmailRepositoryInterface
 from datetime import datetime
 
-class EmailService(EmailServiceInterface):
+class EmailRepository(EmailRepositoryInterface):
     def __init__(self, settings: Settings):
         self.settings = settings
         self.conf = ConnectionConfig(
