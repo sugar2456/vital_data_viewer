@@ -1,28 +1,23 @@
 'use client';
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-  MoonIcon,
-  FireIcon,
-  CakeIcon,
-} from '@heroicons/react/24/outline';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import Calendar from '../commons/calendar';
+import { FaFire, FaHome, FaMoon, FaRunning, FaUsers } from 'react-icons/fa';
+import { FaBowlFood } from "react-icons/fa6";
 
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  { name: 'sleep', href: '/dashboard/sleeps', icon: MoonIcon },
+  { name: 'Home', href: '/dashboard', icon: FaHome },
+  { name: 'sleep', href: '/dashboard/sleeps', icon: FaMoon },
   {
     name: 'Activity',
     href: '/dashboard/activity',
-    icon: FireIcon,
+    icon: FaRunning,
   },
-  { name: 'Calories', href: '/dashboard/calories', icon: FireIcon },
-  { name: 'Foods', href: '/dashboard/foods', icon: CakeIcon },
-  { name: 'Users', href: '/dashboard/users', icon: UserGroupIcon },
+  { name: 'Calories', href: '/dashboard/calories', icon: FaFire },
+  { name: 'Foods', href: '/dashboard/foods', icon: FaBowlFood },
+  { name: 'Users', href: '/dashboard/users', icon: FaUsers },
 ];
 
 export default function NavLinks() {
@@ -42,7 +37,7 @@ export default function NavLinks() {
               },
             )}
           >
-            <LinkIcon className="w-6" />
+            <LinkIcon className="w-7 h-7" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );
