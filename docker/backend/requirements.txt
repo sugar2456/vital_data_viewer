@@ -13,3 +13,4 @@ requests
 pytest
 httpx
 passlib
+pytest-asyncio

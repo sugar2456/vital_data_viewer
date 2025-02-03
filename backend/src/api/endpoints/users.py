@@ -3,8 +3,8 @@ from src.schemas.users import UsersResponse, UserCreatedRequest, UserCreatedResp
 from src.repositories.interface.user_token_repository_interface import UserTokenRepositoryInterface
 from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
 from src.repositories.interface.pkce_cache_repostiory_interface import PkceCacheRepositoryInterface
-from src.services.email.email_service import EmailServiceInterface
-from src.api.dependencies import get_user_token_repository, get_user_repository, get_email_service, get_pkce_cache_repository
+from repositories.http.email_repository import EmailRepositoryInterface
+from src.api.dependencies import get_user_token_repository, get_user_repository, get_email_repository, get_pkce_cache_repository
 from src.services.users.users_service import UsersService
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.utilities.password_utility import generate_temporary_password, hash_password
@@ -23,7 +23,7 @@ async def crete_user(
     request: UserCreatedRequest,
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
-    email_service: EmailServiceInterface = Depends(get_email_service),
+    email_repository: EmailRepositoryInterface = Depends(get_email_repository),
     pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository),
 ) -> UserCreatedResponse:
     init_password = generate_temporary_password()
@@ -43,7 +43,7 @@ async def crete_user(
         role=request.role,
         fitbit_user_id=request.fitbit_user_id
     )
-    fitbit_auth_service = FitbitAuthService(email_service, pkce_cache_repository, user_token_repository, user_repository)
+    fitbit_auth_service = FitbitAuthService(email_repository, pkce_cache_repository, user_token_repository, user_repository)
     await fitbit_auth_service.get_allow_user_resource(settings.fitbit_client_id, request.email, settings.fitbit_redirect_uri, init_password)
     return UserCreatedResponse(
         created=True,
