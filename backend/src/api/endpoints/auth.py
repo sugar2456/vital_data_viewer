@@ -19,12 +19,12 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     )
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.secret_algorithm])
-        username: str = payload.get("sub")
-        if username is None:
+        user_id: str = payload.get("sub")
+        if user_id is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    return username
+    return user_id
 
 @router.post("/login")
 async def login(
