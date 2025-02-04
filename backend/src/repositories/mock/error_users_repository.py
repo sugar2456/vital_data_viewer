@@ -20,6 +20,9 @@ class ErrorUserRepository(UsersRepositoryInterface):
     
     def get_user_by_fitbit_user_id(self, fitbit_user_id: str) -> User:
         raise Exception("例外モック")
+    
+    def get_user_by_email(self, email):
+        raise Exception("例外モック")
 
     def get_users(self) -> List[User]:
         raise Exception("例外モック")

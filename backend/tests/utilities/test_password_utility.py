@@ -1,5 +1,5 @@
 import pytest
-from utilities.password_utility import generate_temporary_password, hash_password, create_access_token
+from utilities.password_utility import generate_temporary_password, hash_password, create_access_token, verify_password
 from datetime import timedelta
 
 def test_generate_temporary_password_length():
@@ -16,6 +16,12 @@ def test_hash_password():
     password = "testpassword"
     hashed_password = hash_password(password)
     assert hashed_password != password
+
+def test_verify_password():
+    password = "testpassword"
+    hashed_password = hash_password(password)
+    assert verify_password(password, hashed_password)
+    assert not verify_password("wrongpassword", hashed_password)
 
 def test_create_access_token():
     data = {"sub": "testuser"}
