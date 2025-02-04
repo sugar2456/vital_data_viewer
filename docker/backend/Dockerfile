@@ -6,7 +6,7 @@ COPY ./docker/backend/requirements.txt .
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
-ENV PYTHONPATH=$PYTHONPATH:/app/src
+ENV PYTHONPATH=/app/src
 
 COPY ./backend/ .
 

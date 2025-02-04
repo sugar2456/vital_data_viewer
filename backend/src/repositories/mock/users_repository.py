@@ -34,6 +34,17 @@ class UserRepository(UsersRepositoryInterface):
             hashed_password="test",
             fitbit_user_id=fitbit_user_id
         )
+    
+    def get_user_by_email(self, email):
+        return User(
+            id=1,
+            name="test",
+            email=email,
+            role=UsersRoles.ADMIN,
+            hashed_password="test",
+            fitbit_user_id="test"
+        )
+        
 
     def get_users(self) -> List[User]:
         return [

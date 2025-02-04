@@ -1,5 +1,6 @@
 from src.repositories.interface.users_repository_interface import UsersRepositoryInterface
 from src.models.user import User
+from src.utilities.password_utility import hash_password
 from typing import List
 from sqlalchemy.orm import Session
 
@@ -17,6 +18,9 @@ class UserRepository(UsersRepositoryInterface):
             User: ユーザーモデル
         """
         return self.db.query(User).filter(User.id == user_id).first()
+    
+    def get_user_by_email(self, email):
+        return self.db.query(User).filter(User.email == email).first()
     
     def get_user_by_fitbit_user_id(self, fitbit_user_id: str) -> User:
         return self.db.query(User).filter(User.fitbit_user_id == fitbit_user_id).first()

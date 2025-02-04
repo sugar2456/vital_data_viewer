@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     mail_ssl_tls: bool
     use_credentials: bool
     validate_certs: bool
+    secret_key: str
+    secret_algorithm: str
 
     class Config:
         env_file = ".env"

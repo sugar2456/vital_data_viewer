@@ -9,11 +9,15 @@ from src.services.users.users_service import UsersService
 from src.services.fitbit.fitbit_auth_service import FitbitAuthService
 from src.utilities.password_utility import generate_temporary_password, hash_password
 from src.config import settings
+from src.api.endpoints.auth import get_current_user
 
 router = APIRouter()
 
 @router.get("/users", response_model=UsersResponse)
-async def get_users(user_repository: UsersRepositoryInterface = Depends(get_user_repository)) -> UsersResponse:
+async def get_users(
+    user_repository: UsersRepositoryInterface = Depends(get_user_repository),
+    current_user_id: str = Depends(get_current_user)
+) -> UsersResponse:
     service = UsersService(user_repository)
     users = service.get_users()
     return UsersResponse(users=users)

@@ -6,16 +6,17 @@ from src.repositories.interface.get_sleep_request_repository_interface import Ge
 from src.services.fitbit.fitbit_sleep_service import FitbitSleepService
 from src.api.dependencies import get_user_token_repository, get_user_repository, get_sleep_request_repository
 from src.config import settings
+from src.api.endpoints.auth import get_current_user
 
 router = APIRouter()
 
-@router.get("/fitbit/sleep/{user_id}/{date}", response_model=FitbitSleepResponse)
+@router.get("/fitbit/sleep/{date}", response_model=FitbitSleepResponse)
 async def fitbit_sleep(
-    user_id: int,
     date: str,
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
-    get_sleep_request_repository: GetSleepRequestRepositoryInterface = Depends(get_sleep_request_repository)
+    get_sleep_request_repository: GetSleepRequestRepositoryInterface = Depends(get_sleep_request_repository),
+    current_user_id: str = Depends(get_current_user)
 ) -> FitbitSleepResponse:
     service = FitbitSleepService(
         settings=settings,
@@ -23,15 +24,15 @@ async def fitbit_sleep(
         user_token_repository=user_token_repository,
         sleep_request_repository=get_sleep_request_repository
     )
-    return service.get_sleep_data(user_id, date)
+    return service.get_sleep_data(int(current_user_id), date)
 
-@router.get("/fitbit/sleep/detail/{user_id}/{date}", response_model=FitbitSleepDetailResponse)
+@router.get("/fitbit/sleep/detail/{date}", response_model=FitbitSleepDetailResponse)
 async def fitbit_sleep_detail(
-    user_id: int,
     date: str,
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
-    get_sleep_request_repository: GetSleepRequestRepositoryInterface = Depends(get_sleep_request_repository)
+    get_sleep_request_repository: GetSleepRequestRepositoryInterface = Depends(get_sleep_request_repository),
+    current_user_id: str = Depends(get_current_user)
 ) -> FitbitSleepDetailResponse:
     service = FitbitSleepService(
         settings=settings,
@@ -39,5 +40,5 @@ async def fitbit_sleep_detail(
         user_token_repository=user_token_repository,
         sleep_request_repository=get_sleep_request_repository
     )
-    data = service.get_sleep_detail_data(user_id, date)
+    data = service.get_sleep_detail_data(int(current_user_id), date)
     return FitbitSleepDetailResponse(sleep=data)
