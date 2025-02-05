@@ -25,7 +25,7 @@ const LoginPage: React.FC = () => {
       return;
     }
     setToken(data.access_token);
-    router.push('/dashboard'); // ログイン後にダッシュボードにリダイレクト
+    router.push('/dashboard');
   };
 
   return (
