@@ -24,7 +24,6 @@ const LoginPage: React.FC = () => {
       alert(data.message);
       return;
     }
-    console.log(data);
     setToken(data.access_token);
     router.push('/dashboard'); // ログイン後にダッシュボードにリダイレクト
   };

@@ -1,4 +1,3 @@
-import { getRequest, postRequest } from './httpUtil';
 import { useAuthStore } from '@/app/store/viewStore';
 
 /**

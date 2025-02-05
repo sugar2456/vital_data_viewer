@@ -3,10 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { FaMobileAlt } from "react-icons/fa";
 import { Card } from '@/app/ui/commons/card';
-import devicesData from '@/app/ui/data/devices/devices.json';
 import { lusitana } from '@/app/ui/fonts';
 import { formatDateTimeToSeconds } from "@/app/lib/common/timeUtil";
-import { getRequest } from '@/app/lib/common/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Loading } from '../commons/loadings';
 import { DeviceInfo } from '@/app/types/device_info';
 
@@ -17,7 +16,7 @@ export function DevicesCard() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest("http://localhost:8000/api/fitbit/devices/1");
+                const data = await authenticatedGetRequest("http://localhost:8000/api/fitbit/devices");
                 const bindDevicesInfo: DeviceInfo[] = data.devices.map((device: any) => {
                     return {
                         id: device.id,

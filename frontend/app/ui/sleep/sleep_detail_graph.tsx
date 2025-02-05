@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/common/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Loading } from '../commons/loadings';
-// import sleep_data from '@/app/ui/data/sleep/sleep_detail.json';
 import { SleepDetail, SleepData } from '@/app/types/sleep_detail';
 import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
@@ -23,7 +22,7 @@ export function SleepDetailGraph() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/sleep/detail/1/${date}`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/sleep/detail/${date}`);
                 data.sleep.map((entry: SleepDetail) => {
                     const sleep_dataset: SleepData[] = entry.levels.data;
                     sleep_data_list.push(sleep_dataset);

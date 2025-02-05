@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/common/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { useDateStore } from '@/app/store/viewStore';
 import { FaFire } from 'react-icons/fa';
 import { ChartData, Chart as ChartJS, ChartOptions, registerables, Point } from 'chart.js';
@@ -76,12 +76,12 @@ export function CaloriesDetailGraph() {
                 const oneMonthAgo = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
                 const formattedDate = oneMonthAgo.toISOString().split('T')[0];
 
-                const data = await getRequest(`http://localhost:8000/api/fitbit/calories/1/${formattedDate}/${date}`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/calories/${formattedDate}/${date}`);
                 setConsumedCalories(data.consumed_calories_period);
                 setIntakedCalories(data.intaked_calories_period);
                 setTotalCalories(data.total_calories_period);
 
-                const weightData = await getRequest(`http://localhost:8000/api/fitbit/weight/1/${formattedDate}/${date}`);
+                const weightData = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/weight/${formattedDate}/${date}`);
                 setWeightDetails(weightData.weight_list);
             } catch (error) {
                 console.error('睡眠情報の取得に失敗しました:', error);
