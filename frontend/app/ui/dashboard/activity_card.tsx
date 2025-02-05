@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FaFire } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
-import { getRequest } from '@/app/lib/httpUtil';
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { ActivityInfo } from '@/app/types/activity_info';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';

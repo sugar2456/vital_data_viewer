@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/httpUtil';
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { Loading } from '../commons/loadings';
 import { Dataset, CaloriesDataset } from '@/app/types/activity_detail';
 import { Chart, registerables, ChartData, Point } from 'chart.js';

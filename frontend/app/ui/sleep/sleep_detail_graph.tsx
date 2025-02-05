@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/httpUtil';
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { Loading } from '../commons/loadings';
 // import sleep_data from '@/app/ui/data/sleep/sleep_detail.json';
 import { SleepDetail, SleepData } from '@/app/types/sleep_detail';

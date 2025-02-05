@@ -5,8 +5,8 @@ import { FaMobileAlt } from "react-icons/fa";
 import { Card } from '@/app/ui/commons/card';
 import devicesData from '@/app/ui/data/devices/devices.json';
 import { lusitana } from '@/app/ui/fonts';
-import { formatDateTimeToSeconds } from "@/app/lib/timeUtil";
-import { getRequest } from '@/app/lib/httpUtil';
+import { formatDateTimeToSeconds } from "@/app/lib/common/timeUtil";
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { Loading } from '../commons/loadings';
 import { DeviceInfo } from '@/app/types/device_info';
 

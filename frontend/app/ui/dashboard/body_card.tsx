@@ -5,7 +5,7 @@ import { FaWeight } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
 import { BodyInfo } from '@/app/types/body_info';
-import { getRequest } from '@/app/lib/httpUtil';
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';
 

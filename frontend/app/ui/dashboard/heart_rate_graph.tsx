@@ -8,7 +8,7 @@ import heartRateData from '@/app/ui/data/heart_rate/heart_rate.json';
 import { ChartOptions } from 'chart.js';
 import { FaHeart } from 'react-icons/fa';
 import { HeartRateInfo } from '@/app/types/heart_rate_info';
-import { getRequest } from '@/app/lib/httpUtil';
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { Card } from '../commons/card';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';

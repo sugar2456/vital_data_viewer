@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/httpUtil';
+import { getRequest } from '@/app/lib/common/httpUtil';
 import { useDateStore } from '@/app/store/viewStore';
 import { FaFire } from 'react-icons/fa';
 import { ChartData, Chart as ChartJS, ChartOptions, registerables, Point } from 'chart.js';

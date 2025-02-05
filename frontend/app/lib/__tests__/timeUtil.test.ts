@@ -1,4 +1,4 @@
-import { formatTime, formatDateTimeToSeconds } from '../timeUtil';
+import { formatTime, formatDateTimeToSeconds } from '../common/timeUtil';
 
 describe('formatTime', () => {
     it('should format date to HH:mm:ss', () => {

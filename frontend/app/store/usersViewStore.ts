@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { User } from '@/app/types/users';
-import { getRequest, postRequest } from '@/app/lib/httpUtil';
+import { getRequest, postRequest } from '@/app/lib/common/httpUtil';
 
 interface UsersViewState {
     users: User[];
