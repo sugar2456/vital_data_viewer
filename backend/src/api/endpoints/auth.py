@@ -11,20 +11,22 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 router = APIRouter()
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(token: str = Depends(oauth2_scheme))-> int:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
+        detail="認証エラー",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.secret_algorithm])
         user_id: str = payload.get("sub")
+        print(f"Decoded JWT payload: {payload}")
         if user_id is None:
             raise credentials_exception
-    except JWTError:
+    except JWTError as e:
+        print(f"JWTError: {e}") 
         raise credentials_exception
-    return user_id
+    return int(user_id)
 
 @router.post("/login")
 async def login(

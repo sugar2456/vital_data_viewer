@@ -20,7 +20,7 @@ async def fitbit_calories_period(
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     activity_request_repository: GetActivityRequestRepositoryInterface = Depends(get_activity_request_repository),
     food_request_repository: GetFoodRequestRepositoryInterface = Depends(get_food_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitCaloriesPeriodResponse:
     service = FitbitCaloriesService(
         settings=settings,
@@ -28,7 +28,7 @@ async def fitbit_calories_period(
         user_token_repository=user_token_repository,
         activity_request_repository=activity_request_repository
     )
-    consumed_calories_period = service.get_calories_period(int(current_user_id), start_date, end_date)
+    consumed_calories_period = service.get_calories_period(current_user_id, start_date, end_date)
     
     food_service = FitbitFoodService(
         settings=settings,

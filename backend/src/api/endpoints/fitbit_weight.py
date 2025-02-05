@@ -16,7 +16,7 @@ async def fitbit_weight(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     body_request_repository: GetBodyRequestRepositoryInterface = Depends(get_weight_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitWeightResponse:
     service = FitbitWeightService(
         settings=settings,
@@ -24,7 +24,7 @@ async def fitbit_weight(
         user_token_repository=user_token_repository,
         get_weight_repository=body_request_repository
     )
-    weight = service.get_weight(int(current_user_id), date)
+    weight = service.get_weight(current_user_id, date)
     return FitbitWeightResponse(
         bmi=weight["bmi"],
         fat=weight["fat"],
@@ -39,7 +39,7 @@ async def fitbit_weight(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     body_request_repository: GetBodyRequestRepositoryInterface = Depends(get_weight_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitWeightPeriodResponse:
     service = FitbitWeightService(
         settings=settings,
@@ -47,5 +47,5 @@ async def fitbit_weight(
         user_token_repository=user_token_repository,
         get_weight_repository=body_request_repository
     )
-    weight_list = service.get_weight_period(int(current_user_id), start_date, end_date)
+    weight_list = service.get_weight_period(current_user_id, start_date, end_date)
     return FitbitWeightPeriodResponse(weight_list=weight_list)
