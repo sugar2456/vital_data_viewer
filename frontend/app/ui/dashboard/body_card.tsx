@@ -5,7 +5,7 @@ import { FaWeight } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
 import { BodyInfo } from '@/app/types/body_info';
-import { getRequest } from '@/app/lib/common/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';
 
@@ -16,7 +16,7 @@ export function BodyCard() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/weight/1/${date}`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/weight/${date}`);
                 setBodyInfo(data);
             } catch (error) {
                 console.error('体重情報の取得に失敗しました:', error);
