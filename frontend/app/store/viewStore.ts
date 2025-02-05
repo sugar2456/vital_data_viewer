@@ -14,6 +14,7 @@ interface AuthState {
   token: string | null;
   setToken: (token: string | null) => void;
   removeToken: () => void;
+  isAuthenticated: boolean;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -24,10 +25,11 @@ export const useAuthStore = create<AuthState>((set) => ({
     } else {
       sessionStorage.removeItem('token');
     }
-    set({ token });
+    set({ token, isAuthenticated: !!token });
   },
   removeToken: () => {
     sessionStorage.removeItem('token');
-    set({ token: null });
+    set({ token: null, isAuthenticated: false });
   },
+  isAuthenticated: typeof window !== 'undefined' ? !!sessionStorage.getItem('token') : false,
 }));
