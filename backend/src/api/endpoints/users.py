@@ -16,7 +16,7 @@ router = APIRouter()
 @router.get("/users", response_model=UsersResponse)
 async def get_users(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> UsersResponse:
     service = UsersService(user_repository)
     users = service.get_users()
@@ -29,6 +29,7 @@ async def crete_user(
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     email_repository: EmailRepositoryInterface = Depends(get_email_repository),
     pkce_cache_repository: PkceCacheRepositoryInterface = Depends(get_pkce_cache_repository),
+    current_user_id: int = Depends(get_current_user)
 ) -> UserCreatedResponse:
     init_password = generate_temporary_password()
     hashed_password = hash_password(init_password)

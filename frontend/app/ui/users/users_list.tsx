@@ -21,10 +21,6 @@ const UsersList: React.FC = () => {
         setIsModalOpen(false);
     };
     
-    if (!users || users.length === 0) {
-        return <div>No users found.</div>;
-    }
-
     return (
         <div className="container mx-auto p-4 bg-white rounded shadow-sm">
             <div className='flex justify-between items-center'>

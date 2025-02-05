@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Dialog from '@/app/ui/commons/dialog';
-import { postRequest } from '@/app/lib/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { UserRole } from '@/app/constants/users';
 import { useUsersViewStore } from '@/app/store/usersViewStore';
 

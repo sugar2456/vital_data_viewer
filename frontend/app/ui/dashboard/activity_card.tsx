@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FaFire } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
-import { getRequest } from '@/app/lib/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { ActivityInfo } from '@/app/types/activity_info';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';
@@ -16,7 +16,7 @@ export function ActivityCard() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/activity/1/${date}`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/activity/${date}`);
                 setCaloriesInfo(data.activity);
             } catch (error) {
                 console.error('カロリー情報の取得に失敗しました:', error);

@@ -4,11 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import heartRateData from '@/app/ui/data/heart_rate/heart_rate.json';
 import { ChartOptions } from 'chart.js';
 import { FaHeart } from 'react-icons/fa';
 import { HeartRateInfo } from '@/app/types/heart_rate_info';
-import { getRequest } from '@/app/lib/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Card } from '../commons/card';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';
@@ -22,7 +21,7 @@ const HeartRateChart: React.FC = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/heart/1/${date}/15`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/heart/${date}/15`);
                 setHeartRateData(data);
             } catch (error) {
                 console.error('心拍数情報の取得に失敗しました:', error);

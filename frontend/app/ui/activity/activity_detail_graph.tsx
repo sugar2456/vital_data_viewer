@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { getRequest } from '@/app/lib/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Loading } from '../commons/loadings';
 import { Dataset, CaloriesDataset } from '@/app/types/activity_detail';
 import { Chart, registerables, ChartData, Point } from 'chart.js';
@@ -24,7 +24,7 @@ export function ActivityDetailGraph() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/calories-step/intraday/1/${date}/1`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/calories-step/intraday/${date}/1`);
                 setCalories(data.calories_intraday);
                 setSteps(data.step_intraday);
                 setDistance(data.distance_intraday);

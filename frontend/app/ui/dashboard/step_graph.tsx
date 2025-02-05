@@ -6,7 +6,7 @@ import 'chartjs-adapter-date-fns';
 import { ChartOptions } from 'chart.js';
 import { FaWalking } from 'react-icons/fa';
 import { StepInfo } from '@/app/types/step_info';
-import { getRequest } from '@/app/lib/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Card } from '../commons/card';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';
@@ -20,7 +20,7 @@ const StepsChart: React.FC = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/steps/intraday/1/${date}/15`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/steps/intraday/${date}/15`);
                 setStepsData(data);
             } catch (error) {
                 console.error('歩数情報の取得に失敗しました:', error);

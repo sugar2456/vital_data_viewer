@@ -14,7 +14,7 @@ async def fitbit_device(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     devices_request_repository = Depends(get_devices_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitDevicesResponse:
     service = FitbitDevicesService(
         settings=settings,
@@ -22,6 +22,6 @@ async def fitbit_device(
         user_token_repository=user_token_repository,
         get_devices_request_repository=devices_request_repository
     )
-    devices = service.get_devices(int(current_user_id))
+    devices = service.get_devices(current_user_id)
     return FitbitDevicesResponse(devices=devices)
     

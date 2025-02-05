@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../httpUtil';
+import { getRequest, postRequest } from '../common/httpUtil';
 
 describe('httpUtil', () => {
     beforeEach(() => {

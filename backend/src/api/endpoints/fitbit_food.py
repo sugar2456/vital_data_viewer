@@ -58,7 +58,7 @@ async def fitbit_food_detail(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     food_request_repository: GetFoodRequestRepositoryInterface = Depends(get_food_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitFoodResponse:
     
     food_service = FitbitFoodService(
@@ -67,7 +67,7 @@ async def fitbit_food_detail(
         user_token_repository=user_token_repository,
         get_food_request_repository=food_request_repository
     )
-    foods = food_service.get_food_detail(user_id=int(current_user_id), food_id=food_id)
+    foods = food_service.get_food_detail(user_id=current_user_id, food_id=food_id)
     return FitbitFoodResponse(
         foods=foods['foods']
     )

@@ -4,7 +4,7 @@ import { FaMoon } from "react-icons/fa";
 import { lusitana } from '@/app/ui/fonts';
 import { Card } from '@/app/ui/commons/card';
 import { SleepInfo } from "@/app/types/sleep_info";
-import { getRequest } from '@/app/lib/httpUtil';
+import { authenticatedGetRequest } from '@/app/lib/common/apiClient';
 import { Loading } from '../commons/loadings';
 import { useDateStore } from '@/app/store/viewStore';
 
@@ -15,7 +15,7 @@ export function SleepCard() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getRequest(`http://localhost:8000/api/fitbit/sleep/1/${date}`);
+                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/sleep/${date}`);
                 setSleepInfo(data);
             } catch (error) {
                 console.error('睡眠情報の取得に失敗しました:', error);

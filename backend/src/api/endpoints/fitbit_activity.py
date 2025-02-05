@@ -17,7 +17,7 @@ async def fitbit_activity(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     activity_request_repository: GetActivityRequestRepositoryInterface = Depends(get_activity_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitActivityResponse:
     service = FitbitActivityService(
         settings=settings,
@@ -25,7 +25,7 @@ async def fitbit_activity(
         user_token_repository=user_token_repository,
         activity_request_repository=activity_request_repository
     )
-    activity = service.get_activity(int(current_user_id), date)
+    activity = service.get_activity(current_user_id, date)
     
     return FitbitActivityResponse(activity=activity)
 
@@ -35,7 +35,7 @@ async def fitbit_steps(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository), 
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     activity_request_repository: GetActivityRequestRepositoryInterface = Depends(get_activity_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitStepsResponse:
     service = FitbitActivityService(
         settings=settings,
@@ -43,7 +43,7 @@ async def fitbit_steps(
         user_token_repository=user_token_repository,
         activity_request_repository=activity_request_repository
     )
-    steps = service.get_steps(int(current_user_id), date)
+    steps = service.get_steps(current_user_id, date)
     
     return FitbitStepsResponse(steps=steps)
 
@@ -54,7 +54,7 @@ async def fitbit_steps_intraday(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     activity_request_repository: GetActivityRequestRepositoryInterface = Depends(get_activity_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitStepsIntradayResponse:
     service = FitbitActivityService(
         settings=settings,
@@ -62,7 +62,7 @@ async def fitbit_steps_intraday(
         user_token_repository=user_token_repository,
         activity_request_repository=activity_request_repository
     )
-    steps_intraday = service.get_steps_intraday(int(current_user_id), date, detail_level)
+    steps_intraday = service.get_steps_intraday(current_user_id, date, detail_level)
     
     return FitbitStepsIntradayResponse(steps_intraday=steps_intraday)
 
@@ -73,7 +73,7 @@ async def fitbit_calories_intraday(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     activity_request_repository: GetActivityRequestRepositoryInterface = Depends(get_activity_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitCaloriesIntradayResponse:
     service = FitbitCaloriesService(
         settings=settings,
@@ -81,7 +81,7 @@ async def fitbit_calories_intraday(
         user_token_repository=user_token_repository,
         activity_request_repository=activity_request_repository
     )
-    calories_intraday = service.get_calories_intraday(int(current_user_id), date, detail_level)
+    calories_intraday = service.get_calories_intraday(current_user_id, date, detail_level)
     
     return FitbitCaloriesIntradayResponse(calories_intraday=calories_intraday)
 
@@ -92,7 +92,7 @@ async def fitbit_calories_steps_intraday(
     user_repository: UsersRepositoryInterface = Depends(get_user_repository),
     user_token_repository: UserTokenRepositoryInterface = Depends(get_user_token_repository),
     activity_request_repository: GetActivityRequestRepositoryInterface = Depends(get_activity_request_repository),
-    current_user_id: str = Depends(get_current_user)
+    current_user_id: int = Depends(get_current_user)
 ) -> FitbitCaloriesAndStepsIntradayResponse:
     service = FitbitActivityService(
         settings=settings,
@@ -100,7 +100,7 @@ async def fitbit_calories_steps_intraday(
         user_token_repository=user_token_repository,
         activity_request_repository=activity_request_repository
     )
-    calories_steps_intraday = service.get_step_calories_intraday(int(current_user_id), date, detail_level)
+    calories_steps_intraday = service.get_step_calories_intraday(current_user_id, date, detail_level)
     
     return FitbitCaloriesAndStepsIntradayResponse(
         calories_intraday=calories_steps_intraday['calories'],
