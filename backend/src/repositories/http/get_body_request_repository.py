@@ -8,9 +8,9 @@ class GetBodyRequestRepository(GetBodyRequestRepositoryInterface):
             "Authorization": f"Bearer {token}"
         }
         url = f"https://api.fitbit.com/1/user/-/body/log/weight/date/{date}.json"
-        response = HttpUtility.get(url, headers)
+        response = HttpUtility.get(url, headers)  
         if response.status_code != 200:
-            raise_http_exception(500, "通信に失敗しました")        
+            raise_http_exception(500, "通信に失敗しました")
         response_json = response.json()
         # weightは配列で返ってくる
         # 一番最後のデータを取得する
