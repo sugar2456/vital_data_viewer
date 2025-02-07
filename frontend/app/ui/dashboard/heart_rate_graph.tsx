@@ -16,15 +16,19 @@ Chart.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legen
 
 const HeartRateChart: React.FC = () => {
     const Icon = FaHeart;
+    const [isLoading, setIsLoading] = useState(false);
     const [heartRateData, setHeartRateData] = useState<HeartRateInfo | null>(null);
     const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/heart/${date}/15`);
                 setHeartRateData(data);
             } catch (error) {
                 console.error('心拍数情報の取得に失敗しました:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -34,7 +38,7 @@ const HeartRateChart: React.FC = () => {
     if (!heartRateData) {
         return (
             <Card title="1日の心拍数" icon={Icon}>
-                <Loading />
+                <Loading isLoading={isLoading}/>
             </Card>
         );
     }

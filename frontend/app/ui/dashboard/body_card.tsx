@@ -11,15 +11,19 @@ import { useDateStore } from '@/app/store/viewStore';
 
 export function BodyCard() {
     const Icon = FaWeight;
+    const [isLoading, setIsLoading] = useState(false);
     const [bodyInfo, setBodyInfo] = useState<BodyInfo | null>(null);
     const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/weight/${date}`);
                 setBodyInfo(data);
             } catch (error) {
                 console.error('体重情報の取得に失敗しました:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -29,7 +33,7 @@ export function BodyCard() {
     if (!bodyInfo) {
         return (
             <Card title="体重" icon={Icon}>
-                <Loading />
+                <Loading isLoading={isLoading}/>
             </Card>
         );
     }
