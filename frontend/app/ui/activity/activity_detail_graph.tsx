@@ -30,7 +30,7 @@ export function ActivityDetailGraph() {
                 setDistance(data.distance_intraday);
                 setHeartRate(data.heart_rate_intraday);
             } catch (error) {
-                console.error('睡眠情報の取得に失敗しました:', error);
+                console.error('活動情報の取得に失敗しました:', error);
             }
         }
 

@@ -84,7 +84,7 @@ export function CaloriesDetailGraph() {
                 const weightData = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/weight/${formattedDate}/${date}`);
                 setWeightDetails(weightData.weight_list);
             } catch (error) {
-                console.error('睡眠情報の取得に失敗しました:', error);
+                console.error('活動情報の取得に失敗しました:', error);
             }
         }
 

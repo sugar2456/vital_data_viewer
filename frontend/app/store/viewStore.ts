@@ -15,6 +15,8 @@ interface AuthState {
   setToken: (token: string | null) => void;
   removeToken: () => void;
   isAuthenticated: boolean;
+  error: string | null;
+  setError: (error: string | null) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -32,4 +34,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ token: null, isAuthenticated: false });
   },
   isAuthenticated: typeof window !== 'undefined' ? !!sessionStorage.getItem('token') : false,
+  error: null,
+  setError: (error: string | null) => set({ error }),
 }));

@@ -11,11 +11,13 @@ import { DeviceInfo } from '@/app/types/device_info';
 
 export function DevicesCard() {
     const Icon = FaMobileAlt;
+    const [isLoading, setIsLoading] = useState(false);
     const [devicesInfo, setDevicesInfo] = useState<DeviceInfo[] | null>(null);
 
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const data = await authenticatedGetRequest("http://localhost:8000/api/fitbit/devices");
                 const bindDevicesInfo: DeviceInfo[] = data.devices.map((device: any) => {
                     return {
@@ -28,6 +30,8 @@ export function DevicesCard() {
                 setDevicesInfo(bindDevicesInfo);
             } catch (error) {
                 console.error('デバイス情報の取得に失敗しました:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
         fetchData();
@@ -36,7 +40,7 @@ export function DevicesCard() {
     if (!devicesInfo) {
         return (
             <Card title="デバイス" icon={Icon}>
-                <Loading />
+                <Loading isLoading={isLoading}/>
             </Card>
         );
     }

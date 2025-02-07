@@ -15,15 +15,19 @@ Chart.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legen
 
 const StepsChart: React.FC = () => {
     const Icon = FaWalking;
+    const [isLoading, setIsLoading] = useState(false);
     const [stepsData, setStepsData] =useState<StepInfo | null>(null);
     const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/steps/intraday/${date}/15`);
                 setStepsData(data);
             } catch (error) {
                 console.error('歩数情報の取得に失敗しました:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -33,7 +37,7 @@ const StepsChart: React.FC = () => {
     if (!stepsData) {
         return (
             <Card title="1日の歩数" icon={Icon}>
-                <Loading />
+                <Loading isLoading={isLoading}/>
             </Card>
         );
     }

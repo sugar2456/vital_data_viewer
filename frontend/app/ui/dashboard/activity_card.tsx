@@ -11,15 +11,19 @@ import { useDateStore } from '@/app/store/viewStore';
 
 export function ActivityCard() {
     const Icon = FaFire;
+    const [isLoading, setIsLoading] = useState(false);
     const [caloriesInfo, setCaloriesInfo] = useState<ActivityInfo | null>(null);
     const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/activity/${date}`);
                 setCaloriesInfo(data.activity);
             } catch (error) {
                 console.error('カロリー情報の取得に失敗しました:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -29,7 +33,7 @@ export function ActivityCard() {
     if (!caloriesInfo) {
         return (
             <Card title="運動量" icon={Icon}>
-                <Loading />
+                <Loading isLoading={isLoading}/>
             </Card>
         );
     }

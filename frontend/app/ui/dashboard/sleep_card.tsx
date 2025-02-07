@@ -10,15 +10,19 @@ import { useDateStore } from '@/app/store/viewStore';
 
 export function SleepCard() {
     const Icon = FaMoon;
+    const [isLoading, setIsLoading] = useState(false);
     const [sleepInfo, setSleepInfo] = useState<SleepInfo | null>(null);
     const { date } = useDateStore();
     useEffect(() => {
         async function fetchData() {
             try {
+                setIsLoading(true);
                 const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/sleep/${date}`);
                 setSleepInfo(data);
             } catch (error) {
                 console.error('睡眠情報の取得に失敗しました:', error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
@@ -28,7 +32,7 @@ export function SleepCard() {
     if (!sleepInfo) {
         return (
             <Card title="睡眠" icon={Icon}>
-                <Loading />
+                <Loading isLoading={isLoading}/>
             </Card>
         );
     }
