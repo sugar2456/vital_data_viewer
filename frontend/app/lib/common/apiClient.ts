@@ -29,20 +29,32 @@ export async function authenticatedPostRequest(url: string, data: any): Promise<
 }
 
 async function getRequestWithHeaders(url: string, headers: Record<string, string>): Promise<any> {
+    const { setError, removeToken } = useAuthStore.getState();
     const response = await fetch(url, { headers });
-    if (!response.ok) {
+    if (response.status === 401) {
+        removeToken();
+        window.location.href = '/auth/login';
+    } else if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.message || '通信エラーが発生しました');
         throw new Error(`HTTPエラー! status: ${response.status}`);
     }
     return response.json();
 }
 
 async function postRequestWithHeaders(url: string, data: any, headers: Record<string, string>): Promise<any> {
+    const { setError, removeToken } = useAuthStore.getState();
     const response = await fetch(url, {
         method: 'POST',
         headers,
         body: JSON.stringify(data),
     });
-    if (!response.ok) {
+    if (response.status === 401) {
+        removeToken();
+        window.location.href = '/auth/login';
+    } else if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.message || '通信エラーが発生しました');
         throw new Error(`HTTPエラー! status: ${response.status}`);
     }
     return response.json();

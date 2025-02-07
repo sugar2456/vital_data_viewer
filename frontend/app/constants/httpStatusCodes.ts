@@ -11,3 +11,12 @@ export const HTTP_STATUS_CODES = {
     INTERNAL_SERVER_ERROR: 500,
     SERVICE_UNAVAILABLE: 503,
 };
+
+export const HTTP_STATUS_MESSAGES = {
+    [HTTP_STATUS_CODES.UNAUTHORIZED]: '認証失敗　再度ログインしてください',
+    [HTTP_STATUS_CODES.FORBIDDEN]: '閲覧禁止',
+    [HTTP_STATUS_CODES.NOT_FOUND]: '存在しないリソースです',
+    [HTTP_STATUS_CODES.TOO_MANY_REQUESTS]: 'リクエストが多すぎます。　しばらくしてから再度お試しください',
+    [HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR]: 'サーバーエラー　開発者にお問い合わせください',
+    [HTTP_STATUS_CODES.SERVICE_UNAVAILABLE]: 'サーバーが混雑しています。　しばらくしてから再度お試しください',
+};
