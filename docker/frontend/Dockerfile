@@ -10,8 +10,6 @@ COPY --chown=appuser:appuser ./frontend/package-lock.json .
 RUN npm install
 COPY --chown=appuser:appuser ./frontend .
 
-RUN chown -R appuser:appuser /src
-
 USER appuser
 
 CMD ["npm", "run", "dev"]
