@@ -13,7 +13,7 @@ export const useUsersViewStore = create<UsersViewState>((set) => ({
     users: [],
     fetchUsers: async () => {
         try {
-            const data = await authenticatedGetRequest('http://localhost:8000/api/users');
+            const data = await authenticatedGetRequest('/api/users');
             set({ users: data.users });
         } catch (error) {
             console.error('ユーザー情報の取得に失敗しました:', error);
@@ -21,7 +21,7 @@ export const useUsersViewStore = create<UsersViewState>((set) => ({
     },
     addUser: async (user) => {
         try {
-            const newUser = await authenticatedPostRequest('http://localhost:8000/api/users/create', user);
+            const newUser = await authenticatedPostRequest('/api/users/create', user);
             console.log('Sending user data:', newUser);
             set((state) => ({ users: [...state.users, newUser.user] }));
         } catch (error) {

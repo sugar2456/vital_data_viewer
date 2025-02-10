@@ -17,7 +17,7 @@ export function SleepCard() {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/sleep/${date}`);
+                const data = await authenticatedGetRequest(`/api/fitbit/sleep/${date}`);
                 setSleepInfo(data);
             } catch (error) {
                 console.error('睡眠情報の取得に失敗しました:', error);

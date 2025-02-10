@@ -3,6 +3,11 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from 'app/store/viewStore';
 
+const apiHostUrl = process.env.NEXT_PUBLIC_API_URL;
+if (!apiHostUrl) {
+    throw new Error('NEXT_PUBLIC_API_URLが設定されていません');
+}
+
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +19,7 @@ const LoginPage: React.FC = () => {
     const formData = new URLSearchParams();
     formData.append('username', email);
     formData.append('password', password);
-    const response = await fetch('http://localhost:8000/api/login', {
+    const response = await fetch(`${apiHostUrl}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData.toString(),

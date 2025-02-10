@@ -18,7 +18,7 @@ export function DevicesCard() {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const data = await authenticatedGetRequest("http://localhost:8000/api/fitbit/devices");
+                const data = await authenticatedGetRequest("/api/fitbit/devices");
                 const bindDevicesInfo: DeviceInfo[] = data.devices.map((device: any) => {
                     return {
                         id: device.id,

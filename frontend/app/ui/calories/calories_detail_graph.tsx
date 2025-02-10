@@ -76,12 +76,12 @@ export function CaloriesDetailGraph() {
                 const oneMonthAgo = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
                 const formattedDate = oneMonthAgo.toISOString().split('T')[0];
 
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/calories/${formattedDate}/${date}`);
+                const data = await authenticatedGetRequest(`/api/fitbit/calories/${formattedDate}/${date}`);
                 setConsumedCalories(data.consumed_calories_period);
                 setIntakedCalories(data.intaked_calories_period);
                 setTotalCalories(data.total_calories_period);
 
-                const weightData = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/weight/${formattedDate}/${date}`);
+                const weightData = await authenticatedGetRequest(`/api/fitbit/weight/${formattedDate}/${date}`);
                 setWeightDetails(weightData.weight_list);
             } catch (error) {
                 console.error('活動情報の取得に失敗しました:', error);

@@ -22,7 +22,7 @@ export function SleepDetailGraph() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/sleep/detail/${date}`);
+                const data = await authenticatedGetRequest(`/api/fitbit/sleep/detail/${date}`);
                 data.sleep.map((entry: SleepDetail) => {
                     const sleep_dataset: SleepData[] = entry.levels.data;
                     sleep_data_list.push(sleep_dataset);

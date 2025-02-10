@@ -24,7 +24,7 @@ export function ActivityDetailGraph() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/calories-step/intraday/${date}/1`);
+                const data = await authenticatedGetRequest(`/api/fitbit/calories-step/intraday/${date}/1`);
                 setCalories(data.calories_intraday);
                 setSteps(data.step_intraday);
                 setDistance(data.distance_intraday);
