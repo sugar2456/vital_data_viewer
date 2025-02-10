@@ -23,7 +23,7 @@ const HeartRateChart: React.FC = () => {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/heart/${date}/15`);
+                const data = await authenticatedGetRequest(`/api/fitbit/heart/${date}/15`);
                 setHeartRateData(data);
             } catch (error) {
                 console.error('心拍数情報の取得に失敗しました:', error);

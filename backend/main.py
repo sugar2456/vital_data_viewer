@@ -27,7 +27,7 @@ app.include_router(users.router, prefix="/api", tags=["users"])
 app.include_router(auth.router, prefix="/api", tags=["auth"])
 
 origins = [
-    "http://localhost:3001",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(

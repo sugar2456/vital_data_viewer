@@ -25,12 +25,6 @@
 uvicorn main:app --reload
 ```
 
-## データベースの確認コマンド
-
-```
-mysql -h db -u root -p -e "SHOW TABLES IN demo;"
-```
-
 ## マイグレーションファイル最新ファイルまで実行
 
 ```

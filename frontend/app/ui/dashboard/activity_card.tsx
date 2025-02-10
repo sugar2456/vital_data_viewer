@@ -18,7 +18,7 @@ export function ActivityCard() {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/activity/${date}`);
+                const data = await authenticatedGetRequest(`/api/fitbit/activity/${date}`);
                 setCaloriesInfo(data.activity);
             } catch (error) {
                 console.error('カロリー情報の取得に失敗しました:', error);

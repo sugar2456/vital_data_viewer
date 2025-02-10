@@ -22,7 +22,7 @@ const StepsChart: React.FC = () => {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/steps/intraday/${date}/15`);
+                const data = await authenticatedGetRequest(`/api/fitbit/steps/intraday/${date}/15`);
                 setStepsData(data);
             } catch (error) {
                 console.error('歩数情報の取得に失敗しました:', error);

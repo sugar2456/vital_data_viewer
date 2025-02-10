@@ -13,12 +13,15 @@ services:
     build:
       context: .
       dockerfile: docker/frontend/Dockerfile
+      target: development
     volumes:
       - ./frontend:/src
       - node_modules:/src/node_modules
     command: sh -c "cd /src && yarn dev"
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=development
  
   nginx:
     image: nginx:latest

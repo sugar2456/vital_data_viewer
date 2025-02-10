@@ -18,7 +18,7 @@ export function BodyCard() {
         async function fetchData() {
             try {
                 setIsLoading(true);
-                const data = await authenticatedGetRequest(`http://localhost:8000/api/fitbit/weight/${date}`);
+                const data = await authenticatedGetRequest(`/api/fitbit/weight/${date}`);
                 setBodyInfo(data);
             } catch (error) {
                 console.error('体重情報の取得に失敗しました:', error);
