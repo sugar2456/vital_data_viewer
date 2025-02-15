@@ -11,7 +11,7 @@ if (!apiHostUrl) {
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken } = useAuthStore();
+  const { setToken, setError } = useAuthStore();
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
     });
     const data = await response.json();
     if (!response.ok) {
-      alert(data.message);
+      setError(data.message || '通信エラーが発生しました');
       return;
     }
     setToken(data.access_token);
