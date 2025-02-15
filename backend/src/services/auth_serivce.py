@@ -9,7 +9,12 @@ class AuthService:
 
     def login(self, email: str, password: str):
         user = self.user_repo.get_user_by_email(email)
-        if not user or not verify_password(password, user.hashed_password):
+        if not user:
+            raise_http_exception(
+                status_code=400,
+                message="ユーザが登録されていない、もしくはリソースの許可が終了しておりません"
+            )
+        if not verify_password(password, user.hashed_password):
             raise_http_exception(
                 status_code=400,
                 message="メールアドレスとパスワードが一致しません",
